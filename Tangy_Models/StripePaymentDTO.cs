@@ -4,7 +4,7 @@
     {
         public StripePaymentDTO()
         {
-            SuccessUrl = "OrderConfirmation";
+            SuccessUrl = "/OrderConfirmation";
             CancelUrl = "Summary";
         }
         public OrderDTO Order { get; set; }
