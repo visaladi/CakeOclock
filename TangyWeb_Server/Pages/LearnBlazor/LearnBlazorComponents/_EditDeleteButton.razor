@@ -1,0 +1,13 @@
+﻿@* _ means not routerble components *@
+
+@if (IsActive)
+{
+    <input type="button" class="btn btn-danger" style=" width:100px" value="Delete" />
+    <input type="button" class="btn btn-success" style=" width:100px" value="Edit" />
+}
+
+
+@code {
+    [Parameter]
+    public bool IsActive { get; set; }
+}
