@@ -18,11 +18,19 @@
             <div class="row mt-4 pt-4">
                 <div class="col-10 offset-1 text-center">
                     <h2 class="text-warning">Order Confirmed</h2>
-                    <p>Your order has been placed successfully with order id : @Order.OrderHeader.Id</p>
+                    <div class="row">
+                        <div class="col-6 col-md-3 offset-md-3 text-end">
+                            <p>Your order has been placed successfully with order id : @Order.OrderHeader.Id</p>
+                        </div>
+                        <div class="col-6 col-md-3 text-end">
+                            <a href="/" class="btn btn-outline-info form-control">Continue Shopping</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-8 offset-2">
                     <img src="/images/confirmation.jpg" width="100%" style="border-radius:30px;" />
                 </div>
+
             </div>
         }
         else
@@ -30,7 +38,14 @@
             <div class="row mt-4 pt-4">
                 <div class="col-10 offset-1 text-center">
                     <h2 class="text-danger">Order Issue!</h2>
-                    <p>Your order had payment issue please cotact us with Order ID:  @Order.OrderHeader.Id</p>
+                    <div class="row">
+                        <div class="col-6 col-md-3 offset-md-3 text-end">
+                            <p>Your order had payment issue please cotact us with Order ID:  @Order.OrderHeader.Id</p>
+                        </div>
+                        <div class="col-6 col-md-3 text-end">
+                            <a href="/" class="btn btn-outline-info form-control">Continue Shopping</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-8 offset-2">
                     <img src="/images/confirmation.jpg" width="100%" style="border-radius:30px;" />
@@ -58,7 +73,6 @@
             Order.OrderHeader.Status = updatedOrder.Status;
             await _localStorage.RemoveItemAsync(SD.ShoppingCart);
             await _localStorage.RemoveItemAsync(SD.Local_OrderDetails);
-
 
         }
 

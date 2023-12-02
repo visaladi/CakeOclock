@@ -59,9 +59,9 @@ namespace TangyWeb_API.Controllers
                 Session session = service.Create(options);
                 return Ok(new SuccessModelDTO()
                 {
-                    Data = session.Id // + ";" + session.PaymentIntentId
+                    Data = session.Id //+ ";" + session.PaymentIntentId
                     //Data = session.PaymentIntent
-                });;
+                });
             }
             catch (Exception ex)
             {

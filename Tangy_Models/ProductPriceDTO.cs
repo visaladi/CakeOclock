@@ -11,6 +11,6 @@ namespace Tangy_Models
         public string Size { get; set; }
         [Required]
         [Range(1, int.MaxValue,ErrorMessage ="Price must be greater than 1")]
-        public int Price { get; set; }
+        public double Price { get; set; }
     }
 }
