@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Radzen.Blazor" Version="4.22.1" />
     <PackageReference Include="Syncfusion.Blazor.Core" Version="23.1.44" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="23.1.44" />
     <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="23.1.44" />

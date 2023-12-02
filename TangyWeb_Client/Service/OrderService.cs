@@ -20,8 +20,11 @@ namespace TangyWeb_Client.Serivce
         public async Task<OrderDTO> Create(StripePaymentDTO paymentDTO)
         {
             var content = JsonConvert.SerializeObject(paymentDTO);
+            Console.WriteLine(content);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            Console.WriteLine(bodyContent);
             var response = await _httpClient.PostAsync("api/order/create", bodyContent);
+
             string responseResult = response.Content.ReadAsStringAsync().Result;
             if (response.IsSuccessStatusCode)
             {

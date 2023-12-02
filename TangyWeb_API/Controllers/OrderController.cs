@@ -66,7 +66,7 @@ namespace TangyWeb_API.Controllers
             var sessionDetails = service.Get(orderHeaderDTO.SessionId);
             if (sessionDetails.PaymentStatus == "paid")
             {
-                var result = await _orderRepository.MarkPaymentSuccessful(orderHeaderDTO.Id);
+                var result = await _orderRepository.MarkPaymentSuccessful(orderHeaderDTO.Id, sessionDetails.PaymentIntentId);
                 await _emailSender.SendEmailAsync(orderHeaderDTO.Email, "Tangy Order Confirmation",
                     "New Order has been created :" + orderHeaderDTO.Id);
                 if (result == null)
