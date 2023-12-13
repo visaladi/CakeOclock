@@ -17,5 +17,9 @@ namespace Tangy_DataAccess.Data
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public DbSet<CustomProduct> CustomProducts { get; set; }
+        public DbSet<CustomOrderHeader> CustomOrderHeaders { get; set; }
+        public DbSet<CustomOrderDetail> CustomOrderDetails { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 @inject ICategoryRepository _categoryRepository
 @inject  IJSRuntime _jsRuntime
+@inject NavigationManager _navigationManager
 
 @using Tangy_Common
 
@@ -34,8 +35,8 @@
                             <td>
                                 @objCat.Name
                             </td>
-                            <NavLink href="@($"category/edit/{objCat.Id}")" class="btn-info btn">Edit</NavLink>
-                            <button class="btn btn-danger" @onclick="() => HandleDelete(objCat.Id)">Delete</button>
+                            <RadzenButton Click="@(() => _navigationManager.NavigateTo($"category/edit/{objCat.Id}"))" ButtonStyle="ButtonStyle.Info">Edit</RadzenButton>
+                            <RadzenButton Click="() => HandleDelete(objCat.Id)" ButtonStyle="ButtonStyle.Danger">Delete</RadzenButton>
                         </tr>
                     }
                 </tbody>
