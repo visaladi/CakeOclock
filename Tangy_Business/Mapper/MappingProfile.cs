@@ -15,6 +15,10 @@ namespace Tangy_Business.Mapper
             CreateMap<OrderHeaderDTO, OrderHeader>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailDTO>().ReverseMap();
             CreateMap<OrderDTO, Order>().ReverseMap();
+            CreateMap<CustomProduct, CustomProductDTO>().ReverseMap();
+            CreateMap<CustomOrderHeader, CustomOrderHeaderDTO>().ReverseMap();
+            CreateMap<CustomOrderDetail, CustomOrderDetailDTO>().ReverseMap();
+            CreateMap<CustomOrderDTO, CustomOrder>().ReverseMap();
             //CreateMap<CategoryDTO, Category>();
         }
 

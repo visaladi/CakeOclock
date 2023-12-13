@@ -1,0 +1,199 @@
+﻿@page "/CustomizedOrderPage"
+
+@using Microsoft.AspNetCore.Authorization
+@using TangyWeb_Client.Serivce.IService
+
+<h3>This page is under construction</h3>
+
+
+
+@inject NavigationManager _navigationManager
+@* @inject IFileUpload _fileUpload *@
+@inject IJSRuntime _jsRuntime
+
+@attribute [Authorize]
+
+@* <div>
+    <h3 class="card-title text-primary mb-3 ml-3">@Title Custom Order</h3>
+
+    <div class="col-md-10">
+        @if (IsLoading)
+        {
+            <div class="text-center">
+                <img src="images/loading.gif">
+            </div>
+
+        }
+        else
+        {
+            <EditForm Model="CustomProduct" OnValidSubmit="UpsertCustomCustomProduct">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <InputText @bind-Value="CustomProduct.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>CustomProduct.Name" />
+                </div>
+                <div class="form-group">
+                    <label>Color</label>
+                    <InputText @bind-Value="CustomProduct.Color" class="form-control"></InputText>
+                    <ValidationMessage For="()=>CustomProduct.Color" />
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+
+
+                    <SfRichTextEditor @bind-Value="CustomProduct.Description"></SfRichTextEditor>
+                    <ValidationMessage For="()=>CustomProduct.Description" />
+                </div>
+
+                <div class="row pt-3">
+                    <div class="form-group col-6">
+                        <div class="form-check">
+                            <InputCheckbox @bind-Value="CustomProduct.ShopFavourites" class="form-check-input"></InputCheckbox>
+                            <label class="form-check-label">Is Shop Favourites</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <div class="form-check">
+                            <InputCheckbox @bind-Value="CustomProduct.CustomerFavourites" class="form-check-input"></InputCheckbox>
+                            <label class="form-check-label">Is Customer Favourites</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Category</label><br />
+                        <InputSelect @bind-Value="CustomProduct.CategoryId" class="form-sele">
+                            <option value="0" disabled="disabled" selected>--Select Category--</option>
+                            @foreach (var cat in Categories)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="()=>CustomProduct.CategoryId" /><br />
+                    </div>
+                    <div class="form-group pt-4 col-6">
+                        <InputFile OnChange="HandleImageUpload"></InputFile>
+                    </div>
+                </div>
+
+
+                <div class="form-group py-2">
+                    <button class="btn btn-primary">@Title</button>
+                    <NavLink href="CustomProduct" class="btn btn-secondary">Back to Index</NavLink>
+
+                </div>
+            </EditForm>
+
+        }
+
+
+    </div>
+
+    <div class="col-md-2">
+        <img src="@Product.ImageUrl" class="w-100" />
+    </div>
+
+</div> *@
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    // private CustomProductDTO CustomProduct { get; set; } = new()
+    // {
+    //         ImageUrl = "/images/default.png"
+    // };
+
+
+    private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
+    private string Title { get; set; } = "Create";
+
+    public bool IsLoading { get; set; }
+    public string OldImageUrl { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadProduct();
+        }
+
+
+    }
+
+    private async Task LoadProduct()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        // Categories = await _categoryRepository.GetAll();
+
+        if (Id != 0)
+        {
+            //update
+            Title = "Update";
+            // Product = await _productRepository.Get(Id);
+            // OldImageUrl = CustomProduct.ImageUrl;
+        }
+
+
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    // private async Task UpsertCustomProduct()
+    // {
+    //     if (CustomProduct.Id == 0)
+    //     {
+    //         //create
+    //         // await _productRepository.Create(Product);
+    //         await _jsRuntime.ToastrSuccess("Product Created Successfully");
+
+    //     }
+    //     else
+    //     {
+    //         //update
+    //         if (OldImageUrl != CustomProduct.ImageUrl)
+    //         {
+    //             // _fileUpload.DeleteFile(OldImageUrl);
+    //         }
+    //         // await _productRepository.Update(Product);
+    //         await _jsRuntime.ToastrSuccess("Product Updated Successfully");
+
+    //     }
+    //     _navigationManager.NavigateTo("/product");
+
+
+    // }
+
+    private async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        IsLoading = true;
+        try
+        {
+            if (e.GetMultipleFiles().Count > 0)
+            {
+                foreach (var file in e.GetMultipleFiles())
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
+                    if (fileInfo.Extension.ToLower() == ".jpg" ||
+                        fileInfo.Extension.ToLower() == ".png" ||
+                        fileInfo.Extension.ToLower() == ".jpeg")
+                    {
+                        // Product.ImageUrl = await _fileUpload.UploadFile(file);
+                    }
+                    else
+                    {
+                        await _jsRuntime.ToastrFailure("Please select .jpg/ .jpeg/ .png file only");
+                        return;
+                    }
+                }
+            }
+            IsLoading = false;
+        }
+        catch (Exception ex)
+        {
+            await _jsRuntime.ToastrFailure(ex.Message);
+        }
+    }
+}

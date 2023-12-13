@@ -2,6 +2,9 @@
 
 @inject ILocalStorageService _localStorage
 @inject IOrderService _orderService
+@inject NavigationManager _navigationManager
+@inject IJSRuntime _jSRuntime
+
 
 
 <div class="container">
@@ -23,8 +26,9 @@
                             <p>Your order has been placed successfully with order id : @Order.OrderHeader.Id</p>
                         </div>
                         <div class="col-6 col-md-3 text-end">
-                            <a href="/" class="btn btn-outline-info form-control">Continue Shopping</a>
+                            <a @onclick="ContinueShopping" class="btn btn-outline-info form-control">Continue Shopping</a>
                         </div>
+
                     </div>
                 </div>
                 <div class="col-8 offset-2">
@@ -73,10 +77,35 @@
             Order.OrderHeader.Status = updatedOrder.Status;
             await _localStorage.RemoveItemAsync(SD.ShoppingCart);
             await _localStorage.RemoveItemAsync(SD.Local_OrderDetails);
-
+            
         }
+
+        // var updatedOrder = await _orderService.MarkPaymentSuccessful(Order?.OrderHeader);
+
+        // if (updatedOrder != null && updatedOrder.Status == SD.Status_Confirmed)
+        // {
+        //     if (Order?.OrderHeader != null)
+        //     {
+        //         Order.OrderHeader.Status = updatedOrder.Status;
+        //     }
+
+        //     if (_localStorage != null)
+        //     {
+        //         await _localStorage.RemoveItemAsync(SD.ShoppingCart);
+        //         await _localStorage.RemoveItemAsync(SD.Local_OrderDetails);
+        //     }
+        // }
+
 
 
         IsProcessing = false;
+    }
+    private void ContinueShopping()
+    {
+        // Navigate to the "/" page
+        _navigationManager.NavigateTo("/", forceLoad: true);
+
+        // Refresh the page using JavaScript interop
+        //_jSRuntime.InvokeVoidAsync("location.reload");
     }
 }
