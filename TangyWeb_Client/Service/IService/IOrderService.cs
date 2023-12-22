@@ -9,6 +9,8 @@ namespace TangyWeb_Client.Service.IService
 
         public Task<OrderDTO> Create(StripePaymentDTO paymentDTO);
 
+        public Task<OrderDTO> Make(OrderDTO orderDTO);
+
         public Task<OrderHeaderDTO> MarkPaymentSuccessful(OrderHeaderDTO orderHeader);
     }
 }
