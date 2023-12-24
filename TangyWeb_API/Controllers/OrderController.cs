@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using Tangy_Business.Repository.IRepository;
@@ -8,10 +9,12 @@ namespace TangyWeb_API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IEmailSender _emailSender;
+
         public OrderController(IOrderRepository orderRepository, IEmailSender emailSender)
         {
             _orderRepository = orderRepository;
@@ -51,11 +54,25 @@ namespace TangyWeb_API.Controllers
 
         [HttpPost]
         [ActionName("Create")]
-        public async Task<IActionResult> Create([FromBody] StripePaymentDTO paymentDTO)
+        public async Task<IActionResult> Create([FromBody] OrderDTO orderDTO)
         {
-            paymentDTO.Order.OrderHeader.OrderDate = DateTime.Now;
-            var result = await _orderRepository.Create(paymentDTO.Order);
-            return Ok(result);
+            // Assuming that the orderDTO is already validated and contains necessary information
+            orderDTO.OrderHeader.OrderDate = DateTime.Now;
+
+            var result = await _orderRepository.Create(orderDTO);
+
+            if (result != null)
+            {
+                await _emailSender.SendEmailAsync(orderDTO.OrderHeader.Email, "Tangy Order Confirmation",
+                    "New Order has been created: " ); // + result.Id
+
+                return Ok(result);
+            }
+
+            return BadRequest(new ErrorModelDTO()
+            {
+                ErrorMessage = "Failed to create the order"
+            });
         }
 
         [HttpPost]
@@ -64,19 +81,23 @@ namespace TangyWeb_API.Controllers
         {
             var service = new SessionService();
             var sessionDetails = service.Get(orderHeaderDTO.SessionId);
+
             if (sessionDetails.PaymentStatus == "paid")
             {
                 var result = await _orderRepository.MarkPaymentSuccessful(orderHeaderDTO.Id, sessionDetails.PaymentIntentId);
-                await _emailSender.SendEmailAsync(orderHeaderDTO.Email, "Tangy Order Confirmation",
-                    "New Order has been created :" + orderHeaderDTO.Id);
-                if (result == null)
+
+                if (result != null)
                 {
-                    return BadRequest(new ErrorModelDTO()
-                    {
-                        ErrorMessage = "Can not mark payment as successful"
-                    });
+                    await _emailSender.SendEmailAsync(orderHeaderDTO.Email, "Tangy Order Confirmation",
+                        "New Order has been created: " + result.Id);
+
+                    return Ok(result);
                 }
-                return Ok(result);
+
+                return BadRequest(new ErrorModelDTO()
+                {
+                    ErrorMessage = "Can not mark payment as successful"
+                });
             }
 
             return BadRequest();
