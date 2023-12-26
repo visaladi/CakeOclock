@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TangyWeb_API\TangyWeb_API.csproj" />
+    <ProjectReference Include="..\TangyWeb_Client\TangyWeb_Client.csproj" />
+    <ProjectReference Include="..\TangyWeb_Server\TangyWeb_Server.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -13,20 +13,20 @@
 
 @attribute [Authorize]
 
-@* <div>
+<div>
     <h3 class="card-title text-primary mb-3 ml-3">@Title Custom Order</h3>
 
     <div class="col-md-10">
         @if (IsLoading)
         {
             <div class="text-center">
-                <img src="images/loading.gif">
+                <img src="images/loader.gif">
             </div>
 
         }
         else
         {
-            <EditForm Model="CustomProduct" OnValidSubmit="UpsertCustomCustomProduct">
+            <EditForm Model="CustomProduct" OnValidSubmit="UpsertCustomProduct">
                 <DataAnnotationsValidator />
 
                 <div class="form-group">
@@ -34,20 +34,14 @@
                     <InputText @bind-Value="CustomProduct.Name" class="form-control"></InputText>
                     <ValidationMessage For="()=>CustomProduct.Name" />
                 </div>
-                <div class="form-group">
-                    <label>Color</label>
-                    <InputText @bind-Value="CustomProduct.Color" class="form-control"></InputText>
-                    <ValidationMessage For="()=>CustomProduct.Color" />
-                </div>
+                
                 <div class="form-group">
                     <label>Description</label>
-
-
                     <SfRichTextEditor @bind-Value="CustomProduct.Description"></SfRichTextEditor>
                     <ValidationMessage For="()=>CustomProduct.Description" />
                 </div>
 
-                <div class="row pt-3">
+                @* <div class="row pt-3">
                     <div class="form-group col-6">
                         <div class="form-check">
                             <InputCheckbox @bind-Value="CustomProduct.ShopFavourites" class="form-check-input"></InputCheckbox>
@@ -74,7 +68,7 @@
                     <div class="form-group pt-4 col-6">
                         <InputFile OnChange="HandleImageUpload"></InputFile>
                     </div>
-                </div>
+                </div> *@
 
 
                 <div class="form-group py-2">
@@ -90,20 +84,20 @@
     </div>
 
     <div class="col-md-2">
-        <img src="@Product.ImageUrl" class="w-100" />
+        <img src="@CustomProduct.ImageUrl" class="w-100" />
     </div>
 
-</div> *@
+</div>
 
 @code {
 
     [Parameter]
     public int Id { get; set; }
 
-    // private CustomProductDTO CustomProduct { get; set; } = new()
-    // {
-    //         ImageUrl = "/images/default.png"
-    // };
+    private CustomProductDTO CustomProduct { get; set; } = new()
+    {
+            ImageUrl = "/images/default.png"
+    };
 
 
     private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
@@ -141,30 +135,30 @@
         StateHasChanged();
     }
 
-    // private async Task UpsertCustomProduct()
-    // {
-    //     if (CustomProduct.Id == 0)
-    //     {
-    //         //create
-    //         // await _productRepository.Create(Product);
-    //         await _jsRuntime.ToastrSuccess("Product Created Successfully");
+    private async Task UpsertCustomProduct()
+    {
+        if (CustomProduct.Id == 0)
+        {
+            //create
+            // await _productRepository.Create(Product);
+            await _jsRuntime.ToastrSuccess("Product Created Successfully");
 
-    //     }
-    //     else
-    //     {
-    //         //update
-    //         if (OldImageUrl != CustomProduct.ImageUrl)
-    //         {
-    //             // _fileUpload.DeleteFile(OldImageUrl);
-    //         }
-    //         // await _productRepository.Update(Product);
-    //         await _jsRuntime.ToastrSuccess("Product Updated Successfully");
+        }
+        else
+        {
+            //update
+            if (OldImageUrl != CustomProduct.ImageUrl)
+            {
+                // _fileUpload.DeleteFile(OldImageUrl);
+            }
+            // await _productRepository.Update(Product);
+            await _jsRuntime.ToastrSuccess("Product Updated Successfully");
 
-    //     }
-    //     _navigationManager.NavigateTo("/product");
+        }
+        _navigationManager.NavigateTo("/");
 
 
-    // }
+    }
 
     private async Task HandleImageUpload(InputFileChangeEventArgs e)
     {
