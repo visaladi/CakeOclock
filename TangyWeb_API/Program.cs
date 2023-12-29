@@ -14,9 +14,19 @@ using TangyWeb_API.Helper;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+    //options.AddDefaultPolicy(
+                      policy =>
+                      {
+                          policy.WithOrigins("https://cakeoclockwebclient.azurewebsites.net",
+                                              "https://localhost:44373");
+                      });
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -94,25 +104,28 @@ StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["ApiKey"
 
 // Configure the HTTP request pipeline.
 
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-});
-
-//deployment
 //app.UseSwagger();
 //app.UseSwaggerUI(c =>
 //{
-//    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CakeOClock API v1");
-//    c.RoutePrefix = String.Empty;
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
 //});
+
+//deployment
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CakeOClock API v1");
+    c.RoutePrefix = String.Empty;
+});
 
 app.UseHttpsRedirection();
 app.UseCors("Tangy");
 
 app.UseRouting();
+app.UseCors(MyAllowSpecificOrigins);
+//app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();

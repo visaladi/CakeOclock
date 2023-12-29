@@ -18,6 +18,15 @@ namespace BlazorFileUpload.Server.Controllers
             _context = context;
         }
 
+        private void EnsureFolderExists(string folderPath)
+        {
+            if (!Directory.Exists(folderPath))
+            {
+
+                Directory.CreateDirectory(folderPath);
+            }
+        }
+
         [HttpGet("{fileName}")]
         public async Task<IActionResult> DownloadFile(string fileName)
         {
@@ -38,6 +47,8 @@ namespace BlazorFileUpload.Server.Controllers
         public async Task<ActionResult<List<UploadResult>>> UploadFile(List<IFormFile> files)
         {
             List<UploadResult> uploadResults = new List<UploadResult>();
+            var folderpath = Path.Combine(_env.ContentRootPath, "uploads");
+            EnsureFolderExists(folderpath);
 
             foreach (var file in files)
             {

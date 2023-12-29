@@ -71,7 +71,7 @@ else
                 </div>
             </div> *@
 
-            <div class="col-12 col-lg-5 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
+            <div class="col-12 col-lg-10 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
                 <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
                     <div class="form-group pt-2">
                         <label class="text-warning">Image Name</label>
@@ -140,11 +140,11 @@ else
                         <InputText @bind-Value="Order.OrderHeader.PostalCode" type="text" class="form-control" />
                         <ValidationMessage For="() => Order.OrderHeader.PostalCode"></ValidationMessage>
                     </div>
-                    <div class="form-group">
+                    @* <div class="form-group">
                         <label>Description</label>
                         <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
                         <ValidationMessage For="()=>Order.OrderHeader.CustomerDescription" />
-                    </div>
+                    </div> *@
                     
 
                     @* <div class="form-group pt-2">
