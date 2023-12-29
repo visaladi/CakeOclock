@@ -1,7 +1,13 @@
-﻿@page "/summary"
+﻿@page "/customorder"
+
+
 @using Microsoft.AspNetCore.Authorization
+@using System.Net.Http.Headers
 @using TangyWeb_Client.Serivce.IService
 
+
+
+@inject HttpClient Http
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
 @inject ILocalStorageService _localStorage
@@ -9,6 +15,9 @@
 @inject IPaymentService _paymentService
 @inject IOrderService _orderService
 @attribute [Authorize]
+
+@* @inject RichTextEditorImageSettings _imageSetings *@
+
 
 
 @if (IsProcessing)
@@ -19,7 +28,6 @@
 }
 else
 {
-
     <div class="mt-4 mx-4 px-md-5 mx-md-5 p-1">
 
         <div class="row p-2 my-3">
@@ -64,6 +72,35 @@ else
 
             <div class="col-12 col-lg-5 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
                 <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
+                    <div class="form-group pt-2">
+                        <label class="text-warning">Image Name</label>
+                        <ValidationMessage For="() => Order.OrderHeader.CustomerImage"></ValidationMessage>
+                    </div>
+                    <InputFile OnChange="@OnInputFileChange" multiple />
+
+
+                    @if (fileNames.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var fileName in fileNames)
+                            {
+                                Order.OrderHeader.CustomerImage = fileName;
+                                <li>
+                                    File: @fileName
+                                    <br>
+                                    <span>
+                                        Stored File Name: @GetStoredFileName(fileName)
+                                    </span>
+                                    <button @onclick="@(() => DownloadFile(GetStoredFileName(fileName), fileName))">Download file</button>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    <div class="form-group">
+                        <label>Description</label>
+                        <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
+                        <ValidationMessage For="()=>Order.OrderHeader.CustomerDescription" />
+                    </div>
                     <DataAnnotationsValidator />
                     <div class="row px-2 text-success border-bottom"><div class="col-7 py-1"><p style="font-size:x-large;margin:0px;">Enter Details</p></div></div>
 
@@ -102,11 +139,11 @@ else
                         <InputText @bind-Value="Order.OrderHeader.PostalCode" type="text" class="form-control" />
                         <ValidationMessage For="() => Order.OrderHeader.PostalCode"></ValidationMessage>
                     </div>
-
+                    
 
                     @* <div class="form-group pt-2">
-                        <button type="submit" class="btn btn-success form-control">Checkout Now</button>
-                    </div> *@
+                <button type="submit" class="btn btn-success form-control">Checkout Now</button>
+                </div> *@
 
                     <div class="form-group pt-2">
                         <button type="button" class="btn btn-primary form-control" @onclick="ConfirmOrderNow">Order Now</button>
@@ -126,13 +163,10 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-
         IsProcessing = true;
 
         List<ShoppingCart> cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-            if (cart == null || Products == null || Order == null)
+        if (cart == null)
         {
             cart = new List<ShoppingCart>();
         }
@@ -172,6 +206,7 @@ else
             }
         }
 
+
         if (await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails) != null)
         {
             var userInfo = await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails);
@@ -181,11 +216,8 @@ else
             Order.OrderHeader.PhoneNumber = userInfo.PhoneNumber;
 
         }
-    }
-        finally
-        {
-            IsProcessing = false;
-        }
+
+        IsProcessing = false;
     }
 
     private async Task ConfirmOrderNow()
@@ -193,6 +225,7 @@ else
         try
         {
             IsProcessing = true;
+
 
             // Update the order details or any other logic as needed
             Order.OrderHeader.Status = SD.Status_Confirmed;
@@ -258,6 +291,63 @@ else
         catch (Exception e)
         {
             await _jsRuntime.ToastrFailure(e.Message);
+        }
+    }
+
+    private int maxAllowedFiles = int.MaxValue;
+    private long maxFileSize = long.MaxValue;
+    private List<string> fileNames = new();
+    private List<UploadResultDTO> uploadResults = new();
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        using var content = new MultipartFormDataContent();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            var fileContent = new StreamContent(file.OpenReadStream(maxFileSize));
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+
+            fileNames.Add(file.Name);
+
+            content.Add(
+                content: fileContent,
+                name: "\"files\"",
+                
+                fileName: file.Name);
+        }
+
+        var response = await Http.PostAsync("/api/File", content);
+        var newUploadResults = await response.Content.ReadFromJsonAsync<List<UploadResultDTO>>();
+
+        if (newUploadResults is not null)
+        {
+            uploadResults = uploadResults.Concat(newUploadResults).ToList();
+        }
+    }
+
+    private string? GetStoredFileName(string fileName)
+    {
+        var uploadResult = uploadResults.SingleOrDefault(f => f.FileName == fileName);
+        if (uploadResult is not null)
+            return uploadResult.StoredFileName;
+
+        return "File not found.";
+    }
+
+    private async Task DownloadFile(string storedFileName, string originalFileName)
+    {
+        var response = await Http.GetAsync($"/api/File/{storedFileName}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            await _jsRuntime.InvokeVoidAsync("alert", "File not found.");
+        }
+        else
+        {
+            var fileStream = response.Content.ReadAsStream();
+            using var streamRef = new DotNetStreamReference(stream: fileStream);
+            await _jsRuntime.InvokeVoidAsync("downloadFileFromStream", originalFileName, streamRef);
         }
     }
 }

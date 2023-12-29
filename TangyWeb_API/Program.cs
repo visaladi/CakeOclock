@@ -97,9 +97,18 @@ StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["ApiKey"
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CakeOClock API v1");
-    c.RoutePrefix = String.Empty;
+    app.UseSwagger();
+    app.UseSwaggerUI();
 });
+
+//deployment
+//app.UseSwagger();
+//app.UseSwaggerUI(c =>
+//{
+//    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CakeOClock API v1");
+//    c.RoutePrefix = String.Empty;
+//});
+
 app.UseHttpsRedirection();
 app.UseCors("Tangy");
 

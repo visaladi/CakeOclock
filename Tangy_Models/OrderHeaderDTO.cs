@@ -25,6 +25,10 @@ namespace Tangy_Models
         public string? SessionId { get; set; }
         public string? PaymentIntentId { get; set; }
 
+        //custom order details
+        public string? CustomerDescription { get; set; }
+        public string? CustomerImage { get; set; }
+
         [Display(Name = "Name")]
         [Required]
         public string Name { get; set; }

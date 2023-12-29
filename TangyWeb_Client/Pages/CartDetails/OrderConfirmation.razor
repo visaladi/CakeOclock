@@ -16,7 +16,7 @@
     }
     else
     {
-        //@if (Order.OrderHeader.Status == SD.Status_Confirmed)
+        @*@if (Order.OrderHeader.Status == SD.Status_Confirmed) *@
         @if (Order != null && Order.OrderHeader != null && Order.OrderHeader.Status == SD.Status_Confirmed)
         {
             <div class="row mt-4 pt-4">
@@ -45,7 +45,7 @@
                     <h2 class="text-danger">You have already palace a order!</h2>
                     <div class="row">
                         <div class="col-6 col-md-3 offset-md-3 text-end">
-                            <p>Please visit to the main page:  @if (Order != null && Order.OrderHeader != null) { Order.OrderHeader.Id.ToString(); }</p>
+                            <p>Please visit to the main page:  @if (Order != null && Order.OrderHeader != null) { Order.OrderHeader.Id.ToString(); } </p>
                         </div>
                         <div class="col-6 col-md-3 text-end">
                             <a href="/" class="btn btn-outline-info form-control">Continue Shopping</a>

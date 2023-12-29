@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BlazorFileUpload.Shared;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Tangy_DataAccess.Data
@@ -21,5 +22,6 @@ namespace Tangy_DataAccess.Data
         public DbSet<CustomProduct> CustomProducts { get; set; }
         public DbSet<CustomOrderHeader> CustomOrderHeaders { get; set; }
         public DbSet<CustomOrderDetail> CustomOrderDetails { get; set; }
+        public DbSet<UploadResult> UploadResults { get; set; }
     }
 }
