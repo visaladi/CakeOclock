@@ -93,11 +93,13 @@ var app = builder.Build();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["ApiKey"];
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+});
 
 //deployment
 //app.UseSwagger();
