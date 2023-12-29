@@ -1,4 +1,6 @@
 ﻿@page "/order/details/{Id:int}"
+
+
 @inject IOrderRepository _orderRepository
 @inject IJSRuntime _jsRuntime
 @using Tangy_Common
@@ -123,19 +125,30 @@ else
                                     </div>
                                 </div>
                                 <div class="row my-1">
+                                    <div class="col-3">Image</div>
+                                    <div class="col-9">
+                                        @* https://cakeoclockwebapi.azurewebsites.net/api/File/ *@
+                                        <img src="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" />
+                                        @* <input value="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" /> *@
+                                        <div class="col-12 col-md-4 offset-md-2 text-right">
+                                            <a href="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" class="btn btn-outline-info form-control btn-sm">Download Image</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-1">
                                     <div class="col-3">Description</div>
                                     <div class="col-9">
                                         @* <input value="@Order.OrderHeader.CustomerDescription" type="text" readonly class="form-control" /> *@
                                         <p>@((MarkupString)Order.OrderHeader.CustomerDescription)</p>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                @* <div class="form-group">
                                     <div class="col-3">Description</div>
                                     <div class="col-9">
                                         <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
                                         
                                     </div>
-                                </div>
+                                </div> *@
                                 @if (Order.OrderHeader.Status == SD.Status_Confirmed)
                                 {
                                     <input type="submit" class="btn btn-warning form-control my-1" value="Update Order Details" />
@@ -197,6 +210,8 @@ else
     public int Id { get; set; } = 0;
     public bool IsLoading { get; set; } = true;
     public OrderDTO Order { get; set; } = new();
+
+    
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

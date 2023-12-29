@@ -1,7 +1,13 @@
 ﻿@page "/customorder"
+
+
 @using Microsoft.AspNetCore.Authorization
+@using System.Net.Http.Headers
 @using TangyWeb_Client.Serivce.IService
 
+
+
+@inject HttpClient Http
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
 @inject ILocalStorageService _localStorage
@@ -11,6 +17,8 @@
 @attribute [Authorize]
 
 @* @inject RichTextEditorImageSettings _imageSetings *@
+
+
 
 @if (IsProcessing)
 {
@@ -24,7 +32,7 @@ else
     <div class="mt-4 mx-4 px-md-5 mx-md-5 p-1">
 
         <div class="row p-2 my-3">
-            <div class="col-12 col-lg-7 p-4">
+            @* <div class="col-12 col-lg-7 p-4">
                 <div class="row px-2 text-success ">
                     <div class="col-8 py-1"><p style="font-size:x-large;margin:0px;">Order Summary</p></div>
                     <div class="col-4 p-0" style="text-align:right">
@@ -61,10 +69,39 @@ else
                         <h3> Order Total : <span class="text-secondary">@Order.OrderHeader.OrderTotal.ToString("c")</span> </h3>
                     </div>
                 </div>
-            </div>
+            </div> *@
 
             <div class="col-12 col-lg-5 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
                 <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
+                    <div class="form-group pt-2">
+                        <label class="text-warning">Image Name</label>
+                        <ValidationMessage For="() => Order.OrderHeader.CustomerImage"></ValidationMessage>
+                    </div>
+                    <InputFile OnChange="@OnInputFileChange" multiple />
+
+
+                    @if (fileNames.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var fileName in fileNames)
+                            {
+                                Order.OrderHeader.CustomerImage = fileName;
+                                <li>
+                                    File: @fileName
+                                    <br>
+                                    <span>
+                                        Stored File Name: @GetStoredFileName(fileName)
+                                    </span>
+                                    <button @onclick="@(() => DownloadFile(GetStoredFileName(fileName), fileName))">Download file</button>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    <div class="form-group">
+                        <label>Description</label>
+                        <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
+                        <ValidationMessage For="()=>Order.OrderHeader.CustomerDescription" />
+                    </div>
                     <DataAnnotationsValidator />
                     <div class="row px-2 text-success border-bottom"><div class="col-7 py-1"><p style="font-size:x-large;margin:0px;">Enter Details</p></div></div>
 
@@ -108,6 +145,7 @@ else
                         <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
                         <ValidationMessage For="()=>Order.OrderHeader.CustomerDescription" />
                     </div>
+                    
 
                     @* <div class="form-group pt-2">
                 <button type="submit" class="btn btn-success form-control">Checkout Now</button>
@@ -194,6 +232,7 @@ else
         {
             IsProcessing = true;
 
+
             // Update the order details or any other logic as needed
             Order.OrderHeader.Status = SD.Status_Confirmed;
 
@@ -258,6 +297,63 @@ else
         catch (Exception e)
         {
             await _jsRuntime.ToastrFailure(e.Message);
+        }
+    }
+
+    private int maxAllowedFiles = int.MaxValue;
+    private long maxFileSize = long.MaxValue;
+    private List<string> fileNames = new();
+    private List<UploadResultDTO> uploadResults = new();
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        using var content = new MultipartFormDataContent();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            var fileContent = new StreamContent(file.OpenReadStream(maxFileSize));
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+
+            fileNames.Add(file.Name);
+
+            content.Add(
+                content: fileContent,
+                name: "\"files\"",
+                
+                fileName: file.Name);
+        }
+
+        var response = await Http.PostAsync("/api/File", content);
+        var newUploadResults = await response.Content.ReadFromJsonAsync<List<UploadResultDTO>>();
+
+        if (newUploadResults is not null)
+        {
+            uploadResults = uploadResults.Concat(newUploadResults).ToList();
+        }
+    }
+
+    private string? GetStoredFileName(string fileName)
+    {
+        var uploadResult = uploadResults.SingleOrDefault(f => f.FileName == fileName);
+        if (uploadResult is not null)
+            return uploadResult.StoredFileName;
+
+        return "File not found.";
+    }
+
+    private async Task DownloadFile(string storedFileName, string originalFileName)
+    {
+        var response = await Http.GetAsync($"/api/File/{storedFileName}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            await _jsRuntime.InvokeVoidAsync("alert", "File not found.");
+        }
+        else
+        {
+            var fileStream = response.Content.ReadAsStream();
+            using var streamRef = new DotNetStreamReference(stream: fileStream);
+            await _jsRuntime.InvokeVoidAsync("downloadFileFromStream", originalFileName, streamRef);
         }
     }
 }
