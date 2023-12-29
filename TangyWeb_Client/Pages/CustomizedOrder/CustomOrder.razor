@@ -31,7 +31,7 @@ else
     <div class="mt-4 mx-4 px-md-5 mx-md-5 p-1">
 
         <div class="row p-2 my-3">
-            <div class="col-12 col-lg-7 p-4">
+            @* <div class="col-12 col-lg-7 p-4">
                 <div class="row px-2 text-success ">
                     <div class="col-8 py-1"><p style="font-size:x-large;margin:0px;">Order Summary</p></div>
                     <div class="col-4 p-0" style="text-align:right">
@@ -68,7 +68,7 @@ else
                         <h3> Order Total : <span class="text-secondary">@Order.OrderHeader.OrderTotal.ToString("c")</span> </h3>
                     </div>
                 </div>
-            </div>
+            </div> *@
 
             <div class="col-12 col-lg-5 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
                 <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
