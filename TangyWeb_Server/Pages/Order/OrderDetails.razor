@@ -122,6 +122,20 @@ else
                                         <input value="@Order.OrderHeader.Status" type="text" readonly class="form-control" />
                                     </div>
                                 </div>
+                                <div class="row my-1">
+                                    <div class="col-3">Description</div>
+                                    <div class="col-9">
+                                        @* <input value="@Order.OrderHeader.CustomerDescription" type="text" readonly class="form-control" /> *@
+                                        <p>@((MarkupString)Order.OrderHeader.CustomerDescription)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-3">Description</div>
+                                    <div class="col-9">
+                                        <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
+                                        
+                                    </div>
+                                </div>
                                 @if (Order.OrderHeader.Status == SD.Status_Confirmed)
                                 {
                                     <input type="submit" class="btn btn-warning form-control my-1" value="Update Order Details" />

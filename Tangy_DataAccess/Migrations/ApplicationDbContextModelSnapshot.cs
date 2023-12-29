@@ -361,18 +361,15 @@ namespace Tangy_DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RequiredDate")
+                    b.Property<DateTime?>("RequiredDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -426,6 +423,12 @@ namespace Tangy_DataAccess.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")

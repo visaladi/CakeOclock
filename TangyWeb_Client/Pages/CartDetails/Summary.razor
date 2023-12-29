@@ -126,9 +126,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        try
+        {
+
         IsProcessing = true;
 
         List<ShoppingCart> cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
+            if (cart == null || Products == null || Order == null)
+        {
+            cart = new List<ShoppingCart>();
+        }
         Products = await _productService.GetAll();
 
         Order = new()
@@ -145,20 +152,24 @@ else
 
         foreach (var item in cart)
         {
-            ProductDTO product = Products.FirstOrDefault(u => u.Id == item.ProductId);
-            ProductPriceDTO productPrice = product.ProductPrices.FirstOrDefault(u => u.Id == item.ProductPriceId);
+            ProductDTO product = Products?.FirstOrDefault(u => u.Id == item.ProductId);
+            ProductPriceDTO productPrice = product?.ProductPrices?.FirstOrDefault(u => u.Id == item.ProductPriceId);
 
-            OrderDetailDTO orderDetailDTO = new()
-                {
-                    ProductId = item.ProductId,
-                    Size = productPrice.Size,
-                    Count = item.Count,
-                    Price = productPrice.Price,
-                    ProductName = product.Name,
-                    Product = product,
-                };
-            Order.OrderDetails.Add(orderDetailDTO);
-            Order.OrderHeader.OrderTotal += (item.Count * productPrice.Price);
+            if (product != null && productPrice != null)
+            {
+                OrderDetailDTO orderDetailDTO = new()
+                    {
+                        ProductId = item.ProductId,
+                        Size = productPrice.Size,
+                        Count = item.Count,
+                        Price = productPrice.Price,
+                        ProductName = product.Name,
+                        Product = product,
+                    };
+
+                Order.OrderDetails.Add(orderDetailDTO);
+                Order.OrderHeader.OrderTotal += (item.Count * productPrice.Price);
+            }
         }
 
         if (await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails) != null)
@@ -170,8 +181,11 @@ else
             Order.OrderHeader.PhoneNumber = userInfo.PhoneNumber;
 
         }
-
-        IsProcessing = false;
+    }
+        finally
+        {
+            IsProcessing = false;
+        }
     }
 
     private async Task ConfirmOrderNow()
