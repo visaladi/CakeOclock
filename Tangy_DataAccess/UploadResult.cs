@@ -7,4 +7,4 @@
         public string? StoredFileName { get; set; }
         public string? ContentType { get; set; }
     }
-} 
+}

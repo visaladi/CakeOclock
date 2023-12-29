@@ -25,6 +25,9 @@ namespace Tangy_DataAccess
         public string? SessionId { get; set; }
         public string? PaymentIntentId { get; set; }
 
+        public string? CustomerDescription { get; set; }
+        public string? CustomerImage { get; set; }
+
         [Required]
         public string Name { get; set; }
         [Required]

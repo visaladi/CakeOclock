@@ -6,9 +6,9 @@ namespace Tangy_DataAccess
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }        
-        public string ImageUrl { get; set; }
-        public DateTime RequiredDate { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }        
+        public string? ImageUrl { get; set; }
+        public DateTime? RequiredDate { get; set; }
     }
 }
