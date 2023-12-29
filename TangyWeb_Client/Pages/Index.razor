@@ -12,6 +12,11 @@
 else
 {
     <div class="container">
+
+        <div class="col-12 p-1">
+            <a href="/customorder" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Custom Order</a>
+        </div>
+
         <div class="row  pb-3 pt-3 backgroundWhite">
             @foreach(var category in Products.Select(u => u.Category.Name).Distinct()){
            
