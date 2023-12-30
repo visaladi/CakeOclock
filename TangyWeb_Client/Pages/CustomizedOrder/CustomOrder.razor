@@ -80,7 +80,7 @@ else
                     <InputFile OnChange="@OnInputFileChange" multiple />
 
 
-                    @if (fileNames.Count > 0)
+                    @* @if (fileNames.Count > 0)
                     {
                         <ul>
                             @foreach (var fileName in fileNames)
@@ -96,7 +96,7 @@ else
                                 </li>
                             }
                         </ul>
-                    }
+                    } *@
                     <div class="form-group">
                         <label>Description</label>
                         <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
