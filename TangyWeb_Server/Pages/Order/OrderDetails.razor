@@ -128,13 +128,13 @@ else
                                     <div class="col-3">Image</div>
                                     <div class="col-9">
                                         @* https://cakeoclockwebapi.azurewebsites.net/api/File/ *@
-                                        @* <img src="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" />
+                                        @* <img src="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" width="600px" height="350px" />
                                         <input value="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" />
                                         <div class="col-12 col-md-4 offset-md-2 text-right">
                                             <a href="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" class="btn btn-outline-info form-control btn-sm">Download Image</a>
                                         </div> *@
 
-                                        <img src="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" />
+                                        <img src="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" width="600px" height="350px" />
                                         <input value="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" />
                                         <div class="col-12 col-md-4 offset-md-2 text-right">
                                             <a href="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" class="btn btn-outline-info form-control btn-sm">Download Image</a>
