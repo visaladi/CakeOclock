@@ -1,7 +1,15 @@
 ﻿@page "/"
 @inject IProductService _productService
 
+@using Syncfusion.Blazor.Navigations
 
+<SfMediaQuery MediaBreakpoints="@mediaQuery" @bind-ActiveBreakpoint="activeBreakpoint"></SfMediaQuery>
+
+@* <b>Current Device Size is @activeBreakpoint</b> *@
+
+@{
+    string deviceSize = activeBreakpoint?.ToLowerInvariant() + "-device";
+}
 
 @if (IsProcessing)
 {
@@ -11,61 +19,135 @@
 }
 else
 {
-    <div class="container">
+    <div class="background-container" style="background-image: url('images/bk.png');">
+    <div class="control-container">
+
+        <div class="logo-container" ></div>
+
+        <div class="box"></div>
+
+        <SfCarousel>
+            <CarouselItem>
+                <figure class="img-container">
+                    <img src="images/confirmation.jpg" alt="Golden Gate Bridge, San Francisco" style="height:100%;width:100%;" />
+                    <figcaption class="img-caption">Golden Gate Bridge, San Francisco</figcaption>
+                </figure>
+            </CarouselItem>
+            <CarouselItem>
+                <figure class="img-container">
+                    <img src="images/confirmation.jpg" alt="Spring Flower Trees" style="height:100%;width:100%;" />
+                    <figcaption class="img-caption">Spring Flower Trees</figcaption>
+                </figure>
+            </CarouselItem>
+            <CarouselItem>
+                <figure class="img-container">
+                    <img src="images/confirmation.jpg" alt="Oddadalen Waterfalls, Norway" style="height:100%;width:100%;" />
+                    <figcaption class="img-caption">Oddadalen Waterfalls, Norway</figcaption>
+                </figure>
+            </CarouselItem>
+            <CarouselItem>
+                <figure class="img-container">
+                    <img src="images/confirmation.jpg" alt="Anse Source d'Argent, Seychelles" style="height:100%;width:100%;" />
+                    <figcaption class="img-caption">Anse Source d'Argent, Seychelles</figcaption>
+                </figure>
+            </CarouselItem>
+            <CarouselItem>
+                <figure class="img-container">
+                    <img src="images/confirmation.jpg" alt="Stonehenge, England" style="height:100%;width:100%;" />
+                    <figcaption class="img-caption">Stonehenge, England</figcaption>
+                </figure>
+            </CarouselItem>
+        </SfCarousel>
+
+        <div class="box"></div>
 
         <div class="col-12 p-1">
-            <a href="/customorder" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Custom Order</a>
-        </div>
-
-        <div class="row  pb-3 pt-3 backgroundWhite">
-            @foreach(var category in Products.Select(u => u.Category.Name).Distinct()){
-           
-            <h2 class="text-success pl-1"><b>@category</b></h2>
-
-                @foreach (var product in Products.Where(u => u.Category.Name == category))
-                {
-                    <div class="col-lg-4 col-md-6 pb-4 filter">
-                        <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
-                <div class="card-body pb-1 row">
-                    <div class="col-8 h5">@product.Name</div>
-                    <div class="col-4 text-end"><span class="text-info h4">
-                        @product.ProductPrices.OrderBy(u=>u.Price).FirstOrDefault()?.Price.ToString("c")
-                    </span></div>
-                </div>
-
-                <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@product.ImageUrl" alt="menuitem image">
-                <div class="card-body p-1 px-3 row">
-                    <div class="col-6">
-                        <span class="badge p-2 border w-100 text-dark bg-warning ">@product.Category.Name</span>
-                    </div>
-                    <div class="col-6 border-0">
-                        <span class="badge p-2 border w-100 bg-info ">@product.Color</span>
-                    </div>
-                    <div class="col-12 pt-2" style="font-size:13px; text-align:justify">
-                        <p>@((MarkupString)product.Description)</p>
-                    </div>
-                    <div class="col-12 p-1">
-                        <a href="/details/@product.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        }
-        }
+            <a href="/ProductsPage" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Products</a>
+        </div>       
     </div>
-  </div>
-
+    </div>
 }
 
 @code{
+    private string? activeBreakpoint { get; set; }
     public bool IsProcessing { get; set; } = false;
-    public IEnumerable<ProductDTO> Products { get; set; } = new List<ProductDTO>();
+     private List<MediaBreakpoint> mediaQuery { get; set; } = new List<MediaBreakpoint>()
+    {
+     new MediaBreakpoint() { Breakpoint = "Iphone", MediaQuery = "(max-width: 500px)" },
+     new MediaBreakpoint() { Breakpoint = "Desktop", MediaQuery = "(min-width: 1400px)" },
+     new MediaBreakpoint() { Breakpoint = "Ipad", MediaQuery = "(min-width: 900px)" },
+     new MediaBreakpoint() { Breakpoint = "Tablet", MediaQuery = "(min-width: 500px)" }
+    };
 
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
-        Products = await _productService.GetAll();
+        
 
         IsProcessing = false;
     }
 }
+
+<style>
+
+    .logo-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px; /* Width of the background image */
+            height: 190px; /* Height of the background image */
+            background-image: url('images/logo.png');
+            background-size: cover;
+            background-position: top left; /* Aligns the background image to the top-left corner */
+        }
+
+
+    .control-container {
+        background-color: transparent;
+        margin: 0 auto;     
+        max-width: 100vh; /* Set maximum width */
+        padding: 0 15px; /* Add some padding to the sides */
+    }
+
+    .background-container {
+        background-size: cover;
+        background-position: center;
+        height: 100vh; /* Set full height of viewport */
+        object-fit: cover;
+        position: absolute;
+        top: 10;
+        left: 0;
+        right: 0;
+        
+    }
+
+    .box {
+        background-color: transparent;
+        height: 00px;
+        margin: 0 auto;
+        width: 50px;
+    }
+
+    .e-carousel .e-carousel-items .e-carousel-item .img-container {
+        height: 100%;
+    }
+
+    .e-carousel .e-carousel-items .e-carousel-item .img-caption {
+        bottom: 4em;
+        color: #fff;
+        font-size: 12pt;
+        height: 2em;
+        position: relative;
+        padding: 0.3em 1em;
+        text-align: center;
+        width: 100%;
+    }
+
+    @mediaQuery (max-width: 576px) {
+        /* Adjustments for small devices */
+        .control-container {
+            max-width: none; /* Remove maximum width */
+            padding: 0; /* Remove padding */
+        }
+    }
+</style>

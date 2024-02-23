@@ -11,6 +11,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Stripe.net" Version="43.4.0" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="24.2.4" />
+    <PackageReference Include="Syncfusion.Blazor.Navigations" Version="24.2.4" />
     <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="24.1.41" />
   </ItemGroup>
