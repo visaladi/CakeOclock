@@ -1,8 +1,8 @@
 ﻿@inject ISyncLocalStorageService _localStorage
 @inject ICartService _cartService
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0, 0, 0, 0.3);">
-
+<nav class="navbar navbar-expand-lg navbar-light shadow-5-strong navbar-background">
+    <!-- Navbar content -->
     <div class="container-fluid">
         <a class="nav-item p-0" href="/">
             <img src="images/logo.png" alt="Logo" style="height: 180px; margin: 0px;"> <!-- Adjust height and margin as needed -->
@@ -25,7 +25,7 @@
                     <span class="p-3"></span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cakes">Cakes</a>
+                    <a class="nav-link" href="/ProductsPage">Cakes</a>
                 </li>
                 <li class="nav-item p-0">
                     <span class="p-3"></span>
@@ -150,4 +150,13 @@
         return cart == null ? 0 : cart.Count;
     }
 }
+
+<style>
+    .navbar-background {
+        background-image: url('images/bk.png'); /* Adjust the path to your image */
+        background-size: cover; /* Ensures the background image covers the entire element */
+    }
+
+</style>
+
                        
