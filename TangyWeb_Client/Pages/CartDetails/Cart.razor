@@ -13,7 +13,7 @@
 }
 else
 {
-	@if (!ShoppingCart.Any())
+	@if (ShoppingCart == null || !ShoppingCart.Any())
 	{
 		<div>Please add items to Shopping Cart...</div>
 	}
