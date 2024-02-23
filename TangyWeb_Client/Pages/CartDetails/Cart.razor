@@ -7,8 +7,8 @@
 
 @if (IsProcessing)
 {
-<div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
-    <img src="images/ajax-loader.gif" />
+	<div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
+		<img src="images/ajax-loader.gif" />
 	</div>
 }
 else
@@ -33,7 +33,7 @@ else
 				</div>
 				<div class="card-body">
 
-					@foreach(var item in ShoppingCart)
+					@foreach (var item in ShoppingCart)
 					{
 						<div class="row">
 							<div class="col-3 col-md-1 text-center py-2">
@@ -72,7 +72,7 @@ else
 						</div>
 					}
 
-					
+
 
 					<hr />
 
@@ -121,11 +121,21 @@ else
 	{
 		OrderTotal = 0;
 		ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-		foreach (var cart in ShoppingCart)
+
+		if (ShoppingCart != null && Products != null)
 		{
-			cart.Product = Products.FirstOrDefault(u => u.Id == cart.ProductId);
-			cart.ProductPrice = cart.Product.ProductPrices.FirstOrDefault(u => u.Id == cart.ProductPriceId);
-			OrderTotal += (cart.ProductPrice.Price * cart.Count);
+			foreach (var cart in ShoppingCart)
+			{
+				cart.Product = Products.FirstOrDefault(u => u.Id == cart.ProductId);
+				if (cart.Product != null && cart.Product.ProductPrices != null)
+				{
+					cart.ProductPrice = cart.Product.ProductPrices.FirstOrDefault(u => u.Id == cart.ProductPriceId);
+					if (cart.ProductPrice != null)
+					{
+						OrderTotal += (cart.ProductPrice.Price * cart.Count);
+					}
+				}
+			}
 		}
 	}
 
@@ -139,7 +149,7 @@ else
 				ProductPriceId = ProductPriceId
 			});
 
-			await LoadCart();
+		await LoadCart();
 		IsProcessing = false;
 	}
 
