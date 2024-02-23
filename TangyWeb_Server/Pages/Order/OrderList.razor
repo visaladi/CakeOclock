@@ -1,7 +1,6 @@
 ﻿@page "/orderList"
 @using Radzen.Blazor
 
-@inject IJSRuntime _jsRuntime
 @inject IOrderRepository _orderRepository
 @inject NavigationManager _navigationManager
 @attribute [Authorize]
@@ -13,7 +12,7 @@
                         Data="OrderHeaders" TItem="OrderHeaderDTO" LogicalFilterOperator="LogicalFilterOperator.Or">
             <Columns>
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Id" Filterable="false" Title="ID" Frozen="true" />
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Name" Title="Name" />
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Name" Title="Name"  />
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="PhoneNumber" Title="Phone" />
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Email" Title="Email" />
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderTotal" Title="Total" />
@@ -24,33 +23,26 @@
                         <RadzenButton Click="(args=> OrderDetails(data.Id))" Text="Details" ButtonStyle="ButtonStyle.Success"></RadzenButton>
                     </Template>
                 </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Title="Actions">
-                    <Template Context="data">
-                        <RadzenButton Click="(args => DeleteOrder(data.Id))" Text="Delete" ButtonStyle="ButtonStyle.Danger"></RadzenButton>
-                    </Template>
-                </RadzenDataGridColumn>
             </Columns>
         </RadzenDataGrid>
     }
-    else
-    {
-        if (IsLoading)
+     else
         {
-            //loading gif
-            <div class="text-center">
+            if (IsLoading)
+            {
+                //loading gif
+                <div class="text-center">
                 <img src="/images/loading.gif">
-            </div>
+                    </div>
+            }
         }
-    }
 </div>
-
 
 
 @code {
 
     private IEnumerable<OrderHeaderDTO> OrderHeaders { get; set; } = new List<OrderHeaderDTO>();
     private bool IsLoading { get; set; } = false;
-    private int DeleteOrderHeaderId { get; set; } = 0;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -61,30 +53,6 @@
 
         }
     }
-
-    
-
-    private void DeleteOrder(int id)
-    {
-        DeleteOrderHeaderId = id;
-        _jsRuntime.InvokeVoidAsync("ShowDeleteConfiremationModel");
-    }
-
-    public async Task ConfirmDeleteClick(bool isConfirmed)
-    {
-        IsLoading = true;
-        if (isConfirmed && DeleteOrderHeaderId != 0)
-        {
-            //delete
-            //await Task.Delay(5000);
-            await _orderRepository.Delete(DeleteOrderHeaderId);
-            await LoadOrders(); ;
-            await _jsRuntime.InvokeVoidAsync("HideDeleteConfiremationModel");
-        }
-        IsLoading = false;
-    }
-
-
 
 
     private async Task LoadOrders()

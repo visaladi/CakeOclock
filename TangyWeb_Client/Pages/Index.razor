@@ -9,6 +9,7 @@
 
 @{
     string deviceSize = activeBreakpoint?.ToLowerInvariant() + "-device";
+
 }
 
 @if (IsProcessing)
@@ -19,54 +20,376 @@
 }
 else
 {
+    
     <div class="background-container" style="background-image: url('images/bk.png');">
     <div class="control-container">
 
-        <div class="logo-container" ></div>
+    <style>
+
+
+    .control-container {
+        background-color: transparent;
+        margin: 0 auto;
+         /* Set maximum width */
+        padding: 0 0; /* Add some padding to the sides */
+    }
+
+    .background-container {
+        background-size: cover;
+        background-position: center;
+        height:auto; /* Set full height of viewport */
+    }
+
+    .box {
+        background-color: transparent;
+        height: 30px;
+        margin: 0 auto;
+        width: 50px;
+    }
+</style>
+    <NavMenu />
+    <div class="box"></div>
+
+    <div class="image-container">
+        <img src="images/wannamake.png" alt="Above Carousel Image" style="width: 40%; max-height: 150px; object-fit: cover;" />
+    </div>
+
+    <div class="vertical-space"></div>
+
+
+    <div class="button-container">
+    <a href="/CustomOrder">
+        <button class="bake-button">Bake it</button>
+    </a>
+    </div>
+
+    <style>
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10vh;  /* Adjust height if needed */
+    }
+
+    .bake-button {
+        background-color: whitesmoke; /* Green background */
+        border: none; /* No border */
+        color: b; /* White text */
+        padding: 10px 15px; /* Padding */
+        text-align: center; /* Center text */
+        text-decoration: none; /* No underline */
+        display: inline-block; /* Display as inline block */
+        font-size: 16px; /* Font size */
+        cursor: pointer; /* Cursor on hover */
+        border-radius: 10px; /* Rounded corners */
+    }
+
+    .bake-button:hover {
+        background-color: crimson; /* Darker green on hover */
+
+
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+       
+    }
+</style>
+
+
+
+
 
         <div class="box"></div>
 
         <SfCarousel>
-            <CarouselItem>
-                <figure class="img-container">
-                    <img src="images/confirmation.jpg" alt="Golden Gate Bridge, San Francisco" style="height:100%;width:100%;" />
-                    <figcaption class="img-caption">Golden Gate Bridge, San Francisco</figcaption>
-                </figure>
-            </CarouselItem>
-            <CarouselItem>
-                <figure class="img-container">
-                    <img src="images/confirmation.jpg" alt="Spring Flower Trees" style="height:100%;width:100%;" />
-                    <figcaption class="img-caption">Spring Flower Trees</figcaption>
-                </figure>
-            </CarouselItem>
-            <CarouselItem>
-                <figure class="img-container">
-                    <img src="images/confirmation.jpg" alt="Oddadalen Waterfalls, Norway" style="height:100%;width:100%;" />
-                    <figcaption class="img-caption">Oddadalen Waterfalls, Norway</figcaption>
-                </figure>
-            </CarouselItem>
-            <CarouselItem>
-                <figure class="img-container">
-                    <img src="images/confirmation.jpg" alt="Anse Source d'Argent, Seychelles" style="height:100%;width:100%;" />
-                    <figcaption class="img-caption">Anse Source d'Argent, Seychelles</figcaption>
-                </figure>
-            </CarouselItem>
-            <CarouselItem>
-                <figure class="img-container">
-                    <img src="images/confirmation.jpg" alt="Stonehenge, England" style="height:100%;width:100%;" />
-                    <figcaption class="img-caption">Stonehenge, England</figcaption>
-                </figure>
-            </CarouselItem>
-        </SfCarousel>
+    <CarouselItem>
+        <figure class="img-container">
+            <img src="images/confirmation.jpg" alt="Golden Gate Bridge, San Francisco" style="height:100%;width:100%;" />
+            <figcaption class="img-caption">Golden Gate Bridge, San Francisco</figcaption>
+        </figure>
+    </CarouselItem>
+    <CarouselItem>
+        <figure class="img-container">
+            <img src="images/confirmation.jpg" alt="Spring Flower Trees" style="height:100%;width:100%;" />
+            <figcaption class="img-caption">Spring Flower Trees</figcaption>
+        </figure>
+    </CarouselItem>
+    <CarouselItem>
+        <figure class="img-container">
+            <img src="images/confirmation.jpg" alt="Oddadalen Waterfalls, Norway" style="height:100%;width:100%;" />
+            <figcaption class="img-caption">Oddadalen Waterfalls, Norway</figcaption>
+        </figure>
+    </CarouselItem>
+    <CarouselItem>
+        <figure class="img-container">
+            <img src="images/confirmation.jpg" alt="Anse Source d'Argent, Seychelles" style="height:100%;width:100%;" />
+            <figcaption class="img-caption">Anse Source d'Argent, Seychelles</figcaption>
+        </figure>
+    </CarouselItem>
+    <CarouselItem>
+        <figure class="img-container">
+            <img src="images/confirmation.jpg" alt="Stonehenge, England" style="height:100%;width:100%;" />
+            <figcaption class="img-caption">Stonehenge, England</figcaption>
+        </figure>
+    </CarouselItem>
+</SfCarousel>
+
+
+
+
 
         <div class="box"></div>
+        <style>
 
-        <div class="col-12 p-1">
+    .e-carousel .e-carousel-items .e-carousel-item .img-container {
+        
+        width :800px;
+        margin: 0 auto;
+        
+    }
+
+    .e-carousel .e-carousel-items .e-carousel-item .img-caption {
+        bottom: 4em;
+        color: #fff;
+        font-size: 12pt;
+        height: 2em;
+        position: relative;
+        padding: 0.3em 1em;
+        text-align: center;
+        width: auto;
+    }
+
+    @mediaQuery (max-width: 576px) {
+        /* Adjustments for small devices */
+        .control-container {
+            max-width: none; /* Remove maximum width */
+            padding: 0; /* Remove padding */
+        }
+    }
+</style>
+
+        @* <div class="col-12 p-1">
             <a href="/ProductsPage" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Products</a>
-        </div>       
+        </div> *@       
+    
+
+
+    <div class="text-center">
+    <p style="font-size: 40px; font-weight: bold;">Categories</p>
+</div>
+
+
+
+
+
+
+    <div class="photos-container">
+    <div class="photo-tile">
+        <img src="images/photo1.jpg" alt="Photo 1" />
+        <figcaption class="caption">Caption 1</figcaption>
     </div>
+    <div class="photo-tile">
+        <img src="images/photo2.jpg" alt="Photo 2" />
+        <figcaption class="caption">Caption 2</figcaption>
     </div>
+    <div class="photo-tile">
+        <img src="images/photo3.jpg" alt="Photo 3" />
+        <figcaption class="caption">Caption 3</figcaption>
+    </div>
+    <div class="photo-tile">
+        <img src="images/photo1.jpg" alt="Photo 4" />
+        <figcaption class="caption">Caption 4</figcaption>
+    </div>
+</div>
+
+
+ <div class="box"></div>
+ <style>
+    .photos-container {
+        display: flex;
+        justify-content: space-between; /* Adjust alignment as needed */
+        flex-wrap: wrap; /* Allow items to wrap */
+        margin: 0 auto;
+        max-width: 1000px; /* Adjust as needed */
+        
+    }
+
+    .photo-tile {
+        flex: 0 0 calc(25% - 40px); /* Adjust width and spacing */
+        margin-bottom: 10px; /* Adjust vertical spacing */
+        text-align: center;
+        
+    }
+
+    .caption {
+        margin-top: 10px;
+    }
+
+    .photo-tile img {
+        width: 200px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container" style="background-image: url('images/Coconut.png'); ">
+    <div class="text-column">
+        <h2>Description</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        <button class="shop-button">Shop now</button>
+    </div>
+    <div class="photo-column">
+        <img src="images/product.png" alt="Photo" />
+    </div>
+</div>
+
+
+
+
+
+<div class="container" style="background-image: url('images/about-bk.png'); ">
+    <div class="text-column">
+        <h2>About us</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        <button class="shop-button">Test Drive</button>
+    </div>
+    <div class="photo-column">
+        <img src="images/about.png" alt="Photo" />
+    </div>
+</div>
+
+
+
+
+<div class="box"></div>
+<div class="disc">
+    <div class="text">
+        <h2>A Price To Suit Everyone</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        
+    </div>
+</div>
+<style>
+    .disc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+         /* Adjust as needed */
+    }
+
+    .text {
+        text-align: center;
+        max-width: 400px;
+        
+    }
+
+    
+</style>
+
+
+<div class="box"></div>
+
+<div class="container" style="background-image: url('images/Coconut.png'); ">
+    <div class="photo-column">
+        <img src="images/outlet.png" alt="Photo" />
+    </div>
+    <div class="text-column">
+        <h2>Description</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        <button class="shop-button">View</button>
+    </div>
+    
+</div>
+
+<div class="box"></div>
+
+<div class="box"></div>
+
+
+
+
+<div class="image-tiles">
+    <h2>Seasons Special</h2>
+        <p> page when looking at its layout.</p>
+</div>
+
+<div class="image-tiles">
+        
+    <div class="image-tile">
+        <img src="images/Rectangle13.png" alt="Im1">
+        <div class="description">Description 1</div>
+        <div class="rating">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+        </div>
+    </div>
+    <div class="image-tile">
+        <img src="images/Rectangle14.png" alt="Im2">
+        <div class="description">Description 2</div>
+        <div class="rating">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+        </div>
+    </div>
+    <div class="image-tile">
+        <img src="images/Rectangle16.png" alt="Im3">
+        <div class="description">Description 3</div>
+        <div class="rating">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+        </div>
+    </div>
+    <div class="image-tile">
+        <img src="images/Rectangle16.png" alt="Im4">
+        <div class="description">Description 4</div>
+        <div class="rating">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+        </div>
+    </div>
+</div>
+
+<div class="box"></div>
+<div class="view-more-btn">
+    
+    <button class="view-more-btn">View More</button>
+
+
+</div>
+<div class="footer">
+
+    <Footer /> 
+</div>
+
+
+
+
+</div>
+    </div>
+
+
+
+
 }
+
+
+
+
 
 @code{
     private string? activeBreakpoint { get; set; }
@@ -88,66 +411,186 @@ else
     }
 }
 
+
+    
+
 <style>
-
-    .logo-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200px; /* Width of the background image */
-            height: 190px; /* Height of the background image */
-            background-image: url('images/logo.png');
-            background-size: cover;
-            background-position: top left; /* Aligns the background image to the top-left corner */
-        }
+    .vertical-space {
+        height: 20px; /* Adjust height as needed */
+    }
+</style>
 
 
-    .control-container {
-        background-color: transparent;
-        margin: 0 auto;     
-        max-width: 100vh; /* Set maximum width */
-        padding: 0 15px; /* Add some padding to the sides */
+
+
+
+
+@* <style>
+    .container1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1000px;
+        margin: 0 auto;
     }
 
-    .background-container {
-        background-size: cover;
-        background-position: center;
-        height: 100vh; /* Set full height of viewport */
-        object-fit: cover;
-        position: absolute;
-        top: 10;
-        left: 0;
-        right: 0;
+    .text-column {
+        flex: 1;
+        padding-right: 20px;
+        
         
     }
 
-    .box {
-        background-color: transparent;
-        height: 00px;
-        margin: 0 auto;
-        width: 50px;
-    }
-
-    .e-carousel .e-carousel-items .e-carousel-item .img-container {
-        height: 100%;
-    }
-
-    .e-carousel .e-carousel-items .e-carousel-item .img-caption {
-        bottom: 4em;
-        color: #fff;
-        font-size: 12pt;
-        height: 2em;
-        position: relative;
-        padding: 0.3em 1em;
+    .photo-column {
+        flex: 1;
         text-align: center;
-        width: 100%;
+        
     }
 
-    @mediaQuery (max-width: 576px) {
-        /* Adjustments for small devices */
-        .control-container {
-            max-width: none; /* Remove maximum width */
-            padding: 0; /* Remove padding */
-        }
+    .photo-column img {
+        max-width: 100%;
+        height: 350px;
+    }
+
+    
+    
+
+    .view-button {
+        display: block;
+        margin-top: 10px; /* Adjust as needed */
+        padding: 5px 8px;
+        background-color: white;
+        color: #007bff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        
+    }
+
+    .view-button:hover {
+        background-color: #0056b3;
+    }
+</style> *@
+
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center; /* Horizontally center the content */
+        align-items: center;
+        margin-right: auto; /* Set margin right to auto */
+        margin-left: auto; /* Set margin left to auto */
+        padding: 40px 80px; /* Adjust padding as needed */
+        background-size: 1500px;
+    }
+
+    .text-column {
+        flex: 1;
+        padding-right: 20px;
+        padding-left: 100px;
+        max-width: 70%;
+        text-align: justify;
+    }
+
+    .photo-column {
+        flex: 1;
+        display: flex; /* Set display to flex */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+    }
+
+    .photo-column img {
+        max-width: 100%;
+        height: 350px;
+    }
+
+    .shop-button {
+        display: block;
+        margin-top: 10px; /* Adjust as needed */
+        padding: 5px 8px;
+        background-color: white;
+        color: #007bff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .shop-button:hover {
+        background-color: #0056b3;
     }
 </style>
+
+
+
+<style>
+    .image-tiles {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Adjust the gap between tiles */
+        width: 80%;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .image-tile {
+        flex: 1;
+        text-align: center;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    }
+
+    .image-tile img {
+        border-radius: 10px; /* Apply rounded corners to images */
+        width: 100%; /* Ensure images fill the tile container */
+        height: auto;
+    }
+
+    .description {
+        margin-top: 10px; /* Adjust margin as needed */
+    }
+
+    .rating {
+        margin-top: 10px;
+    }
+
+    .star {
+        color: gold; /* Change color as needed */
+        font-size: 24px; /* Adjust size as needed */
+    }
+
+    
+</style>
+
+
+
+
+
+<style>
+    .view-more-btn {
+        text-align: right; /* Align button to the right */
+    }
+
+    .view-more-btn button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right:150px;
+
+    }
+
+    .view-more-btn button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+
+
+
+
+
+
