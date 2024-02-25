@@ -1,47 +1,119 @@
 ﻿@page "/login"
 
-<EditForm Model="SignInRequest" OnValidSubmit="LoginUser">
-    <DataAnnotationsValidator />
-    <div class="py-4">
-        <div class=" row form-group ">
-            <div class="col-6 offset-3 ">
-                <div class="card border">
-                    <div class="card-body px-lg-5 pt-4">
-                        <h3 class="col-12 text-success text-center py-2">
-                            <strong>Sign In</strong>
-                        </h3>
-
-                        @if (ShowSignInErrors)
-                        {
-                            <p class="text-center text-danger">@Errors</p>
-                        }
+<div class="background-container" style="background-image: url('images/bk.png');">
 
 
-                        <div class="py-2">
-                            <InputText @bind-Value="SignInRequest.UserName" id="email" placeholder="Email..." class="form-control mb-2" />
-                            <ValidationMessage For="(()=>SignInRequest.UserName)"></ValidationMessage>
-                        </div>
-                        <div class="py-2">
-                            <InputText @bind-Value="SignInRequest.Password" type="password" placeholder="Password..." id="password" class="form-control mb-2" />
-                            <ValidationMessage For="(()=>SignInRequest.Password)"></ValidationMessage>
-                        </div>
-                        <div class="py-2">
-                            <a href="/forgotpassword" text-blue m-2"><i class="bi"></i> Did you foreget Password?</a>
-                        </div>
-                        <div class="py-2">
-                            <button type="submit" class="btn btn-success btn-block"><i class="bi bi-person-bounding-box"></i> Sign in</button>
-                            <a href="/register" class="btn btn-primary text-white m-2"><i class="bi bi-person-plus-fill"></i> Register as a new user</a>
+    <NavMenu />
+
+    <div class="vertical-space"></div>
+
+    @* <div class="image-container">
+        <img src="images/wannamake.png" alt="Above Carousel Image" style="width: 30%; max-height: 150px; object-fit: cover;" />
+    </div> *@
+
+    <div class="vertical-space"></div>
+<div style="display: flex; justify-content: center;">
+    <EditForm Model="SignInRequest" OnValidSubmit="LoginUser">
+        <DataAnnotationsValidator />
+        
+            
+            <div class="py-4">
+                <div class="row form-group">
+                    <div class="col-6 offset-3">
+                        <div class="card border custom-card">
+                            <div class="card-body px-lg-5 pt-4">
+                                <img src="images/logo.png" alt="Logo" style="height: 180px; display: block; margin: 0 auto;">
+                                <h3 class="col-12 text-center py-2 custom-heading">
+                                    <strong>Sign In</strong>
+                                </h3>
+                                @if (ShowSignInErrors)
+                                {
+                                    <p class="text-center text-danger">@Errors</p>
+                                }
+                                <div class="py-2">
+                                    <InputText @bind-Value="SignInRequest.UserName" id="email" placeholder="Email..." class="form-control mb-2" />
+                                    <ValidationMessage For="(()=>SignInRequest.UserName)"></ValidationMessage>
+                                </div>
+                                <div class="py-2">
+                                    <InputText @bind-Value="SignInRequest.Password" type="password" placeholder="Password..." id="password" class="form-control mb-2" />
+                                    <ValidationMessage For="(()=>SignInRequest.Password)"></ValidationMessage>
+                                </div>
+                                <div class="py-2">
+                                    <a href="/forgotpassword" text-blue m-2"><i class="bi"></i> Did you foreget Password?</a>
+                                </div>
+                                <div class="py-2" style="display: flex; justify-content: center;">
+                                    <div style="margin-bottom: 10px;">
+                                        <button type="submit" class="btn btn-success custom-black-button"> Sign in</button>
+                                    </div>
+                                </div>
+                                <div class="py-2" style="text-align: center;">
+                                    <span>New to CakeOClock?</span>
+                                    <span style="margin-left: 5px;"><a href="/register" style="color: navy; text-decoration: none;">Register as a new user</a></span>
+                                </div>
+
+
+
+                            
+                            </div>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-        </div>
-    </div>
-</EditForm>
+        
+    </EditForm>
+</div>
+</div>
 
+<style>
+    .image-container {
+        display: flex;
+        justify-content: center;
+    }
+</style>
 
+<style>
+    .custom-card {
+        height: 550px; 
+        width: 600px; 
+        background-color: rgba(0, 0, 0, 0.2); 
+        color: white;
+        border-radius: 20px;
+    }
+</style>
+<style>
+    .custom-black-button {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-color: black;
+        color: white;
+        border-radius: 8px;
+        padding-left: 20px;
+        padding-right:20px;
+    }
 
+    .custom-black-button:hover {
+            background-color: rgba(220, 20, 60, 0.8);
+        }
+</style>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <style>
+        .custom-heading {
+            color: rgba(0, 0, 0, 0.8); /* Change color to your desired color */
+            font-size: 30px; /* Change font size to your desired size */
+            font-family: 'Julius Sans One', sans-serif; /* Use Julius Sans One font with fallback to sans-serif */
+        }
+    </style>
+</head>
+
+<style>
+    .vertical-space {
+        height: 15px; /* Adjust height as needed */
+    }
+</style>
 
 @code {
 
 }
+
