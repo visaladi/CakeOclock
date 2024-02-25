@@ -3,7 +3,7 @@
 
 @inject IOrderRepository _orderRepository
 @inject NavigationManager _navigationManager
-@attribute [Authorize]
+
 <div>
     <h4 class="card-title text-info">Order's List</h4>
     @if (OrderHeaders.Any())
@@ -24,12 +24,14 @@
                        
                     </Template>
                 </RadzenDataGridColumn>
+                <AuthorizeView Roles="@roleAdmin">
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Title="Delete">
                     <Template Context="data">
-
+                        
                         <RadzenButton Click="(args => DeleteOrder(data.Id))" ButtonStyle="ButtonStyle.Danger" Icon="delete" IconColor="@Colors.White"></RadzenButton>
                     </Template>
                 </RadzenDataGridColumn>
+                </AuthorizeView>
             </Columns>
         </RadzenDataGrid>
 
@@ -48,6 +50,8 @@
 </div>
 
 @code {
+
+    private string roleAdmin = Tangy_Common.SD.Role_Admin;
 
     private IEnumerable<OrderHeaderDTO> OrderHeaders { get; set; } = new List<OrderHeaderDTO>();
     private bool IsLoading { get; set; } = false;

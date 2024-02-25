@@ -1,0 +1,40 @@
+﻿@page "/forgotpassword"
+
+@using TangyWeb_Client.Serivce.IService;
+
+
+<EditForm Model="ForgotPasswordModel" OnValidSubmit="ForgotPassword">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText @bind-Value="ForgotPasswordModel.Email" id="email" class="form-control" />
+        <ValidationMessage For="(()=>ForgotPasswordModel.Email)" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    private ForgotPasswordDTO ForgotPasswordModel { get; set; } = new ForgotPasswordDTO();
+
+    [Inject]
+    public IAuthenticationService _authSerivce { get; set; }
+    [Inject]
+    public NavigationManager _navigationManager { get; set; }
+
+    private async Task ForgotPassword()
+    {
+        var result = await _authSerivce.ForgotPassword(ForgotPasswordModel);
+
+        if (result)
+        {
+            // Handle success, such as showing a success message or redirecting to another page
+             // Clear any previous error message
+            _navigationManager.NavigateTo("/resetpassword");
+        }
+        else
+        {
+            // Handle failure, such as displaying an error message to the user
+            
+        }
+    }
+}

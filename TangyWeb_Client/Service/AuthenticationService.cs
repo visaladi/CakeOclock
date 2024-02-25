@@ -1,7 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Authorization;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using System.Text;
 using Tangy_Common;
 using Tangy_Models;
@@ -13,12 +11,10 @@ namespace TangyWeb_Client.Serivce
     {
         private readonly HttpClient _client;
         private readonly ILocalStorageService _localStorage;
-        private readonly AuthenticationStateProvider _authStateProvider;
 
-        public AuthenticationService(HttpClient client, ILocalStorageService localStorage, AuthenticationStateProvider authStateProvider)
+        public AuthenticationService(HttpClient client, ILocalStorageService localStorage)
         {
             _client = client;
-            _authStateProvider = authStateProvider;
             _localStorage = localStorage;
         }
 
@@ -34,8 +30,6 @@ namespace TangyWeb_Client.Serivce
             {
                 await _localStorage.SetItemAsync(SD.Local_Token, result.Token);
                 await _localStorage.SetItemAsync(SD.Local_UserDetails, result.UserDTO);
-                ((AuthStateProvider)_authStateProvider).NotifyUserLoggedIn(result.Token);
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
                 return new SignInResponseDTO() { IsAuthSuccessful = true };
             }
             else
@@ -48,10 +42,6 @@ namespace TangyWeb_Client.Serivce
         {
             await _localStorage.RemoveItemAsync(SD.Local_Token);
             await _localStorage.RemoveItemAsync(SD.Local_UserDetails);
-
-            ((AuthStateProvider)_authStateProvider).NotifyUserLogout();
-
-            _client.DefaultRequestHeaders.Authorization = null;
         }
 
         public async Task<SignUpResponseDTO> RegisterUser(SignUpRequestDTO signUpRequest)
@@ -68,8 +58,24 @@ namespace TangyWeb_Client.Serivce
             }
             else
             {
-                return new SignUpResponseDTO { IsRegisterationSuccessful = false, Errors = result.Errors};
+                return new SignUpResponseDTO { IsRegisterationSuccessful = false, Errors = result.Errors };
             }
+        }
+
+        public async Task<bool> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO)
+        {
+            var content = JsonConvert.SerializeObject(forgotPasswordDTO);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync("api/account/forgotpassword", bodyContent);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        {
+            var content = JsonConvert.SerializeObject(resetPasswordDTO);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync("api/account/resetpassword", bodyContent);
+            return response.IsSuccessStatusCode;
         }
     }
 }
