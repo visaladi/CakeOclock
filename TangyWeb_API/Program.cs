@@ -1,3 +1,4 @@
+using JWTDemo.Server.EmailService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -11,6 +12,7 @@ using Tangy_Business.Repository.IRepository;
 using Tangy_DataAccess;
 using Tangy_DataAccess.Data;
 using TangyWeb_API.Helper;
+using TangyWeb_API.RepositoriesService.IRepositoryService;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -92,11 +94,12 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddCors(o => o.AddPolicy("Tangy", builder =>
 {
     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
-
+//builder.WithOrigins("https://localhost:44358");
 
 var app = builder.Build();
 
