@@ -30,7 +30,6 @@ else
     .control-container {
         background-color: transparent;
         margin: 0 auto;
-         /* Set maximum width */
         padding: 0 0; /* Add some padding to the sides */
     }
 
@@ -56,6 +55,7 @@ else
     </div>
 
     <div class="vertical-space"></div>
+            <div class="vertical-space"></div>
 
 
     <div class="button-container">
@@ -69,7 +69,7 @@ else
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 10vh;  /* Adjust height if needed */
+          /* Adjust height if needed */
     }
 
     .bake-button {
@@ -102,40 +102,6 @@ else
 
 
 
-        <div class="box"></div>
-
-@*         <SfCarousel>
-    <CarouselItem>
-        <figure class="img-container">
-            <img src="images/confirmation.jpg" alt="Golden Gate Bridge, San Francisco" style="height:100%;width:100%;" />
-            <figcaption class="img-caption">Golden Gate Bridge, San Francisco</figcaption>
-        </figure>
-    </CarouselItem>
-    <CarouselItem>
-        <figure class="img-container">
-            <img src="images/confirmation.jpg" alt="Spring Flower Trees" style="height:100%;width:100%;" />
-            <figcaption class="img-caption">Spring Flower Trees</figcaption>
-        </figure>
-    </CarouselItem>
-    <CarouselItem>
-        <figure class="img-container">
-            <img src="images/confirmation.jpg" alt="Oddadalen Waterfalls, Norway" style="height:100%;width:100%;" />
-            <figcaption class="img-caption">Oddadalen Waterfalls, Norway</figcaption>
-        </figure>
-    </CarouselItem>
-    <CarouselItem>
-        <figure class="img-container">
-            <img src="images/confirmation.jpg" alt="Anse Source d'Argent, Seychelles" style="height:100%;width:100%;" />
-            <figcaption class="img-caption">Anse Source d'Argent, Seychelles</figcaption>
-        </figure>
-    </CarouselItem>
-    <CarouselItem>
-        <figure class="img-container">
-            <img src="images/confirmation.jpg" alt="Stonehenge, England" style="height:100%;width:100%;" />
-            <figcaption class="img-caption">Stonehenge, England</figcaption>
-        </figure>
-    </CarouselItem>
-</SfCarousel> *@
 
 <div class="slider">
     <section id="slider">
@@ -150,162 +116,154 @@ else
         <label class="slider-label" for="s3" id="slide3"></label>
         <label class="slider-label" for="s4" id="slide4"></label>
         <label class="slider-label" for="s5" id="slide5"></label>
+
+
     </section>
 </div>
 
-<style>
-   
-    #slider {
-        position: relative;
-        width: 60%;
-        height: 40vw;
-        margin: 80px auto;
-        font-family: "Helvetica Neue", sans-serif;
-        perspective: 1400px;
-        transform-style: preserve-3d;
-    }
+            <script>
+                // Auto-moving functionality
+                let currentSlide = 1;
+                const slides = document.querySelectorAll('.slider-input');
+                const totalSlides = slides.length;
 
-    .slider-input {
-        position: relative;
-        display: none;
-        top: 108%;
-        left: 50%;
-        width: 18px;
-        height: 18px;
-        margin: 0 15px 0 0;
-        opacity: 0.4;
-        transform: translateX(-83px);
-        cursor: pointer;
-    }
+                function nextSlide() {
+                    currentSlide = (currentSlide % totalSlides) + 1;
+                    document.getElementById(`s${currentSlide}`).checked = true;
+                }
 
-    .slider-input:nth-child(5) {
-        margin-right: 0px;
-    }
+                function prevSlide() {
+                    currentSlide = (currentSlide === 1) ? totalSlides : currentSlide - 1;
+                    document.getElementById(`s${currentSlide}`).checked = true;
+                }
 
-    .slider-input:checked {
-        opacity: 1;
-    }
-
-    #slider .slider-label {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        color: white;
-        font-size: 70px;
-        font-weight: bold;
-        border-radius: 5px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform 400ms ease;
-    }
-
-    #slide1 {
-        background-image: url("/images/SlideImage.png");
-    }
-
-    #slide2 {
-        background-image: url("/images/SlideImage2.jpg");
-    }
-
-    #slide3 {
-        background-image: url("/images/SlideImage.png");
-    }
-
-    #slide4 {
-        background-image: url("/images/SlideImage3.png");
-    }
-
-    #slide5 {
-        background-image: url("/images/SlideImage4.png");
-    }
-
-    /* Slider Functionality */
-
-    /* Active Slide */
-    #s1:checked ~ #slide1,
-    #s2:checked ~ #slide2,
-    #s3:checked ~ #slide3,
-    #s4:checked ~ #slide4,
-    #s5:checked ~ #slide5 {
-        box-shadow: 0 13px 26px rgba(0, 0, 0, 0.3), 0 12px 6px rgba(0, 0, 0, 0.2);
-        transform: translate3d(0%, 0, 0px);
-    }
-
-    /* Next Slide */
-    #s1:checked ~ #slide2,
-    #s2:checked ~ #slide3,
-    #s3:checked ~ #slide4,
-    #s4:checked ~ #slide5,
-    #s5:checked ~ #slide1 {
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2);
-        transform: translate3d(15%, 0, -100px);
-    }
-
-    /* Next to Next Slide */
-    #s1:checked ~ #slide3,
-    #s2:checked ~ #slide4,
-    #s3:checked ~ #slide5,
-    #s4:checked ~ #slide1,
-    #s5:checked ~ #slide2 {
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-        transform: translate3d(30%, 0, -250px);
-    }
-
-    /* Previous to Previous Slide */
-    #s1:checked ~ #slide4,
-    #s2:checked ~ #slide5,
-    #s3:checked ~ #slide1,
-    #s4:checked ~ #slide2,
-    #s5:checked ~ #slide3 {
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-        transform: translate3d(-30%, 0, -250px);
-    }
-
-    /* Previous Slide */
-    #s1:checked ~ #slide5,
-    #s2:checked ~ #slide1,
-    #s3:checked ~ #slide2,
-    #s4:checked ~ #slide3,
-    #s5:checked ~ #slide4 {
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2);
-        transform: translate3d(-15%, 0, -100px);
-    }
-</style>
+                setInterval(nextSlide, 5000); // Change slide every 5 seconds
+            </script>
 
 
-        <div class="box"></div>
-        <style>
+            <style>
+                #slider {
+                    position: relative;
+                    width: 60%;
+                    height: 40vw;
+                    margin: 80px auto;
+                    font-family: "Helvetica Neue", sans-serif;
+                    perspective: 1400px;
+                    transform-style: preserve-3d;
+                }
 
-    .e-carousel .e-carousel-items .e-carousel-item .img-container {
-        
-        width :800px;
-        margin: 0 auto;
-        
-    }
+                .slider-input {
+                    position: relative;
+                    display: none;
+                    top: 108%;
+                    left: 50%;
+                    width: 18px;
+                    height: 18px;
+                    margin: 0 15px 0 0;
+                    opacity: 0.4;
+                    transform: translateX(-83px);
+                    cursor: pointer;
+                }
 
-    .e-carousel .e-carousel-items .e-carousel-item .img-caption {
-        bottom: 4em;
-        color: #fff;
-        font-size: 12pt;
-        height: 2em;
-        position: relative;
-        padding: 0.3em 1em;
-        text-align: center;
-        width: auto;
-    }
+                    .slider-input:nth-child(5) {
+                        margin-right: 0px;
+                    }
 
-    @mediaQuery (max-width: 576px) {
-        /* Adjustments for small devices */
-        .control-container {
-            max-width: none; /* Remove maximum width */
-            padding: 0; /* Remove padding */
-        }
-    }
-</style>
+                    .slider-input:checked {
+                        opacity: 1;
+                    }
+
+                #slider .slider-label {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                    color: white;
+                    font-size: 70px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: transform 400ms ease;
+                }
+
+                #slide1 {
+                    background-image: url("images/photo1.jpg");
+                }
+
+                #slide2 {
+                    background-image: url("images/photo2.jpg");
+                }
+
+                #slide3 {
+                    background-image: url("images/photo3.jpg");
+                }
+
+                #slide4 {
+                    background-image: url("images/photo4.jpg");
+                }
+
+                #slide5 {
+                    background-image: url("images/Rectangle16.png");
+                }
+
+                /* Slider Functionality */
+
+                /* Active Slide */
+                #s1:checked ~ #slide1,
+                #s2:checked ~ #slide2,
+                #s3:checked ~ #slide3,
+                #s4:checked ~ #slide4,
+                #s5:checked ~ #slide5 {
+                    box-shadow: 0 13px 26px rgba(0, 0, 0, 0.3), 0 12px 6px rgba(0, 0, 0, 0.2);
+                    transform: translate3d(0%, 0, 0px);
+                }
+
+                /* Next Slide */
+                #s1:checked ~ #slide2,
+                #s2:checked ~ #slide3,
+                #s3:checked ~ #slide4,
+                #s4:checked ~ #slide5,
+                #s5:checked ~ #slide1 {
+                    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2);
+                    transform: translate3d(15%, 0, -100px);
+                }
+
+                /* Next to Next Slide */
+                #s1:checked ~ #slide3,
+                #s2:checked ~ #slide4,
+                #s3:checked ~ #slide5,
+                #s4:checked ~ #slide1,
+                #s5:checked ~ #slide2 {
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+                    transform: translate3d(30%, 0, -250px);
+                }
+
+                /* Previous to Previous Slide */
+                #s1:checked ~ #slide4,
+                #s2:checked ~ #slide5,
+                #s3:checked ~ #slide1,
+                #s4:checked ~ #slide2,
+                #s5:checked ~ #slide3 {
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+                    transform: translate3d(-30%, 0, -250px);
+                }
+
+                /* Previous Slide */
+                #s1:checked ~ #slide5,
+                #s2:checked ~ #slide1,
+                #s3:checked ~ #slide2,
+                #s4:checked ~ #slide3,
+                #s5:checked ~ #slide4 {
+                    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2);
+                    transform: translate3d(-15%, 0, -100px);
+                }
+            </style>
+
+            
 
         @* <div class="col-12 p-1">
             <a href="/ProductsPage" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Products</a>
