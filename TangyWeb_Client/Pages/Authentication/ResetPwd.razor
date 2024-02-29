@@ -1,40 +1,107 @@
-﻿@page "/resetpassword"
+﻿@page "/ResetForgotPassword"
 
-@using TangyWeb_Client.Serivce.IService;
 
-<EditForm Model="ResetPasswordModel" OnValidSubmit="ResetPassword">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label for="password">New Password</label>
-        <InputText @bind-Value="ResetPasswordModel.NewPassword" id="password" type="password" class="form-control" />
-        <ValidationMessage For="(()=>ResetPasswordModel.NewPassword)" />
+@using Microsoft.AspNetCore.WebUtilities;
+@using Microsoft.JSInterop;
+@using TangyWeb_Client.Serivce.IService
+
+@inject IAuthenticationService AuthService;
+@inject IJSRuntime JS
+@inject NavigationManager NavigationManager
+
+<h3>Reset Password</h3>
+@if (ShowErrors)
+{
+    <div class="alert alert-danger" role="alert">
+        @foreach (var error in Errors!)
+        {
+            <p>@error</p>
+        }
+        @Email
+        @Token
     </div>
-    <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <InputText @bind-Value="ResetPasswordModel.ConfirmPassword" id="confirmPassword" type="password" class="form-control" />
-        <ValidationMessage For="(()=>ResetPasswordModel.ConfirmPassword)" />
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Please enter your details</h5>
+        <EditForm Model="resetPasswordDTO" OnValidSubmit="HandleResetPassword">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <InputText  class="form-control d-none" @bind-Value="@Email" />
+                <InputText  class="form-control d-none" @bind-Value="@Token" />
+            </div>
+            <div class="form-group mt-2">
+                <label for="password">Password</label>
+                <InputText Id="password" type="password" class="form-control" @bind-Value="resetPasswordDTO.NewPassword" />
+                <ValidationMessage For="@(() => resetPasswordDTO.NewPassword)" />
+            </div>
+            <div class="form-group mt-2">
+                <label for="password">Confirm Password</label>
+                <InputText Id="password" type="password" class="form-control" @bind-Value="resetPasswordDTO.ConfirmNewPassword" />
+                <ValidationMessage For="@(() => resetPasswordDTO.ConfirmNewPassword)" />
+            </div>
+            <div class="form-group mt-2">
+                <label>@Message</label>
+            </div>
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            
+        </EditForm>
     </div>
-    
-    <button type="submit" class="btn btn-primary">Reset Password</button>
-</EditForm>
+</div>
 
 @code {
-    private ResetPasswordDTO ResetPasswordModel { get; set; } = new ResetPasswordDTO();
-    [Inject]
-    public IAuthenticationService _authSerivce { get; set; }
+    public string? Email;
+    public string? Token;
 
-    private async Task ResetPassword()
+
+
+    private string Message = string.Empty;
+    ResetPasswordDTO resetPasswordDTO = new ResetPasswordDTO();
+    private bool ShowErrors;
+    private string? Errors;
+
+    private async Task HandleResetPassword()
     {
-        var result = await _authSerivce.ResetPassword(ResetPasswordModel);
-        //var response = await Http.PostJsonAsync<HttpResponseMessage>("api/Account/ResetPassword", ResetPasswordModel);
 
-        if (result)
+        ShowErrors = false;
+        Message = "Please Wait...";
+
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+        if (queryStrings.TryGetValue("email", out var email))
         {
-            // Handle success, such as showing a success message or redirecting to another page
+            Email = email;
+        }
+        if (queryStrings.TryGetValue("token", out var token))
+        {
+            Token = token;
+        }
+
+        resetPasswordDTO.Email = email;
+        resetPasswordDTO.Token = token;
+
+        Console.WriteLine(resetPasswordDTO.Email);
+        Console.WriteLine(resetPasswordDTO.Token);
+        Console.WriteLine(resetPasswordDTO.NewPassword);
+        Console.WriteLine(resetPasswordDTO.ConfirmNewPassword);
+        var result = await AuthService.ResetForgotPassword(resetPasswordDTO);
+
+        if (result.Successful)
+        {
+            Console.WriteLine("Password Reset Done!");
+            // await JS.InvokeVoidAsync("alert", "Password Reset Done!");
+            await JS.ToastrSuccess("Password Reset Done!");
+            NavigationManager.NavigateTo("/login");
         }
         else
         {
-            // Handle failure, such as displaying an error message to the user
+            Errors = "Something wrong happened";
+            ShowErrors = true;
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿@page "/"
 @inject IProductService _productService
 
+@inject NavigationManager _navigationManager
+
 @using Syncfusion.Blazor.Navigations
 
 <SfMediaQuery MediaBreakpoints="@mediaQuery" @bind-ActiveBreakpoint="activeBreakpoint"></SfMediaQuery>
@@ -191,23 +193,23 @@ else
                 }
 
                 #slide1 {
-                    background-image: url("images/photo1.jpg");
+                    background-image: url("images/SlideImage.png");
                 }
 
                 #slide2 {
-                    background-image: url("images/photo2.jpg");
+                    background-image: url("images/SlideImage2.jpg");
                 }
 
                 #slide3 {
-                    background-image: url("images/photo3.jpg");
+                    background-image: url("images/SlideImage3.png");
                 }
 
                 #slide4 {
-                    background-image: url("images/photo4.jpg");
+                    background-image: url("images/SlideImage4.png");
                 }
 
                 #slide5 {
-                    background-image: url("images/Rectangle16.png");
+                    background-image: url("images/Rectangle17.png");
                 }
 
                 /* Slider Functionality */
@@ -486,25 +488,6 @@ else
 
 
 
-@code{
-    private string? activeBreakpoint { get; set; }
-    public bool IsProcessing { get; set; } = false;
-     private List<MediaBreakpoint> mediaQuery { get; set; } = new List<MediaBreakpoint>()
-    {
-     new MediaBreakpoint() { Breakpoint = "Iphone", MediaQuery = "(max-width: 500px)" },
-     new MediaBreakpoint() { Breakpoint = "Desktop", MediaQuery = "(min-width: 1400px)" },
-     new MediaBreakpoint() { Breakpoint = "Ipad", MediaQuery = "(min-width: 900px)" },
-     new MediaBreakpoint() { Breakpoint = "Tablet", MediaQuery = "(min-width: 500px)" }
-    };
-
-    protected override async Task OnInitializedAsync()
-    {
-        IsProcessing = true;
-        
-
-        IsProcessing = false;
-    }
-}
 
 
     
@@ -687,5 +670,26 @@ else
 
 
 
+
+@code{
+    private string? activeBreakpoint { get; set; }
+    public bool IsProcessing { get; set; } = false;
+     private List<MediaBreakpoint> mediaQuery { get; set; } = new List<MediaBreakpoint>()
+    {
+     new MediaBreakpoint() { Breakpoint = "Iphone", MediaQuery = "(max-width: 500px)" },
+     new MediaBreakpoint() { Breakpoint = "Desktop", MediaQuery = "(min-width: 1400px)" },
+     new MediaBreakpoint() { Breakpoint = "Ipad", MediaQuery = "(min-width: 900px)" },
+     new MediaBreakpoint() { Breakpoint = "Tablet", MediaQuery = "(min-width: 500px)" }
+    };
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        
+        IsProcessing = false;
+    }
+}
 
 

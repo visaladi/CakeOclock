@@ -1,40 +1,63 @@
-﻿@page "/forgotpassword"
+﻿@page "/ForgotPassword"
 
 @using TangyWeb_Client.Serivce.IService;
+@inject IAuthenticationService AuthService
 
 
-<EditForm Model="ForgotPasswordModel" OnValidSubmit="ForgotPassword">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label for="email">Email</label>
-        <InputText @bind-Value="ForgotPasswordModel.Email" id="email" class="form-control" />
-        <ValidationMessage For="(()=>ForgotPasswordModel.Email)" />
+@if (ShowErrors)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@Error</p>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</EditForm>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Please enter your email</h5>
+        <EditForm Model="resetModel" OnValidSubmit="HandleForgotPassword">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group mt-2">
+                <label for="email">Email address</label>
+                <InputText Id="email" Class="form-control" @bind-Value="resetModel.Email" />
+                <ValidationMessage For="@(() => resetModel.Email)" />
+            </div>
+            <div class="form-group mt-2">
+                @Message
+            </div>
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </EditForm>
+
+    </div>
+</div>
 
 @code {
-    private ForgotPasswordDTO ForgotPasswordModel { get; set; } = new ForgotPasswordDTO();
+    private string Message = string.Empty;
+    
+    private ResetPasswordDTO resetModel = new ResetPasswordDTO();
+    private bool ShowErrors;
+    private string Error = "";
 
-    [Inject]
-    public IAuthenticationService _authSerivce { get; set; }
-    [Inject]
-    public NavigationManager _navigationManager { get; set; }
-
-    private async Task ForgotPassword()
+    private async Task HandleForgotPassword()
     {
-        var result = await _authSerivce.ForgotPassword(ForgotPasswordModel);
+        ShowErrors = false;
+        Message = "Please Wait...";
+        var result = await AuthService.ForgotPassword(resetModel);
 
-        if (result)
+        if (result.Successful)
         {
-            // Handle success, such as showing a success message or redirecting to another page
-             // Clear any previous error message
-            _navigationManager.NavigateTo("/resetpassword");
+            Error = result.Error!;
+            //NavigationManager.NavigateTo("setPassword");
+            ShowErrors = true;
         }
         else
         {
-            // Handle failure, such as displaying an error message to the user
-            
+            Error = result.Error!;
+            ShowErrors = true;
         }
     }
 }
