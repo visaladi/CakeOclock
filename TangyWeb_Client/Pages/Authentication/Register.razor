@@ -1,61 +1,105 @@
 ﻿@page "/register"
 @using TangyWeb_Client.Serivce.IService
 
+<div class="background-container" style="background-image: url('images/bk.png');">
+    <NavMenu />
 
-<EditForm Model="SignUpRequest" OnValidSubmit="RegisterUser" class="pt-4">
-    <DataAnnotationsValidator/>
-    <div class="py-4">
-        <div class=" row form-group ">
-            <div class="col-6 offset-3 ">
-                <div class="card border">
-                    <div class="card-body px-lg-5 pt-4">
-                        <h3 class="col-12 text-success text-center py-2">
-                            <strong>Sign Up</strong>
-                        </h3>
-                        @if (ShowRegistrationErrors)
-                        {
-                            <div>
-                                @foreach (var error in Errors)
+    <div class="vertical-space"></div>
+
+    <div style="display: flex; justify-content: center;">
+        <EditForm Model="SignUpRequest" OnValidSubmit="RegisterUser" class="pt-4">
+            <DataAnnotationsValidator />
+
+            <div class="py-4">
+                <div class="row form-group">
+                    <div class="col-6 offset-3">
+                        <div class="card border custom-card">
+                            <div class="card-body px-lg-5 pt-4">
+                                <img src="images/logo.png" alt="Logo" style="height: 180px; display: block; margin: 0 auto;">
+                                <h3 class="col-12 text-center py-2 custom-heading">
+                                    <strong>Sign Up</strong>
+                                </h3>
+
+                                @if (ShowRegistrationErrors)
                                 {
-                                    <p class="text-danger text-center">@error</p>
-                                }
-                            </div>
-                        }
-
-                        <div class="py-2">
-                            <InputText @bind-Value="SignUpRequest.Name" class="form-control" placeholder="Name..." />
-                            <ValidationMessage For="(()=>SignUpRequest.Name)" />
-                        </div>
-                        <div class="py-2">
-                            <InputText @bind-Value="SignUpRequest.Email" type="text" class="form-control" placeholder="Email..." />
-                            <ValidationMessage For="(()=>SignUpRequest.Email)" />
-                        </div>
-                        <div class="py-2 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"> +1</span>
-                            </div>
-                            <InputText @bind-Value="SignUpRequest.PhoneNumber" type="text" class="form-control"  placeholder="Phone number..." />
-                            <ValidationMessage For="(()=>SignUpRequest.PhoneNumber)" />
-                        </div>
-                        <div class="form-row py-2">
-                            <div class="col">
-                               <InputText @bind-Value="SignUpRequest.Password"  type="password" id="password" placeholder="Password..." class="form-control" />
-                                <ValidationMessage For="(()=>SignUpRequest.Password)" />
+                                    <div>
+                                        @foreach (var error in Errors)
+                                        {
+                                            <p class="text-danger text-center">@error</p>
+                                        }
                                     </div>
-                            <div class="col py-2">
-                                <InputText @bind-Value="SignUpRequest.ConfirmPassword"  type="password" id="confirm" class="form-control" placeholder="Confirm Password..." />
-                                <ValidationMessage For="(()=>SignUpRequest.ConfirmPassword)" />
+                                }
+
+                                <div class="py-2">
+                                    <InputText @bind-Value="SignUpRequest.Name" class="form-control" placeholder="Name..." />
+                                    <ValidationMessage For="(()=>SignUpRequest.Name)" />
+                                </div>
+                                <div class="py-2">
+                                    <InputText @bind-Value="SignUpRequest.Email" type="text" class="form-control" placeholder="Email..." />
+                                    <ValidationMessage For="(()=>SignUpRequest.Email)" />
+                                </div>
+                                <div class="py-2 input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">+1</span>
+                                    </div>
+                                    <InputText @bind-Value="SignUpRequest.PhoneNumber" type="text" class="form-control" placeholder="Phone number..." />
+                                    <ValidationMessage For="(()=>SignUpRequest.PhoneNumber)" />
+                                </div>
+                                <div class="form-row py-2">
+                                    <div class="col">
+                                        <InputText @bind-Value="SignUpRequest.Password" type="password" id="password" placeholder="Password..." class="form-control" />
+                                        <ValidationMessage For="(()=>SignUpRequest.Password)" />
+                                    </div>
+                                    <div class="col py-2">
+                                        <InputText @bind-Value="SignUpRequest.ConfirmPassword" type="password" id="confirm" class="form-control" placeholder="Confirm Password..." />
+                                        <ValidationMessage For="(()=>SignUpRequest.ConfirmPassword)" />
+                                    </div>
+                                </div>
+                                <hr style="background-color: aliceblue; " />
+                                <div class="py-2" style="text-align: center;">
+                                    <button type="submit" class="btn btn-success btn-block custom-black-button"><i class="bi bi-person-plus-fill"></i> Register</button>
+                                </div>
+                                <div class="py-2" style="text-align: center;">
+                                    <span>Already have an Account?</span>
+                                    <span style="margin-left: 5px;"><a href="/login" style="color: navy; text-decoration: none;">Log In</a></span>
+                                </div>
                             </div>
-                        </div>
-                        <hr style="background-color:aliceblue" />
-                        <div class="py-2">
-                                <button type="submit" class="btn btn-success btn-block"><i class="bi bi-person-plus-fill"></i> Register</button>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-        </div>
+        </EditForm>
     </div>
-</EditForm>
+</div>
 
-@*  code is in the code behind file and it is not nessary  *@
+<link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+<style>
+    .custom-card {
+        height: 750px;
+        width: 600px;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: white;
+        border-radius: 20px;
+    }
+
+    .custom-heading {
+        color: rgba(0, 0, 0, 0.8);
+        font-size: 30px;
+        font-family: 'Julius Sans One', sans-serif;
+    }
+
+    .custom-black-button {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-color: black;
+        color: white;
+        border-radius: 8px;
+        padding-left: 20px;
+        padding-right: 20px;
+        
+    }
+
+        .custom-black-button:hover {
+            background-color: rgba(220, 20, 60, 0.8);
+        }
+</style>

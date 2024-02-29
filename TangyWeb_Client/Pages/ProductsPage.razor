@@ -1,74 +1,230 @@
 ﻿@page "/ProductsPage"
 @inject IProductService _productService
 
-
-
 @if (IsProcessing)
 {
-    <div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
+    <div style="position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -100px;">
         <img src="images/ajax-loader.gif" />
     </div>
 }
 else
 {
-    <div class="container">
+    <div class="background-container" style="background-image: url('images/bkk.png');">
+        <NavMenu />
 
-        <div class="col-12 p-1">
-            <a href="/customorder" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Custom Order</a>
-        </div>
+        <div class="vertical-space"></div>
 
-        <div class="row  pb-3 pt-3 backgroundWhite">
-            @foreach (var category in Products.Select(u => u.Category.Name).Distinct())
-            {
+        <div class="container-fluid">
 
-                <h2 class="text-success pl-1"><b>@category</b></h2>
+            <div class="image-container">
+                <img src="images/wannamake.png" alt="Above Carousel Image" style="width: 40%; max-height: 150px; object-fit: cover;" />
+            </div>
 
-                @foreach (var product in Products.Where(u => u.Category.Name == category))
-                {
-                    <div class="col-lg-4 col-md-6 pb-4 filter">
-                        <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
-                            <div class="card-body pb-1 row">
-                                <div class="col-8 h5">@product.Name</div>
-                                <div class="col-4 text-end">
-                                    <span class="text-info h4">
-                                        @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")
-                                    </span>
-                                </div>
-                            </div>
+            <div class="vertical-space"></div>
 
-                            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@product.ImageUrl" alt="menuitem image">
-                            <div class="card-body p-1 px-3 row">
-                                <div class="col-6">
-                                    <span class="badge p-2 border w-100 text-dark bg-warning ">@product.Category.Name</span>
-                                </div>
-                                <div class="col-6 border-0">
-                                    <span class="badge p-2 border w-100 bg-info ">@product.Color</span>
-                                </div>
-                                <div class="col-12 pt-2" style="font-size:13px; text-align:justify">
-                                    <p>@((MarkupString)product.Description)</p>
-                                </div>
-                                <div class="col-12 p-1">
-                                    <a href="/details/@product.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Details</a>
-                                </div>
-                            </div>
+            <div class="button-container">
+                <a href="/CustomOrder">
+                    <button class="bake-button">Bake it</button>
+                </a>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="panel">
+                            <div class="vertical-space"></div>
+                            <h3 @onclick="ShowAllProducts">Categories</h3>
+                            <ul class="category-list">
+                                @foreach (var category in Products.Select(u => u.Category.Name).Distinct())
+                                {
+                                    <li class="@((selectedCategory == category) ? "selected" : "")" @onclick="@(async () => await CategoryClicked(category))">@category</li>
+                                }
+                            </ul>
                         </div>
                     </div>
-                }
-            }
+                    <div class="col-lg-9">
+                        <div class="search-container">
+                            <input type="text" placeholder="Search by product name" @bind="searchTerm" @onkeydown="SearchKeyDown" />
+                            
+                        </div>
+                        @foreach (var productGroup in FilteredProducts.GroupBy(p => p.Category.Name))
+                        {
+                            <h2 class="text-success pl-1"><b>@productGroup.Key</b></h2>
+                            <div class="row pb-3 pt-3 ">
+                                @foreach (var product in productGroup)
+                                {
+                                    <div class="col-lg-4 col-md-6 pb-4 filter">
+                                        <div class="card bg-white rounded shadow-sm" style="border: 1px solid #222;">
+                                            <div class="card-body pb-1 row">
+                                                <div class="col-8 h5">@product.Name</div>
+                                                <div class="col-4 text-end">
+                                                    <span class="text-info h4">
+                                                        @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@product.ImageUrl" alt="menuitem image">
+                                            <div class="card-body p-1 px-3 row">
+                                                <div class="col-6">
+                                                    <span class="badge p-2 border w-100 text-dark bg-warning">@product.Category.Name</span>
+                                                </div>
+                                                <div class="col-6 border-0">
+                                                    <span class="badge p-2 border w-100 bg-info">@product.Color</span>
+                                                </div>
+                                                <div class="col-12 pt-2" style="font-size: 13px; text-align: justify;">
+                                                    <p>@((MarkupString)product.Description)</p>
+                                                </div>
+                                                <div class="col-12 p-1" style="text-align: center;">
+                                                    <a href="/details/@product.Id" class="btn btn-dark form-control btn-sm p-2" style="height: 40px;">View Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <Footer />
         </div>
     </div>
-
 }
 
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> Products { get; set; } = new List<ProductDTO>();
+    public IEnumerable<ProductDTO> FilteredProducts { get; set; } = new List<ProductDTO>();
+    private string selectedCategory = null;
+    private string searchTerm = "";
 
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
         Products = await _productService.GetAll();
-
+        FilteredProducts = Products; // Initially display all products
         IsProcessing = false;
     }
+
+    private async Task CategoryClicked(string categoryName)
+    {
+        selectedCategory = categoryName;
+        await FilterProducts();
+    }
+
+    private async Task ShowAllProducts()
+    {
+        selectedCategory = null;
+        await FilterProducts();
+    }
+
+    private async Task FilterProducts()
+    {
+        FilteredProducts = string.IsNullOrEmpty(searchTerm) ?
+            (string.IsNullOrEmpty(selectedCategory) ? Products : Products.Where(p => p.Category.Name == selectedCategory)) :
+            Products.Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private async Task SearchKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await ShowAllProducts();
+        }
+    }
+
+    
 }
+
+
+
+
+
+<style>
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10vh;
+    }
+
+    .bake-button {
+        background-color: whitesmoke;
+        border: none;
+        color: b;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+        .bake-button:hover {
+            background-color: crimson;
+        }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .vertical-space {
+        height: 20px;
+    }
+
+    .panel {
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-list {
+        list-style-type: none;
+        padding-top: 40px;
+    }
+
+        .category-list li {
+            margin-bottom: 50px;
+            cursor: pointer;
+        }
+
+            .category-list li:hover,
+            .category-list li.selected {
+                color: crimson;
+                background-color: lightgray;
+                border-radius: 5px;
+                padding: 10px;
+            }
+
+
+    .search-container {
+        margin-bottom: 20px;
+    }
+
+        .search-container input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+            .search-container input[type=text]:focus {
+                outline: none;
+                border: 2px solid dodgerblue;
+            }
+
+
+
+
+    .backgroundBlack30 {
+        background-color: rgba(0, 0, 0, 0.3); /* Black with 30% opacity */
+    }
+
+</style>
