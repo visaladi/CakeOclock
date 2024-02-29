@@ -158,5 +158,51 @@ namespace TangyWeb_API.Controllers
 
             return claims;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDTO forgotPasswordDTO)
+        {
+            if (forgotPasswordDTO == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var user = await _userManager.FindByEmailAsync(forgotPasswordDTO.Email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                // Don't reveal that the user does not exist or is not confirmed
+                return Ok();
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            // Implement logic to send the password reset token to the user via email
+            // You can use services like SendGrid or your own email service for this purpose
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
+        {
+            if (resetPasswordDTO == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var user = await _userManager.FindByEmailAsync(resetPasswordDTO.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return Ok();
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, resetPasswordDTO.Token, resetPasswordDTO.NewPassword);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
 }

@@ -38,6 +38,9 @@
                                     <InputText @bind-Value="SignInRequest.Password" type="password" placeholder="Password..." id="password" class="form-control mb-2" />
                                     <ValidationMessage For="(()=>SignInRequest.Password)"></ValidationMessage>
                                 </div>
+                                <div class="py-2">
+                                    <a href="/forgotpassword" text-blue m-2"><i class="bi"></i> Did you foreget Password?</a>
+                                </div>
                                 <div class="py-2" style="display: flex; justify-content: center;">
                                     <div style="margin-bottom: 10px;">
                                         <button type="submit" class="btn btn-success custom-black-button"> Sign in</button>
@@ -113,3 +116,4 @@
 @code {
 
 }
+
