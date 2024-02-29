@@ -7,7 +7,7 @@ namespace TangyWeb_Client.Serivce.IService
         Task<SignUpResponseDTO> RegisterUser(SignUpRequestDTO signUpRequestDTO);
         Task<SignInResponseDTO> Login(SignInRequestDTO signInRequestDTO);
         Task Logout();
-        Task<bool> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO);
-        Task<bool> ResetPassword(ResetPasswordDTO resetPasswordDTO);
+        Task<LoginResultDTO> ForgotPassword(ResetPasswordDTO model);
+        Task<LoginResultDTO> ResetForgotPassword(ResetPasswordDTO model);
     }
 }

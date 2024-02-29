@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using JWTDemo.Shared.DTOs;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -9,6 +11,7 @@ using Tangy_Common;
 using Tangy_DataAccess;
 using Tangy_Models;
 using TangyWeb_API.Helper;
+using TangyWeb_API.RepositoriesService.IRepositoryService;
 
 namespace TangyWeb_API.Controllers
 {
@@ -20,8 +23,12 @@ namespace TangyWeb_API.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly APISettings _aPISettings;
+        private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
 
         public AccountController(
+            IConfiguration configuration,
+            IEmailService emailService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
@@ -31,6 +38,8 @@ namespace TangyWeb_API.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
             _aPISettings = options.Value;
+            _configuration = configuration;
+            _emailService = emailService;
         }
 
         [HttpPost]
@@ -160,48 +169,57 @@ namespace TangyWeb_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDTO forgotPasswordDTO)
+        public async Task<IActionResult> ForgotPassword(ResetPasswordDTO model)
         {
-            if (forgotPasswordDTO == null || !ModelState.IsValid)
+            if (string.IsNullOrEmpty(model.Email))
             {
                 return BadRequest();
             }
-
-            var user = await _userManager.FindByEmailAsync(forgotPasswordDTO.Email);
-            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user != null)
             {
-                // Don't reveal that the user does not exist or is not confirmed
-                return Ok();
+                var ResetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var encodeResetPasswordToken = Encoding.UTF8.GetBytes(ResetPasswordToken);
+                var validResetPasswordToken = WebEncoders.Base64UrlEncode(encodeResetPasswordToken);
+                string url = $"{_configuration["AppUrl"]}/ResetForgotPassword?email={user.Email}&token={validResetPasswordToken}";
+
+                var requestDto = new RequestDTO
+                {
+                    To = user.Email!,
+                    Subject = "Confirm Account to Reset",
+                    Message = $"<p>Welcome to Cake O' Clock Bakery</p> <p>Please reset your account password by clicking on this button <a href='{url}'>Click here</a></p>"
+                };
+                Console.WriteLine("Testins upto here");
+                var retunText = await _emailService.SendEmail(requestDto);
+                if (retunText.Contains("Mail Sent!"))
+                {
+                    return Ok(new LoginResultDTO { Successful = true });
+                }
             }
-
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            // Implement logic to send the password reset token to the user via email
-            // You can use services like SendGrid or your own email service for this purpose
-
-            return Ok();
+            return NotFound();
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
+        public async Task<IActionResult> ResetForgotPassword(ResetPasswordDTO model)
         {
-            if (resetPasswordDTO == null || !ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Token))
             {
                 return BadRequest();
             }
-
-            var user = await _userManager.FindByEmailAsync(resetPasswordDTO.Email);
-            if (user == null)
+            var user = await _userManager.FindByEmailAsync(model.Email!);
+            if (user != null)
             {
-                // Don't reveal that the user does not exist
-                return Ok();
+                var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
+                string normalToken = Encoding.UTF8.GetString(decodedToken);
+                //var normalToken = model.Token.Replace(' ', '+');
+                var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword!);
+                if (result.Succeeded)
+                {
+                    return Ok(new LoginResultDTO { Successful = true }); /*Redirect($"{_configuration["AppUrl"]}/login"!);*/
+                }
+                return BadRequest();
             }
-
-            var result = await _userManager.ResetPasswordAsync(user, resetPasswordDTO.Token, resetPasswordDTO.NewPassword);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-
             return BadRequest();
         }
     }

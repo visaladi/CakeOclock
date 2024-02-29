@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 using System.Text;
 using Tangy_Common;
 using Tangy_Models;
@@ -17,6 +18,8 @@ namespace TangyWeb_Client.Serivce
             _client = client;
             _localStorage = localStorage;
         }
+
+        
 
         public async Task<SignInResponseDTO> Login(SignInRequestDTO signInRequest)
         {
@@ -62,20 +65,52 @@ namespace TangyWeb_Client.Serivce
             }
         }
 
-        public async Task<bool> ForgotPassword(ForgotPasswordDTO forgotPasswordDTO)
+        public async Task<LoginResultDTO> ForgotPassword(ResetPasswordDTO model)
         {
-            var content = JsonConvert.SerializeObject(forgotPasswordDTO);
+            var content = JsonConvert.SerializeObject(model);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync("api/account/forgotpassword", bodyContent);
-            return response.IsSuccessStatusCode;
+            var response = await _client.PostAsync("api/account/ForgotPassword", bodyContent);
+            var contentTemp = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<LoginResultDTO>(contentTemp);
+
+            //var result = await _client.PostAsJsonAsync("api/account/ForgotPassword", model);
+
+
+            //if (!result.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
+                return new LoginResultDTO { Successful = false, Error = result.Error+"Something went wrong!" };
+            return new LoginResultDTO
+            { 
+                Successful = true,
+                Error = "Password reset link has been sent to your email, please check it out!",
+                
+            };
         }
 
-        public async Task<bool> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        public async Task<LoginResultDTO> ResetForgotPassword(ResetPasswordDTO model)
         {
-            var content = JsonConvert.SerializeObject(resetPasswordDTO);
-            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync("api/account/resetpassword", bodyContent);
-            return response.IsSuccessStatusCode;
+            var result = await _client.PostAsJsonAsync("api/account/ResetForgotPassword", model);
+            if (!result.IsSuccessStatusCode)
+                return new LoginResultDTO { Successful = false };
+            return new LoginResultDTO { Successful = true };
         }
+
+        //public async Task<LoginResultDTO> ResetForgotPassword(ResetPasswordDTO model)
+        //{
+        //    var content = JsonConvert.SerializeObject(model);
+        //    var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+        //    var response = await _client.PostAsync("api/account/ResetForgotPassword", bodyContent);
+        //    var contentTemp = await response.Content.ReadAsStringAsync();
+        //    var result = JsonConvert.DeserializeObject<LoginResultDTO>(contentTemp);
+
+        //    //var result = await _client.PostAsJsonAsync("api/account/ResetForgotPassword", model);
+        //    if (!response.IsSuccessStatusCode)
+        //        return new LoginResultDTO { Successful = false , Error = result.Error};
+        //    return new LoginResultDTO
+        //    { 
+        //        Successful = true,                
+        //    };
+        //}
+                
     }
 }
