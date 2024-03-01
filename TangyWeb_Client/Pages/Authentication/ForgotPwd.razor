@@ -3,41 +3,49 @@
 @using TangyWeb_Client.Serivce.IService;
 @inject IAuthenticationService AuthService
 
+<div class="background-container" style="background-image: url('images/bk.png');">
+    <NavMenu />
 
-@if (ShowErrors)
-{
-    <div class="alert alert-danger" role="alert">
-        <p>@Error</p>
+    <div class="vertical-space"></div>
+
+    @if (ShowErrors)
+    {
+        <div class="alert alert-danger" role="alert">
+            <p>@Error</p>
+        </div>
+    }
+
+    <div class="card transparent-card d-flex justify-content-center align-items-center">
+        <div class="card-body">
+            <h2 class="title">Forgot Password ?</h2>
+            <div class="vertical-space"></div>
+            <h5 class="card-title">Please enter your email</h5>
+            <EditForm Model="resetModel" OnValidSubmit="HandleForgotPassword">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group mt-2 ">
+                    
+                    <InputText Id="email" Class="form-control custom-width" @bind-Value="resetModel.Email" placeholder="Enter your email address" />
+                    <ValidationMessage For="@(() => resetModel.Email)" />
+                </div>
+                <div class="vertical-space2"></div>
+
+                <div class="form-group mt-2 ">
+                    <button type="submit" class="btn btn-primary custom-button">Submit</button>
+                </div>
+            </EditForm>
+        </div>
     </div>
-}
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Please enter your email</h5>
-        <EditForm Model="resetModel" OnValidSubmit="HandleForgotPassword">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
 
-            <div class="form-group mt-2">
-                <label for="email">Email address</label>
-                <InputText Id="email" Class="form-control" @bind-Value="resetModel.Email" />
-                <ValidationMessage For="@(() => resetModel.Email)" />
-            </div>
-            <div class="form-group mt-2">
-                @Message
-            </div>
-            <div class="form-group mt-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
 
-        </EditForm>
 
-    </div>
+    <div class="vertical-space"></div>
+    <Footer />
 </div>
 
 @code {
-    private string Message = string.Empty;
-    
     private ResetPasswordDTO resetModel = new ResetPasswordDTO();
     private bool ShowErrors;
     private string Error = "";
@@ -45,19 +53,60 @@
     private async Task HandleForgotPassword()
     {
         ShowErrors = false;
-        Message = "Please Wait...";
         var result = await AuthService.ForgotPassword(resetModel);
 
-        if (result.Successful)
-        {
-            Error = result.Error!;
-            //NavigationManager.NavigateTo("setPassword");
-            ShowErrors = true;
-        }
-        else
+        if (!result.Successful)
         {
             Error = result.Error!;
             ShowErrors = true;
         }
     }
 }
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
+
+<style>
+    .title {
+        
+        font-family: "Quicksand", sans-serif;
+        
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-family: "Quicksand", sans-serif;
+    }
+
+    .custom-width {
+        width: 400px; /* Set your custom width here */
+    }
+    .vertical-space2 {
+        height: 10px;
+    }
+
+    .vertical-space {
+        height: 20px;
+
+    }
+
+    .transparent-card {
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+
+
+    }
+
+    .custom-button {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-color: black;
+        color: white;
+        border-radius: 8px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-family: "Quicksand", sans-serif;
+
+    }
+
+        .custom-button:hover {
+            background-color: rgba(220, 20, 60, 0.8);
+        }
+</style>
