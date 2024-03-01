@@ -1,64 +1,71 @@
 ﻿@page "/ResetForgotPassword"
 
-
-@using Microsoft.AspNetCore.WebUtilities;
-@using Microsoft.JSInterop;
+@using Microsoft.AspNetCore.WebUtilities
+@using Microsoft.JSInterop
 @using TangyWeb_Client.Serivce.IService
 
-@inject IAuthenticationService AuthService;
+@inject IAuthenticationService AuthService
 @inject IJSRuntime JS
 @inject NavigationManager NavigationManager
 
-<h3>Reset Password</h3>
+
+
 @if (ShowErrors)
 {
     <div class="alert alert-danger" role="alert">
-        @foreach (var error in Errors!)
-        {
-            <p>@error</p>
-        }
+        @Errors
         @Email
         @Token
     </div>
 }
 
-<div class="card">
+<div class="background-container" style="background-image: url('images/bk.png');">
+    <NavMenu />
+
+    <div class="vertical-space"></div>
+
+<div class="card transparent-card d-flex justify-content-center align-items-center">
     <div class="card-body">
-        <h5 class="card-title">Please enter your details</h5>
+        <h2 class="title">Reset Password</h2>
+            <div class="vertical-space2"></div>
+        
         <EditForm Model="resetPasswordDTO" OnValidSubmit="HandleResetPassword">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
             <div class="form-group">
-                <InputText  class="form-control d-none" @bind-Value="@Email" />
-                <InputText  class="form-control d-none" @bind-Value="@Token" />
+                <InputText class="form-control d-none" @bind-Value="Email" />
+                <InputText class="form-control d-none" @bind-Value="Token" />
             </div>
             <div class="form-group mt-2">
-                <label for="password">Password</label>
-                <InputText Id="password" type="password" class="form-control" @bind-Value="resetPasswordDTO.NewPassword" />
+                    <label class="card-title" for="password">Password</label>
+                <InputText Id="password" type="password" class="form-control custom-width" @bind-Value="resetPasswordDTO.NewPassword" placeholder="Enter your new password" />
                 <ValidationMessage For="@(() => resetPasswordDTO.NewPassword)" />
             </div>
+                <div class="vertical-space3"></div>
             <div class="form-group mt-2">
-                <label for="password">Confirm Password</label>
-                <InputText Id="password" type="password" class="form-control" @bind-Value="resetPasswordDTO.ConfirmNewPassword" />
+                    <label class="card-title" for="confirmPassword">Confirm Password</label>
+                <InputText Id="confirmPassword" type="password" class="form-control custom-width" @bind-Value="resetPasswordDTO.ConfirmNewPassword" placeholder="Confirm your new password" />
                 <ValidationMessage For="@(() => resetPasswordDTO.ConfirmNewPassword)" />
             </div>
+                <div class="vertical-space2"></div>
             <div class="form-group mt-2">
-                <label>@Message</label>
+                <button type="submit" class="btn btn-primary custom-button">Submit</button>
             </div>
-            <div class="form-group mt-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-            
+                <div class="form-group mt-2">
+                    <label>@Message</label>
+                </div>
+
         </EditForm>
     </div>
+    <Footer/>
+</div>
+
 </div>
 
 @code {
     public string? Email;
     public string? Token;
-
-
 
     private string Message = string.Empty;
     ResetPasswordDTO resetPasswordDTO = new ResetPasswordDTO();
@@ -67,7 +74,6 @@
 
     private async Task HandleResetPassword()
     {
-
         ShowErrors = false;
         Message = "Please Wait...";
 
@@ -85,23 +91,77 @@
         resetPasswordDTO.Email = email;
         resetPasswordDTO.Token = token;
 
-        Console.WriteLine(resetPasswordDTO.Email);
-        Console.WriteLine(resetPasswordDTO.Token);
-        Console.WriteLine(resetPasswordDTO.NewPassword);
-        Console.WriteLine(resetPasswordDTO.ConfirmNewPassword);
         var result = await AuthService.ResetForgotPassword(resetPasswordDTO);
 
         if (result.Successful)
         {
-            Console.WriteLine("Password Reset Done!");
-            // await JS.InvokeVoidAsync("alert", "Password Reset Done!");
             await JS.ToastrSuccess("Password Reset Done!");
             NavigationManager.NavigateTo("/login");
         }
         else
         {
-            Errors = "Something wrong happened";
+            Errors = "Something went wrong.";
             ShowErrors = true;
         }
     }
 }
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
+
+<style>
+    .title {
+        font-family: "Quicksand", sans-serif;
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-family: "Quicksand", sans-serif;
+    }
+
+    .custom-width {
+        width: 400px;
+    }
+
+    .transparent-card {
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+    }
+
+    .custom-button {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-color: black;
+        color: white;
+        border-radius: 8px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-family: "Quicksand", sans-serif;
+    }
+
+        .custom-button:hover {
+            background-color: rgba(220, 20, 60, 0.8);
+        }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .justify-content-center {
+        justify-content: center;
+    }
+
+    .align-items-center {
+        align-items: center;
+    }
+
+    .vertical-space {
+        height: 20px;
+    }
+
+    .vertical-space2 {
+        height: 10px;
+    }
+
+    .vertical-space3 {
+        height: 5px;
+    }
+</style>
