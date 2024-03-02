@@ -2,6 +2,7 @@
 
 @using TangyWeb_Client.Serivce.IService;
 @inject IAuthenticationService AuthService
+@inject IJSRuntime JS
 
 <div class="background-container" style="background-image: url('images/bk.png');">
     <NavMenu />
@@ -57,6 +58,14 @@
 
         if (!result.Successful)
         {
+            await JS.InvokeVoidAsync("ShowSwal", "error", "Task Faild!");
+            Error = result.Error!;
+            ShowErrors = true;
+        }
+        else
+        {
+            
+            await JS.InvokeVoidAsync("ShowSwal", "success", "Password reset link has been sent to your email, please check it out!");
             Error = result.Error!;
             ShowErrors = true;
         }

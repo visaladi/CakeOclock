@@ -95,11 +95,12 @@
 
         if (result.Successful)
         {
-            await JS.ToastrSuccess("Password Reset Done!");
+            await JS.InvokeVoidAsync("ShowSwal", "success", "You Have Reset the Password Successfully!");
             NavigationManager.NavigateTo("/login");
         }
         else
         {
+            await JS.InvokeVoidAsync("ShowSwal", "error", "Task Faild!");
             Errors = "Something went wrong.";
             ShowErrors = true;
         }
