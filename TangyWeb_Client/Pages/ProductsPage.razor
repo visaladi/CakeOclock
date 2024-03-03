@@ -59,7 +59,8 @@ else
                                                 <div class="col-8 h5">@product.Name</div>
                                                 <div class="col-4 text-end">
                                                     <span class="text-info h4">
-                                                        @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")
+                                                        @* @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") *@
+                                                        Rs @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("N2")
                                                     </span>
                                                 </div>
                                             </div>

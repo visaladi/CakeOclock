@@ -40,7 +40,9 @@ else
                                         //this product is selected by user
                                         <div class="col-2 bg-light text-center pt-2 m-2" style="border:3px solid #28A745; border-radius:10px;box-shadow:5px">
                                             <p>@produtPrice.Size</p>
-                                            <p>@produtPrice.Price.ToString("c")</p>
+                                            @* <p>@produtPrice.Price.ToString("c")</p> *@
+                                            <p>Rs @produtPrice.Price.ToString("N2")</p>
+
                                         </div>
                                     }
                                     else
@@ -50,7 +52,9 @@ else
                                         @onclick="(args)=>SelectedProductPrice(args,produtPrice.Id)">
                                             
                                             <p>@produtPrice.Size</p>
-                                            <p>@produtPrice.Price.ToString("c")</p>
+                                            @* <p>@produtPrice.Price.ToString("c")</p> *@
+                                            <p>Rs @produtPrice.Price.ToString("N2")</p>
+
                                         </div>
                                     }
 
