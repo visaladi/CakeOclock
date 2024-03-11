@@ -1,0 +1,182 @@
+@import url("https://fonts.cdnfonts.com/css/copperplate-gothic-light");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.background-details {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 330vh;
+  background-image: url("./img/bk.png"); /* Adjust the path based on your folder structure */
+  background-size: cover;
+  background-position: center;
+}
+.dis-section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.left-colum-dis,
+.right-colum-dis {
+  flex: 1;
+  padding: 10px;
+}
+.left-colum-dis {
+  text-align: center;
+}
+.dis-section {
+  margin: 10px 12%;
+}
+.cel-box {
+  margin: 0 50px;
+}
+
+.cel-box-topic {
+  color: #5c5b5b;
+  padding: 5px 0;
+  margin: 5px 0;
+  font-size: 46px;
+  border-bottom: 2px solid #4e281b;
+}
+.cel-box-para-icon {
+  display: flex;
+  align-items: center;
+  color: #4e281b;
+  margin: 0 7px;
+}
+.cel-box-para {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin: 8px 0;
+  font-weight: 500;
+}
+.right-colum-dis-topic {
+  color: white;
+  margin: 8px 0;
+  letter-spacing: 2px;
+}
+.right-colum-dis-price {
+  color: white;
+  margin: 8px 0;
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-weight: 300;
+}
+.rating-star-para {
+  margin: 8px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.rating-star-para-new {
+  margin: 8px 0;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+.rating-star-para-label {
+  font-size: 20px;
+  font-weight: 500;
+}
+.rating-star-para-input {
+  margin: 8px 0;
+  padding: 5px 10px;
+  font-size: 18px;
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid #000000;
+}
+.rating-star-para-btn1 {
+  border: 2px solid #000000;
+  padding: 8px 15px;
+  margin: 8px 10px 8px 0;
+  border-radius: 20px;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+.rating-star-para-btn3 {
+  border: 3px solid rgba(0, 0, 0, 0.44);
+  padding: 8px 15px;
+  margin: 8px 10px 8px 0;
+  border-radius: 20px;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.44);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+.rating-star-para-btn2 {
+  border: 3px solid black;
+  padding: 8px 15px;
+  margin: 8px 10px 8px 0;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+.rating-star-para-input-qty {
+  margin: 8px 0;
+  padding: 5px 10px;
+  font-size: 18px;
+  width: 10%;
+  border-radius: 10px;
+  border: 2px solid #000000;
+}
+.Add-To-Cart-btn {
+  width: 100%;
+  border: 3px solid #f6e6cd;
+  padding: 8px 15px;
+  margin: 8px 10px 8px 0;
+  border-radius: 20px;
+  background-color: #f6e6cd;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 7px 4px rgba(0, 0, 0, 0.1);
+}
+.Buy-Now-btn {
+  width: 100%;
+  border: 3px solid black;
+  padding: 8px 15px;
+  margin: 8px 10px 8px 0;
+  border-radius: 20px;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 7px 4px rgba(0, 0, 0, 0.1);
+}
+.flex_row {
+  justify-content: center;
+  display: flex;
+  padding: 20px;
+}
+.mainimg {
+  width: 400px;
+  height: 430px;
+  border-radius: 10px;
+}
+.subnimg {
+  padding: 5px;
+}
+@media (max-width: 768px) {
+  .left-colum-dis,
+  .right-colum-dis {
+    flex: 100%;
+  }
+}

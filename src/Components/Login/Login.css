@@ -1,0 +1,95 @@
+.background {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 400vh;
+  background-image: url("./img/bk.png"); /* Adjust the path based on your folder structure */
+  background-size: cover;
+  background-position: center;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 300px;
+}
+
+.login-box {
+  background-color: #d3d1d1be;
+  width: 923px;
+  max-width: 90%; /* Adjust the maximum width as needed */
+  height: 798px;
+  border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.login-logo {
+  display: block;
+  margin: 0 auto;
+  height: 200px;
+  width: 200px;
+}
+
+.login-heading {
+  font-family: "Julius Sans One", sans-serif;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 69.82px;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.login-form-group {
+  margin-bottom: 20px;
+}
+
+.login-label {
+  font-family: "Julius Sans One", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 26.18px;
+  display: block;
+  margin-bottom: 5px;
+  color: #252525;
+}
+
+.login-form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ffffffde;
+  font-family: "Julius Sans One";
+}
+
+.login-forgot-password {
+  display: block;
+  margin-bottom: 20px;
+  color: #252525;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.login-button {
+  text-align: center;
+  width: 40%;
+  padding: 10px;
+  background-color: #252525;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Julius Sans One", sans-serif;
+}
+
+.login-form {
+  padding-left: 150px;
+  padding-right: 150px;
+  padding-top: 50px;
+}
+.login-btn {
+  padding-left: 220px;
+}

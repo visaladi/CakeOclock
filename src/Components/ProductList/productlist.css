@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;500;600;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.main-colum-set {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 90px 0 0 0;
+}
+
+.first-row-left {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 0 50px 0;
+}
+.item-displyaset {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 20px;
+}
+
+.nav-itemset {
+  height: 147vh;
+  padding: 80px 20px 0px 0px;
+  margin: 0 80px 0 0;
+  border: 2px solid gray;
+  border-radius: 0 30px 30px 0;
+  background-color: rgba(128, 128, 128, 0.234);
+}
+.seli-nav-item {
+  text-transform: capitalize;
+  font-family: Julius Sans One;
+  margin: 0 0 60px 0;
+  padding: 10px 50px;
+  cursor: pointer;
+  border: 2px solid rgba(59, 59, 59, 0);
+}
+.activ-nav-seli {
+  background-color: rgb(128, 128, 128);
+  padding: 10px 50px;
+  margin: 0 0 60px 0;
+  color: white;
+  border-radius: 0 30px 30px 0;
+  border: 2px solid rgb(59, 59, 59);
+}
+.seli-nav-item:hover {
+  background-color: rgb(128, 128, 128);
+  margin: 0 0 60px 0;
+  padding: 10px 50px;
+  color: white;
+  border: 2px solid rgb(59, 59, 59);
+  border-radius: 0 30px 30px 0;
+  transition: transform 0.8s;
+}
+
+.seltopic {
+  font-weight: 500;
+  margin: 0 20px 0 0;
+  font-family: Lexend;
+  color: gray;
+  font-size: 40px;
+}
+.search-cake {
+  width: 400px;
+  margin-left: auto;
+  border-radius: 10px 0 0 10px;
+  border: 0;
+  font-size: 15px;
+  padding: 5px 10px;
+}
+
+.searchicon {
+  color: #494346;
+  cursor: pointer;
+  background-color: white;
+  height: 30px;
+  margin: 5px 20px;
+  border-radius: 0 10px 10px 0;
+  font-size: 25px;
+}
+
+.searchicon-bk {
+  color: #494346;
+  cursor: pointer;
+  background-color: white;
+
+  text-align: center;
+  border-radius: 0 10px 10px 0;
+  font-size: 25px;
+}
+
+.card-item {
+  background-color: white;
+  margin: 0;
+  cursor: pointer;
+  width: 230px;
+  border-radius: 45px;
+  text-align: center;
+  padding: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.itemimg {
+  border-radius: 45px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.item-card-body {
+  margin: 10px;
+  padding: 0 0 10px 0;
+}
+.item-para {
+  font-family: Poppins;
+  font-size: 18px;
+  margin: 0 0 8px 0;
+}
+.item-price {
+  font-family: Inria Sans;
+  font-size: 25px;
+}
+
+.pagenumberset {
+  text-align: end;
+  margin: 90px 0 0 0;
+}
+.btnnumberpg {
+  border-radius: 3px;
+  margin: 0 10px;
+  font-weight: bolder;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px 15px;
+  background-color: #49434600;
+  color: white;
+  border: 3px solid white;
+}
+.btnactive {
+  background-color: white;
+  color: #494346;
+}
+.contactus-section {
+  text-align: center;
+  margin: 80px 0;
+  color: white;
+  font-family: Popins;
+}
+
+.contactus-section-topic {
+  font-size: 50px;
+}
+.contactus-section-para {
+  font-size: 20px;
+  margin: 20px 0;
+}
+.contactus-section-btn {
+  background-color: white;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 20px;
+}

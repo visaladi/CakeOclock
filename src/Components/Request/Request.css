@@ -1,0 +1,419 @@
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.backgroundnewrt {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 350vh;
+  background-image: url("./img/bk.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.request-section-left {
+  width: 598px; /* Fixed width */
+  padding: 0 16px; /* Adjust padding as needed */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.request-label {
+  width: 598px; /* Fixed width */
+  height: 86px; /* Fixed height */
+  top: 549px;
+  left: 74px;
+  gap: 8px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.request-dropdownnew {
+  width: 600px; /* Fixed width */
+}
+
+/********** File Input Style starts here ********/
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + .inputlbl {
+  width: 599px;
+  font-size: 1.25rem;
+  /* 20px */
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.625rem 1.25rem;
+  /* 10px 20px */
+}
+
+.no-js .inputfile + .inputlbl {
+  display: none;
+}
+
+.inputfile:focus + .inputlbl,
+.inputfile.has-focus + .inputlbl {
+  outline: 1px dotted gray;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + .inputlbl .inptsvg {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  margin-top: -0.25em;
+  /* 4px */
+  margin-right: 0.25em;
+  /* 4px */
+}
+
+.inputfile-6 + .inputlbl {
+  color: gray;
+}
+
+.inputfile-6 + .inputlbl {
+  border: 1px solid gray;
+  background-color: rgba(128, 128, 128, 0.233);
+  padding: 0;
+}
+
+.inputfile-6:focus + .inputlbl,
+.inputfile-6.has-focus + .inputlbl,
+.inputfile-6 + .inputlbl:hover {
+  border-color: gray;
+}
+
+.inputfile-6 + .inputlbl .inptspan,
+.inputfile-6 + .inputlbl strong {
+  padding: 0.625rem 1.25rem;
+  /* 10px 20px */
+}
+
+.inputfile-6 + .inputlbl .inptspan {
+  width: 399px;
+  min-height: 2em;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.inputfile-6 + .inputlbl strong {
+  height: 100%;
+  color: black;
+  background-color: gray;
+  display: inline-block;
+}
+
+.inputfile-6:focus + .inputlbl strong,
+.inputfile-6.has-focus + .inputlbl strong,
+.inputfile-6 + .inputlbl:hover strong {
+  background-color: gray;
+}
+
+.request-dropdownnew {
+  height: 55px; /* Fixed height */
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+.request-dropdown {
+  height: 55px; /* Fixed height */
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-date-input {
+  height: 50px; /* Fixed height */
+  top: 667px;
+  left: 72px;
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px 56px 12px 40px;
+  margin-top: 12px; /* Adjust margin as needed */
+  opacity: 0.6;
+}
+
+.request-message-input {
+  height: 210px; /* Fixed height */
+  top: 728px;
+  left: 74px;
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-image-input {
+  height: 50px; /* Fixed height */
+  top: 952px;
+  left: 72px;
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px 56px 12px 40px;
+  margin-top: 16px; /* Adjust margin as needed */
+  opacity: 60%;
+}
+
+.request-section-right {
+  width: 598px; /* Adjust width as needed */
+  padding: 0 16px; /* Adjust padding as needed */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.pickup-heading,
+.delivery-heading {
+  width: 306px; /* Fixed width */
+  height: 61px; /* Fixed height */
+  top: 551px; /* Adjust top position as needed */
+  left: 874px; /* Adjust left position as needed */
+  display: flex;
+  align-items: center;
+}
+
+.request-radio-label {
+  margin-left: 8px; /* Adjust margin as needed */
+}
+
+.request-label {
+  width: 507px; /* Fixed width */
+  height: 59px; /* Fixed height */
+  top: 593px; /* Adjust top position as needed */
+  left: 821px; /* Adjust left position as needed */
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+.request-section-left {
+  width: 598px; /* Fixed width */
+  padding: 0 16px; /* Adjust padding as needed */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.request-label {
+  width: 598px; /* Fixed width */
+  height: 86px; /* Fixed height */
+  top: 549px;
+  left: 74px;
+  gap: 8px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.request-dropdown,
+.request-date-input,
+.request-message-input,
+.request-image-input {
+  width: 599px; /* Fixed width */
+}
+
+.request-dropdown {
+  height: 55px; /* Fixed height */
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-date-input {
+  height: 50px; /* Fixed height */
+  top: 667px;
+  left: 72px;
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px 56px 12px 40px;
+  margin-top: 12px; /* Adjust margin as needed */
+  opacity: 0.6;
+}
+
+.request-message-input {
+  height: 210px; /* Fixed height */
+  top: 728px;
+  left: 74px;
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px;
+  resize: none;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-image-input {
+  height: 50px; /* Fixed height */
+  top: 952px;
+  left: 72px;
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px 56px 12px 40px;
+  margin-top: 16px; /* Adjust margin as needed */
+  opacity: 60%;
+}
+
+.request-section-right {
+  width: 598px; /* Adjust width as needed */
+  padding: 0 16px; /* Adjust padding as needed */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.pickup-heading,
+.delivery-heading {
+  width: 306px; /* Fixed width */
+  height: 61px; /* Fixed height */
+  top: 551px; /* Adjust top position as needed */
+  left: 874px; /* Adjust left position as needed */
+  display: flex;
+  align-items: center;
+}
+
+.request-radio-label {
+  margin-left: 8px; /* Adjust margin as needed */
+}
+
+.request-label {
+  width: 507px; /* Fixed width */
+  height: 59px; /* Fixed height */
+  top: 593px; /* Adjust top position as needed */
+  left: 821px; /* Adjust left position as needed */
+  border-radius: 10px;
+  border: 2px solid gray;
+  padding: 12px;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-dropdown {
+  width: calc(100% - 16px); /* Fill the width of the parent container */
+}
+
+.request-pickup-radio,
+.request-delivery-radio {
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-address-box,
+.contact-number-box {
+  width: 508px; /* Fixed width */
+  height: auto; /* Adjust height as needed */
+  top: 726px; /* Adjust top position as needed */
+  left: 820px; /* Adjust left position as needed */
+  border-radius: 10px;
+  border: 1px solid gray;
+  padding: 12px;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-address-box p,
+.contact-number-box p {
+  margin: 0;
+}
+
+.request-edit-link {
+  display: block;
+  margin-top: 8px; /* Adjust margin as needed */
+  color: blue;
+}
+
+.request-dropdown {
+  width: 508px; /* Fill the width of the parent container */
+}
+
+.request-pickup-radio,
+.request-delivery-radio {
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-address-box,
+.contact-number-box {
+  width: 508px; /* Fixed width */
+  height: auto; /* Adjust height as needed */
+  top: 726px; /* Adjust top position as needed */
+  left: 820px; /* Adjust left position as needed */
+  border-radius: 10px;
+  border: 1px solid gray;
+  color: black;
+  background-color: white;
+  padding: 12px;
+  margin-top: 16px; /* Adjust margin as needed */
+}
+
+.request-address-box p,
+.contact-number-box p {
+  margin: 0;
+}
+
+.request-edit-link {
+  display: block;
+  margin-top: 8px; /* Adjust margin as needed */
+  color: blue;
+}
+
+.request-section-left {
+  width: 598px; /* Fixed width */
+  padding: 0 16px; /* Adjust padding as needed */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.request-section-right {
+  width: 598px; /* Fixed width */
+  padding: 0 16px; /* Adjust padding as needed */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+.req-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 90px 0 0 0;
+  justify-content: space-between;
+  padding: 0 7%;
+}
+
+.request-radio {
+  height: 30px;
+  width: 30px;
+  margin-right: 5px; /* Add margin to create space around the radio button */
+}
+.request-pickup-radio {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.cent {
+  text-align: center;
+  margin: 50px 0 0 0;
+}
+.cent-para {
+  font-size: 20px;
+  color: #acacac;
+  font-family: inter;
+}
+.cent-btn {
+  background-color: black;
+  border: 0;
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 20px;
+  color: white;
+  margin: 20px 0;
+  cursor: pointer;
+}

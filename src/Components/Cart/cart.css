@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.dis-section-cart {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 12% 10px 40px;
+}
+.right-colum-price-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.right-colum-price {
+  text-align: end;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: Inconsolata;
+}
+.right-colum-price-name {
+  font-family: Manrope;
+  font-weight: bold;
+  color: rgb(50, 48, 48);
+}
+.right-colum-price-name,
+.right-colum-price {
+  width: 48%;
+  margin: 0;
+  font-size: 22px;
+  box-sizing: border-box;
+}
+.hr-cart {
+  margin: 10px 0;
+  border-width: 2px;
+  border-radius: 5px;
+  border: 2px solid rgb(0, 0, 0);
+}
+.box1,
+.box2 {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.359);
+  border-radius: 10px;
+  width: 450px;
+  margin-left: auto;
+}
+.aoupon {
+  text-align: end;
+  margin: 0 0 10px 0;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Manrope;
+  color: white;
+}
+.box {
+  margin: 20px 0;
+}
+.box-form {
+  text-align: end;
+}
+.inputbox {
+  width: 80%;
+  border-radius: 100px;
+  border: 2px solid black;
+  padding: 15px 15px;
+  font-size: 15px;
+  color: rgb(62, 61, 61);
+}
+.inputtn {
+  margin: auto 0;
+  text-align: center;
+}
+.cart-box-topic {
+  color: #5c5b5b;
+  width: 52.5%;
+  padding: 5px 0;
+  margin: 5px 0;
+  font-size: 46px;
+  border-bottom: 3px solid #797676;
+}
+.inputtn {
+  margin-top: 10px; /* Adjust the top margin as needed */
+  text-align: center;
+  position: relative;
+  left: 250px;
+  margin: 30px 0;
+  cursor: pointer;
+  text-transform: capitalize;
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+  border: 0;
+  padding: 20px;
+  font-size: 25px;
+}
+/* Updated CSS file (CartItem.css) */
+.cart-item-card {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0 0 20px 0;
+  width: 750px;
+  border-bottom: 2px solid #797676;
+  height: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.cart-item-title {
+  width: 100%;
+}
+.cart-item-footer {
+  width: 400px;
+  text-align: start;
+}
+.cart-item-image {
+  width: 200px;
+  height: 180px;
+  border-radius: 3px;
+}
+.checkclaz {
+  padding: 10px;
+}
+/* The container-check */
+.container-check {
+  display: block;
+  position: relative;
+  padding-left: 20px;
+
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-check .input-check {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container-check:hover .input-check ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-check .input-check:checked ~ .checkmark {
+  background-color: #5c5b5b;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-check .input-check:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-check .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.title-cancel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 480px;
+}
+.cart-item-title {
+  text-align: start;
+  text-transform: capitalize;
+  font-family: Bebas Neue;
+  font-weight: bold;
+  font-size: 25px;
+  letter-spacing: 1px;
+}
+.cart-item-description {
+  width: 480px;
+  margin: 8px 0;
+  font-family: Quicksand;
+}
+.cart-item-cancel {
+  cursor: pointer;
+  font-size: 30px;
+}
+.cart-item-title-sub {
+  font-family: Quicksand;
+  font-size: 15px;
+}
+.optionbtn {
+  margin: 5px 10px 0 0;
+  border: 0;
+  border-radius: 50px;
+  padding: 10px 15px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.option1 {
+  color: white;
+  background-color: black;
+}
+.option2 {
+  color: black;
+  background-color: white;
+  border: 2px solid black;
+}
+.option3 {
+  color: rgb(104, 100, 100);
+  background-color: white;
+  border: 2px solid rgb(104, 100, 100);
+}
+.optioncount {
+  border: 3px solid black;
+  width: 60px;
+  text-align: center;
+  padding: 5px 15px;
+  margin: 8px 0;
+  font-size: 20px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+.title-cancel-qunt {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 480px;
+  margin: 10px 0;
+  justify-content: space-between;
+}
+.paraempty {
+  font-weight: bold;
+  color: #5c5b5b;
+  text-align: start;
+}
+.paraempty-shop {
+  color: black;
+  cursor: pointer;
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  .right-colum-price-name,
+  .right-colum-price {
+    width: 100%;
+  }
+}
