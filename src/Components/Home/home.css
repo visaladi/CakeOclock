@@ -1,0 +1,420 @@
+@import url("https://fonts.cdnfonts.com/css/copperplate-gothic-light");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.background2 {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 790vh;
+  background-image: url("./img/bkk.png"); /* Adjust the path based on your folder structure */
+  background-size: cover;
+  background-position: center;
+}
+
+/*CATEGORIES*/
+.catimg {
+  width: 250px;
+  margin: 25px;
+}
+.cat-topic {
+  font-weight: bold;
+  font-size: 45px;
+  margin: 10px;
+  color: #201c1e;
+  text-align: center;
+  font-family: "Copperplate Gothic Light", sans-serif;
+}
+.cat-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: space-around;
+  flex-wrap: wrap;
+  padding: 0;
+  border: 0;
+  text-align: center;
+}
+.cat-img-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+}
+
+/*collection*/
+.collection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: space-around;
+  flex-wrap: wrap;
+  padding: 0;
+  border: 0;
+  margin: 150px 0;
+}
+.collection-colum2 {
+  width: 550px;
+  text-align: center;
+}
+.img-coll {
+  width: 350px;
+}
+.coletion-topic {
+  color: white;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  font-size: 50px;
+}
+.coletion-para {
+  color: white;
+  font-family: "Roboto", sans-serif;
+  text-transform: capitalize;
+  font-size: 25px;
+  margin: 80px 0 0 0;
+}
+.btnshop {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  border: 0;
+  color: #201c1ed6;
+  font-size: 20px;
+  margin: 50px 0;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+}
+.shop-icon {
+  margin: 0 8px;
+}
+/*about*/
+.about-bk {
+  background-image: url("./img/about-bk.png");
+  padding: 2px 0;
+}
+.about {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+}
+.Box-1-about {
+  width: 40%;
+  padding: 50px;
+}
+
+.about-topic {
+  color: #282526;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  font-size: 80px;
+  font-weight: bolder;
+}
+.about-para {
+  color: #282526;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  text-transform: capitalize;
+  font-size: 22px;
+  margin: 20px 0 0 0;
+}
+.btnabout {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 0;
+  color: #201c1ed6;
+  font-size: 20px;
+  margin: 50px 0;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+}
+/*Everyone*/
+.everyone {
+  text-align: center;
+  padding: 60px 350px;
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+.everyone-topic {
+  font-size: 45px;
+  font-weight: bolder;
+  font-family: "Roboto", sans-serif;
+}
+.everyone-para {
+  font-size: 20px;
+  margin: 10px 0 0 0;
+  font-family: "Roboto", sans-serif;
+}
+/*Outlets*/
+.Outlets-bk {
+  background-image: url("./img/Coconut.png");
+  padding: 2px 0;
+}
+.Outlets {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+}
+.Box-1-Outlets {
+  width: 40%;
+  padding: 50px;
+}
+
+.Outlets-topic {
+  color: #282526;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  font-size: 80px;
+  font-weight: bolder;
+}
+.Outlets-para {
+  color: #282526;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  text-transform: capitalize;
+  font-size: 22px;
+  margin: 20px 0 0 0;
+}
+.btnOutlets {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 0;
+  color: #201c1ed6;
+  font-size: 20px;
+  margin: 50px 0;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+}
+.img-outlet {
+  width: 500px;
+  height: 530px;
+}
+.outlet-colum1 {
+  width: 600px;
+  padding: 0 0 0 130px;
+}
+/*Seasons*/
+.seasons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: space-around;
+  flex-wrap: wrap;
+
+  border: 0;
+}
+.seaimg {
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  border-radius: 2px;
+}
+.sea-topic {
+  font-weight: bold;
+  font-size: 45px;
+  margin: 10px;
+  color: #201c1e;
+  text-align: center;
+  font-family: "Copperplate Gothic Light", sans-serif;
+}
+.sea-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: space-around;
+  flex-wrap: wrap;
+  padding: 0;
+  border: 0;
+  text-align: center;
+}
+.seasons-topic {
+  color: white;
+  font-family: roboto;
+  font-weight: bold;
+  margin: 50px;
+  font-size: 30px;
+}
+.seasons-sub-topic {
+  color: white;
+  font-family: roboto;
+  font-weight: 300;
+}
+.seasons-card {
+  background-color: white;
+  margin: 0 20px;
+  padding: 2px;
+  border-radius: 0px 0px 20px 20px;
+}
+
+.sea-img-name {
+  text-transform: capitalize;
+  color: #4e281b;
+  font-family: roboto;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin: 5px 0 0 0;
+  font-style: italic;
+}
+
+.rating {
+  display: inline-block;
+  margin: 5px 0 0 0;
+}
+
+.rating .rating-star {
+  font-size: 30px;
+  color: #ffcc00;
+  cursor: pointer;
+}
+
+.btn-view-more {
+  position: relative;
+  text-align: end;
+  margin: 50px 190px 0 0;
+}
+.btn-view {
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid white;
+  padding: 5px 20px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: roboto;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.btn-view-icon {
+  margin: 0 0 0 8px;
+  position: relative;
+  top: 3px;
+  cursor: pointer;
+}
+
+/*Slider*/
+#slider {
+  position: relative;
+  width: 60%;
+  height: 40vw;
+  margin: 80px auto;
+  font-family: "Helvetica Neue", sans-serif;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.slider-input {
+  position: relative;
+  display: none;
+  top: 108%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: 0 15px 0 0;
+  opacity: 0.4;
+  transform: translateX(-83px);
+  cursor: pointer;
+}
+
+.slider-input:nth-child(5) {
+  margin-right: 0px;
+}
+
+.slider-input:checked {
+  opacity: 1;
+}
+
+#slider .slider-label {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  color: white;
+  font-size: 70px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 400ms ease;
+}
+
+#slide1 {
+  background-image: url("./img/Slide\ Image\ \(1\).png");
+}
+
+#slide2 {
+  background-image: url("./img/Slide\ Image\ \(2\).png");
+}
+
+#slide3 {
+  background-image: url("./img/Slide\ Image\ \(3\).png");
+}
+
+#slide4 {
+  background-image: url("./img/Slide\ Image\ \(4\).png");
+}
+
+#slide5 {
+  background-image: url("./img/Slide\ Image.png");
+}
+
+/* Slider Functionality */
+
+/* Active Slide */
+#s1:checked ~ #slide1,
+#s2:checked ~ #slide2,
+#s3:checked ~ #slide3,
+#s4:checked ~ #slide4,
+#s5:checked ~ #slide5 {
+  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.3), 0 12px 6px rgba(0, 0, 0, 0.2);
+  transform: translate3d(0%, 0, 0px);
+}
+
+/* Next Slide */
+#s1:checked ~ #slide2,
+#s2:checked ~ #slide3,
+#s3:checked ~ #slide4,
+#s4:checked ~ #slide5,
+#s5:checked ~ #slide1 {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2);
+  transform: translate3d(15%, 0, -100px);
+}
+
+/* Next to Next Slide */
+#s1:checked ~ #slide3,
+#s2:checked ~ #slide4,
+#s3:checked ~ #slide5,
+#s4:checked ~ #slide1,
+#s5:checked ~ #slide2 {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  transform: translate3d(30%, 0, -250px);
+}
+
+/* Previous to Previous Slide */
+#s1:checked ~ #slide4,
+#s2:checked ~ #slide5,
+#s3:checked ~ #slide1,
+#s4:checked ~ #slide2,
+#s5:checked ~ #slide3 {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  transform: translate3d(-30%, 0, -250px);
+}
+
+/* Previous Slide */
+#s1:checked ~ #slide5,
+#s2:checked ~ #slide1,
+#s3:checked ~ #slide2,
+#s4:checked ~ #slide3,
+#s5:checked ~ #slide4 {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2);
+  transform: translate3d(-15%, 0, -100px);
+}

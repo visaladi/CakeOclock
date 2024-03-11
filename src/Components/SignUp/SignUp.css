@@ -1,0 +1,61 @@
+.background {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 400vh;
+  background-image: url("./img/bk.png"); /* Adjust the path based on your folder structure */
+  background-size: cover;
+  background-position: center;
+}
+
+.signup-label {
+  font-family: "Julius Sans One", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 26.18px;
+  display: block;
+  margin-bottom: 5px;
+  color: #252525;
+}
+
+.signup-form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccccccb9;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #252525;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup-table {
+  width: 100%;
+  border-collapse: collapse;
+  padding-top: 100px;
+}
+
+.signup-table td {
+  padding: 10px;
+}
+
+.signup-table .signup-form-group {
+  margin-bottom: 0; /* Remove margin bottom for better table layout */
+}
+.signup-form {
+  padding-bottom: 100px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 50px;
+}
+
+.signup-btn {
+  padding-left: 290px;
+  padding-top: 50px;
+}

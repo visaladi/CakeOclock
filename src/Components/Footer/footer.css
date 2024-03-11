@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: roboto;
+}
+.foter-full {
+  position: relative;
+  padding: 10px; /* Add padding as needed */
+  background-color: #f0f0f000; /* Add your desired background color */
+  margin-top: auto;
+  padding: 100px 12% 0 12%;
+}
+.footer-left-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.footer-right-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 40px;
+}
+
+.icon-set-footer {
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+.icon-footer {
+  font-size: 24px; /* Adjust the font size as needed */
+  color: #000; /* Set the desired color */
+  cursor: pointer;
+}
+
+.footer-nav-set {
+  font-size: 16px;
+  color: #474747;
+  cursor: pointer;
+}
+.footer-nav-topic {
+  margin: 10px 0;
+}
+.footer-left-bottom-icon {
+  font-size: 20px;
+  margin: 0 8px;
+}
+.footer-left-bottom-name {
+  font-size: 20px;
+}
+.icon-footer {
+  color: white;
+  background-color: #474747;
+  padding: 10px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 8px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.icon-footer-topic {
+  font-weight: bold;
+  margin: 0 8px;
+  font-size: 25px;
+}
