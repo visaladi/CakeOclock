@@ -16,7 +16,7 @@
     }
     else
     {
-        @*@if (Order.OrderHeader.Status == SD.Status_Confirmed) *@
+        @* @if (Order.OrderHeader.Status == SD.Status_Confirmed) *@
         @if (Order != null && Order.OrderHeader != null && Order.OrderHeader.Status == SD.Status_Confirmed)
         {
             <div class="row mt-4 pt-4">

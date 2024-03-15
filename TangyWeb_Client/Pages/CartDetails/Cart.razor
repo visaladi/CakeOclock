@@ -53,7 +53,8 @@ else
 							<div class="col-12 text-sm-center col-md-7 text-md-start row  pt-lg-3 mt-3">
 								<div class="col-4 pt-1 ">
 
-									<h6><strong>@item.ProductPrice.Price.ToString("c") <span class="text-muted">x</span> @item.Count </strong></h6>
+									<h6><strong>Rs @item.ProductPrice.Price.ToString("N2") <span class="text-muted">x</span> @item.Count </strong></h6>
+									
 								</div>
 								<div class="col-6 col-sm-4 col-lg-6">
 									<button @onclick="()=>Increment(item.ProductId, item.ProductPriceId, 1)" type="submit" class="btn btn-primary">
@@ -82,8 +83,11 @@ else
 						<div class="col-12 col-md-6 offset-md-1 col-lg-4 offset-lg-3 pr-4">
 							<ul class="list-group">
 								<li class="list-group-item d-flex justify-content-between bg-light">
-									<span class="text-info"> Total (USD)</span>
-									<strong class="text-info">@OrderTotal.ToString("c")</strong>
+									@* <span class="text-info"> Total (USD)</span>
+									<strong class="text-info">@OrderTotal.ToString("c")</strong> *@
+									<strong class="text-info"> Total (Rs)</strong>
+									<strong class="text-info">Rs @OrderTotal.ToString("N2")</strong>
+
 								</li>
 							</ul>
 						</div>

@@ -13,6 +13,16 @@ namespace TangyWeb_Client.Helper
         {
             await jSRuntime.InvokeVoidAsync("ShowToastr", "error", message);
         }
+
+        private static async ValueTask SweetAlertSuccess(this IJSRuntime jSRuntime, string message)
+        {
+            await jSRuntime.InvokeVoidAsync("ShowSwal", "success", "Task completed successfully!");
+        }
+
+        private static async ValueTask SweetAlertFailure(this IJSRuntime jSRuntime, string message)
+        {
+            await jSRuntime.InvokeVoidAsync("ShowSwal", "error", "Task Faild!");
+        }
     }
 }
  

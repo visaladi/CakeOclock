@@ -127,18 +127,27 @@ else
                                 <div class="row my-1">
                                     <div class="col-3">Image</div>
                                     <div class="col-9">
-                                        @* https://cakeoclockwebapi.azurewebsites.net/api/File/ *@
-                                        <img src="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" width="600px" height="350px" />
-                                        <input value="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" />
-                                        <div class="col-12 col-md-4 offset-md-2 text-right">
-                                            <a href="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" class="btn btn-outline-info form-control btn-sm">Download Image</a>
-                                        </div>
+                                        @if (Order.OrderHeader.CustomerImage != null)
+                                        {
+                                            @* https://cakeoclockwebapi.azurewebsites.net/api/File/ *@
 
-                                        @* <img src="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" width="600px" height="350px" />
-                                        <input value="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" />
-                                        <div class="col-12 col-md-4 offset-md-2 text-right">
+                                            <img src="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" width="600px" height="350px" />
+                                            <input value="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" />
+                                            <div class="col-12 col-md-4 offset-md-2 text-right">
+                                                <a href="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" class="btn btn-outline-info form-control btn-sm">Download Image</a>
+                                            </div>
+
+                                            @* <img src="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" width="600px" height="350px" />
+                                            <input value="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" />
+                                            <div class="col-12 col-md-4 offset-md-2 text-right">
                                             <a href="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" class="btn btn-outline-info form-control btn-sm">Download Image</a>
-                                        </div> *@
+                                            </div> *@
+
+                                        }
+                                        else{
+                                            <img src="~/images/default.png" width="60px" height="25px" />
+                                        }
+                                        
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -172,11 +181,11 @@ else
                                         <div class="row container">
                                             <div class="col-8">
                                                 <h6 class="my-0 text-primary">@detail.ProductName</h6>
-                                                <small class="text-muted">Price : @detail.Price.ToString("c")</small><br />
+                                                <small class="text-muted">Price :Rs @detail.Price.ToString("N2")</small><br />
                                                 <small class="text-muted">Quantity : @detail.Count</small>
                                             </div>
                                             <div class="col-4 text-end">
-                                                <p class="text-success">@((detail.Count * detail.Price).ToString("c"))</p>
+                                                <p class="text-success">Rs @((detail.Count * detail.Price).ToString("N2"))</p>
                                             </div>
                                         </div>
                                     </li>
@@ -187,7 +196,7 @@ else
                                             <h5 class="text-white">TOTAL </h5>
                                         </div>
                                         <div class="col-6 text-end">
-                                            <h5 class="text-white">@Order.OrderHeader.OrderTotal.ToString("c")</h5>
+                                            <h5 class="text-white">Rs @Order.OrderHeader.OrderTotal.ToString("N2")</h5>
                                         </div>
                                     </div>
                                 </li>

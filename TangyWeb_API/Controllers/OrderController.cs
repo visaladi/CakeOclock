@@ -63,8 +63,8 @@ namespace TangyWeb_API.Controllers
 
             if (result != null)
             {
-                await _emailSender.SendEmailAsync(orderDTO.OrderHeader.Email, "Tangy Order Confirmation",
-                    "New Order has been created: " ); // + result.Id
+                await _emailSender.SendEmailAsync(orderDTO.OrderHeader.Email, "Cake'O Clock Order Confirmation",
+                    "New Order has been created: " + orderDTO.OrderHeader.Id); // + 
 
                 return Ok(result);
             }
@@ -88,7 +88,7 @@ namespace TangyWeb_API.Controllers
 
                 if (result != null)
                 {
-                    await _emailSender.SendEmailAsync(orderHeaderDTO.Email, "Tangy Order Confirmation",
+                    await _emailSender.SendEmailAsync(orderHeaderDTO.Email, "Cake'O Clock Order Confirmation",
                         "New Order has been created: " + result.Id);
 
                     return Ok(result);

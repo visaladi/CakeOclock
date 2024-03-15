@@ -26,7 +26,7 @@ namespace Tangy_Models
         [Required]
         public string ProductName { get; set; }
 
-        [Required]
-        public string CustomerImage { get; set; }
+        
+        public string? CustomerImage { get; set; }
     }
 }
