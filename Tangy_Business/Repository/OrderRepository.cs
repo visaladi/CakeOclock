@@ -32,6 +32,16 @@ namespace Tangy_Business.Repository
                 orderHeader.Status = SD.Status_Cancelled;
                 await _db.SaveChangesAsync();
             }
+            if (orderHeader.Status == SD.Status_Delivered)
+            {
+                orderHeader.Status = SD.Status_Cancelled;
+                await _db.SaveChangesAsync();
+            }
+            if (orderHeader.Status == SD.Status_Recived)
+            {
+                orderHeader.Status = SD.Status_Cancelled;
+                await _db.SaveChangesAsync();
+            }
             if (orderHeader.Status == SD.Status_Confirmed)
             {
                 //refund
