@@ -363,7 +363,7 @@ else
 
 
             // Update the order details or any other logic as needed
-            Order.OrderHeader.Status = SD.Status_Confirmed;
+            Order.OrderHeader.Status = SD.Status_Pending;
 
             // Create a DTO to represent the order details if needed
             var orderDTO = new OrderDTO
@@ -378,7 +378,7 @@ else
 
             // Additional logic if needed after confirming the order directly
 
-            await _jsRuntime.ToastrSuccess("Order confirmed successfully");
+            await _jsRuntime.ToastrSuccess("Order Placed successfully");
 
             _navigationManager.NavigateTo("/orderconfirmation");
         }
