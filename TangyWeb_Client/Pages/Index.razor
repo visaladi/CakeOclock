@@ -53,7 +53,7 @@ else
     <div class="box"></div>
 
     <div class="image-container">
-        <img src="images/wannamake.png" alt="Image" style="width: 40%; max-height: 150px; object-fit: cover;" />
+        <img src="images/wannamake2.png" alt="Image" style="width: 40%; max-height: 150px; object-fit: cover;" />
     </div>
 
     <div class="vertical-space"></div>
@@ -71,20 +71,21 @@ else
         display: flex;
         justify-content: center;
         align-items: center;
-          /* Adjust height if needed */
+          
     }
 
     .bake-button {
-        background-color: whitesmoke; /* Green background */
-        border: none; /* No border */
-        color: b; /* White text */
-        padding: 10px 15px; /* Padding */
-        text-align: center; /* Center text */
-        text-decoration: none; /* No underline */
-        display: inline-block; /* Display as inline block */
-        font-size: 16px; /* Font size */
-        cursor: pointer; /* Cursor on hover */
-        border-radius: 10px; /* Rounded corners */
+        background-color: whitesmoke; 
+        border: none;
+        color: rgba(0, 0, 0, 0.8);
+        padding: 10px 15px;
+        text-align: center; 
+        text-decoration: none; 
+        display: inline-block; 
+        font-size: 16px;
+        cursor: pointer; 
+        border-radius: 10px; 
+        font-family: "Quicksand", sans-serif;
     }
 
     .bake-button:hover {
@@ -273,9 +274,7 @@ else
     
 
 
-    <div class="text-center">
-    <p style="font-size: 40px; font-weight: bold;">Categories</p>
-</div>
+    <div class="text-center">Categories</div>
 
 
 
@@ -306,22 +305,31 @@ else
  <style>
     .photos-container {
         display: flex;
-        justify-content: space-between; /* Adjust alignment as needed */
-        flex-wrap: wrap; /* Allow items to wrap */
+        justify-content: space-between; 
+        flex-wrap: wrap; 
         margin: 0 auto;
-        max-width: 1000px; /* Adjust as needed */
+        max-width: 1000px; 
+
         
+    }
+    .text-center {
+        font-family: "Quicksand", sans-serif;
+        font-size: 40px; 
+        margin-bottom:30px;
+        color: rgba(0, 0, 0, 0.8);
     }
 
     .photo-tile {
-        flex: 0 0 calc(25% - 40px); /* Adjust width and spacing */
-        margin-bottom: 10px; /* Adjust vertical spacing */
+        flex: 0 0 calc(25% - 40px); 
+        margin-bottom: 10px; 
         text-align: center;
         
     }
 
     .caption {
         margin-top: 10px;
+                    color: rgba(0, 0, 0, 0.8);
+                    font-family: "Quicksand", sans-serif;
     }
 
     .photo-tile img {
@@ -334,9 +342,12 @@ else
 
 <div class="container" style="background-image: url('images/Coconut.png'); ">
     <div class="text-column">
-        <h2>Description</h2>
+        <h2>Products</h2>
         <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-        <button class="shop-button">Shop now</button>
+                    
+                    <a href="/ProductsPage">
+                        <button class="bake-button">Shop now</button>
+                    </a>
     </div>
     <div class="photo-column">
         <img src="images/product.png" alt="Photo" />
@@ -351,7 +362,10 @@ else
     <div class="text-column">
         <h2>About us</h2>
         <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-        <button class="shop-button">Test Drive</button>
+        
+                    <a href="/About">
+                        <button class="bake-button">About us</button>
+                    </a>
     </div>
     <div class="photo-column">
         <img src="images/about.png" alt="Photo" />
@@ -380,6 +394,8 @@ else
     .text {
         text-align: center;
         max-width: 400px;
+                    font-family: "Quicksand", sans-serif;
+                    color:white;
         
     }
 
@@ -394,9 +410,11 @@ else
         <img src="images/outlet.png" alt="Photo" />
     </div>
     <div class="text-column">
-        <h2>Description</h2>
+        <h2>Our Outlets</h2>
         <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-        <button class="shop-button">View</button>
+                    <a href="/Outlets">
+                        <button class="bake-button">Our Outlets</button>
+                    </a>
     </div>
     
 </div>
@@ -486,6 +504,7 @@ else
 
 
 
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
 
 
 
@@ -499,57 +518,6 @@ else
 </style>
 
 
-
-
-
-
-@* <style>
-    .container1 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .text-column {
-        flex: 1;
-        padding-right: 20px;
-        
-        
-    }
-
-    .photo-column {
-        flex: 1;
-        text-align: center;
-        
-    }
-
-    .photo-column img {
-        max-width: 100%;
-        height: 350px;
-    }
-
-    
-    
-
-    .view-button {
-        display: block;
-        margin-top: 10px; /* Adjust as needed */
-        padding: 5px 8px;
-        background-color: white;
-        color: #007bff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        
-    }
-
-    .view-button:hover {
-        background-color: #0056b3;
-    }
-</style> *@
 
 
 <style>
@@ -569,6 +537,7 @@ else
         padding-left: 100px;
         max-width: 70%;
         text-align: justify;
+        font-family: "Quicksand", sans-serif;
     }
 
     .photo-column {
@@ -606,9 +575,11 @@ else
     .image-tiles {
         display: flex;
         justify-content: space-between;
-        gap: 20px; /* Adjust the gap between tiles */
+        gap: 20px; 
         width: 80%;
-        margin: 0 auto; /* Center horizontally */
+        margin: 0 auto; 
+        font-family: "Quicksand", sans-serif;
+        color:white;
     }
 
     .image-tile {
