@@ -222,5 +222,27 @@ namespace TangyWeb_API.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetUserProfile(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userProfile = new UserProfileDTO
+            {
+                
+                Name = user.Name,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+                
+            };
+
+            return Ok(userProfile);
+        }
+
     }
 }

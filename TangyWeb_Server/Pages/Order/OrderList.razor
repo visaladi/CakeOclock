@@ -18,7 +18,11 @@
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Name" Title="Name" />
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="PhoneNumber" Title="Phone" />
                 @* <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Email" Title="Email" /> *@
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderTotal" Title="Total" />
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderTotal" Title="Total">
+                    <Template Context="order">
+                        @($"Rs. {order.OrderTotal:N2}")
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderDate" Title="Order Date" FormatString="{0:d}" />
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Status" Title="Status" />
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Title="Details">

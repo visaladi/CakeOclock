@@ -6,6 +6,7 @@ namespace Tangy_Business.Repository.IRepository
     {
         public Task<OrderDTO> Get(int id);
         public Task<IEnumerable<OrderDTO>> GetAll(string? userId = null, string? status = null);
+        public Task<IEnumerable<OrderDTO>> GetAllLoadedByEmail(string userEmail);
         public Task<OrderDTO> Create(OrderDTO objDTO);
         public Task<int> Delete(int id);
 

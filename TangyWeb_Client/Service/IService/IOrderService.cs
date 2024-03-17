@@ -8,7 +8,9 @@ namespace TangyWeb_Client.Service.IService
 
         public Task<IEnumerable<OrderDTO>> GetAllLoaded();
 
-        public Task<IEnumerable<OrderDTO>> GetAllLoadedPhoneNumber(string userPhoneNumber);
+        public Task<IEnumerable<OrderDTO>> GetAllLoadedByEmail(string userEmail);
+
+        public Task<IEnumerable<UserProfileDTO>> GetUserByEmail(string email);
 
         public Task<OrderDTO> Get(int orderId);
 
