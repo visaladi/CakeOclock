@@ -137,6 +137,28 @@ namespace Tangy_Business.Repository
             return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(OrderFromDb);
         }
 
+        public async Task<IEnumerable<OrderDTO>> GetAllLoadedByEmail(string userEmail)
+        {
+            List<Order> OrderFromDb = new List<Order>();
+            IEnumerable<OrderHeader> orderHeaderList = await _db.OrderHeaders.ToListAsync();
+            IEnumerable<OrderDetail> orderDetailsList = await _db.OrderDetails.ToListAsync();
+
+            // Filter orders by user phone number
+            orderHeaderList = orderHeaderList.Where(header => header.Email == userEmail);
+
+            foreach (OrderHeader header in orderHeaderList)
+            {
+                Order order = new()
+                {
+                    OrderHeader = header,
+                    OrderDetails = orderDetailsList.Where(u => u.OrderHeaderId == header.Id),
+                };
+                OrderFromDb.Add(order);
+            }
+
+            return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(OrderFromDb);
+        }
+
         public async Task<OrderHeaderDTO> MarkPaymentSuccessful(int id, string paymentIntentId)
         {
             var data = await _db.OrderHeaders.FindAsync(id);
