@@ -10,11 +10,13 @@ namespace TangyWeb_Client.Serivce
         private readonly HttpClient _httpClient;
         private IConfiguration _configuration;
         private string BaseServerUrl;
+        
         public OrderService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _configuration = configuration;
             BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
+            
         }
 
         public async Task<OrderDTO> Create(StripePaymentDTO paymentDTO)
@@ -82,6 +84,34 @@ namespace TangyWeb_Client.Serivce
             return new List<OrderDTO>();
         }
 
+        public async Task<IEnumerable<OrderDTO>> GetAllLoaded()
+        {
+            var response = await _httpClient.GetAsync("/api/order/GetAll");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var orders = JsonConvert.DeserializeObject<IEnumerable<OrderDTO>>(content);
+
+                return orders;
+            }
+
+            return new List<OrderDTO>();
+        }
+
+        public async Task<IEnumerable<OrderDTO>> GetAllLoadedPhoneNumber(string userPhoneNumber)
+        {
+            var response = await _httpClient.GetAsync($"/api/Order/GetOrdersByPhoneNumber{userPhoneNumber}");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var orders = JsonConvert.DeserializeObject<IEnumerable<OrderDTO>>(content);
+
+                return orders;
+            }
+
+            return new List<OrderDTO>();
+        }
+
         public async Task<OrderHeaderDTO> MarkPaymentSuccessful(OrderHeaderDTO orderHeader)
         {
             var content = JsonConvert.SerializeObject(orderHeader);
@@ -96,5 +126,7 @@ namespace TangyWeb_Client.Serivce
             var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(responseResult);
             throw new Exception(errorModel.ErrorMessage);
         }
+
+        
     }
 }
