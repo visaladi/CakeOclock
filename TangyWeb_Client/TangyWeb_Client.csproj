@@ -10,14 +10,17 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.2" />
+    <PackageReference Include="MudBlazor" Version="6.17.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Stripe.net" Version="43.4.0" />
+    <PackageReference Include="Radzen.Blazor" Version="4.27.1" />
+    <PackageReference Include="Stripe.net" Version="43.19.0" />
     <PackageReference Include="Syncfusion.Blazor.Core" Version="24.2.4" />
     <PackageReference Include="Syncfusion.Blazor.Navigations" Version="24.2.4" />
     <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="24.1.41" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tangy_Business\Tangy_Business.csproj" />
     <ProjectReference Include="..\Tangy_Common\Tangy_Common.csproj" />
     <ProjectReference Include="..\Tangy_Models\Tangy_Models.csproj" />
   </ItemGroup>

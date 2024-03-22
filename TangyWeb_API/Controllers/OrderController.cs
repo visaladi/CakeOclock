@@ -102,5 +102,15 @@ namespace TangyWeb_API.Controllers
 
             return BadRequest();
         }
+
+
+        [HttpGet("{userEmail}")]
+        public async Task<IActionResult> GetOrdersByEmail(string userEmail)
+        {
+            var orders = await _orderRepository.GetAllLoadedByEmail(userEmail);
+            return Ok(orders);
+        }
+
+
     }
 }

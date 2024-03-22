@@ -32,6 +32,16 @@ namespace Tangy_Business.Repository
                 orderHeader.Status = SD.Status_Cancelled;
                 await _db.SaveChangesAsync();
             }
+            if (orderHeader.Status == SD.Status_Delivered)
+            {
+                orderHeader.Status = SD.Status_Cancelled;
+                await _db.SaveChangesAsync();
+            }
+            if (orderHeader.Status == SD.Status_Recived)
+            {
+                orderHeader.Status = SD.Status_Cancelled;
+                await _db.SaveChangesAsync();
+            }
             if (orderHeader.Status == SD.Status_Confirmed)
             {
                 //refund
@@ -124,6 +134,28 @@ namespace Tangy_Business.Repository
                 OrderFromDb.Add(order);
             }
             // do some filtering # TODO
+            return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(OrderFromDb);
+        }
+
+        public async Task<IEnumerable<OrderDTO>> GetAllLoadedByEmail(string userEmail)
+        {
+            List<Order> OrderFromDb = new List<Order>();
+            IEnumerable<OrderHeader> orderHeaderList = await _db.OrderHeaders.ToListAsync();
+            IEnumerable<OrderDetail> orderDetailsList = await _db.OrderDetails.ToListAsync();
+
+            // Filter orders by user phone number
+            orderHeaderList = orderHeaderList.Where(header => header.Email == userEmail);
+
+            foreach (OrderHeader header in orderHeaderList)
+            {
+                Order order = new()
+                {
+                    OrderHeader = header,
+                    OrderDetails = orderDetailsList.Where(u => u.OrderHeaderId == header.Id),
+                };
+                OrderFromDb.Add(order);
+            }
+
             return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(OrderFromDb);
         }
 

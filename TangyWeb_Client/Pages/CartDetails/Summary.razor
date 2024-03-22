@@ -1,6 +1,9 @@
 ﻿@page "/summary"
 @using Microsoft.AspNetCore.Authorization
 @using TangyWeb_Client.Serivce.IService
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+
 
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
@@ -63,7 +66,7 @@ else
             </div>
 
             <div class="col-12 col-lg-5 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
-                <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
+                <EditForm Model="Order.OrderHeader" OnValidSubmit="ConfirmOrderNow">
                     <DataAnnotationsValidator />
                     <div class="row px-2 text-success border-bottom"><div class="col-7 py-1"><p style="font-size:x-large;margin:0px;">Enter Details</p></div></div>
 
@@ -109,7 +112,7 @@ else
                     </div> *@
 
                     <div class="form-group pt-2">
-                        <button type="button" class="btn btn-primary form-control" @onclick="ConfirmOrderNow">Order Now</button>
+                        <button type="submit" class="btn btn-primary form-control" @onclick="ConfirmOrderNow">Order Now</button>
                     </div>
 
                 </EditForm>
@@ -197,8 +200,9 @@ else
         {
             IsProcessing = true;
 
+    
             // Update the order details or any other logic as needed
-            Order.OrderHeader.Status = SD.Status_Confirmed;
+            Order.OrderHeader.Status = SD.Status_Pending;
 
             // Create a DTO to represent the order details if needed
             var orderDTO = new OrderDTO
@@ -212,10 +216,17 @@ else
             await _localStorage.SetItemAsync(SD.Local_OrderDetails, result);
 
             // Additional logic if needed after confirming the order directly
+            if(result.OrderHeader != null || result.OrderDetails != null)
+            {
+                await _jsRuntime.ToastrSuccess("Order Placed successfully");
+                _navigationManager.NavigateTo("/orderconfirmation");
+            }
+            else
+            {
+                await _jsRuntime.ToastrFailure("Faild to Place the Order! Please fill the nessary information...!");
+            }
 
-            await _jsRuntime.ToastrSuccess("Order confirmed successfully");
-
-            _navigationManager.NavigateTo("/orderconfirmation");
+            
         }
         catch (Exception e)
         {
