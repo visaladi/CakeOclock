@@ -396,15 +396,11 @@ else
     {
         try
         {
-
-
             IsProcessing = true;
             var paymentDto = new StripePaymentDTO()
                 {
                     Order = Order
                 };
-
-
 
             var result = await _paymentService.Checkout(paymentDto);
 
