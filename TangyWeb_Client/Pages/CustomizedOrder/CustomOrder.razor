@@ -28,139 +28,268 @@
 }
 else
 {
-
+<div class="background-container" style="background-image: url('images/bk.png');">
+   <NavMenu />
     <div class="mt-4 mx-4 px-md-5 mx-md-5 p-1">
 
-        <div class="row p-2 my-3">
-            @* <div class="col-12 col-lg-7 p-4">
-                <div class="row px-2 text-success ">
-                    <div class="col-8 py-1"><p style="font-size:x-large;margin:0px;">Order Summary</p></div>
-                    <div class="col-4 p-0" style="text-align:right">
-                        <a href="/cart" class="btn btn-secondary btn-block">Back to cart</a>
-                    </div>
-                </div>
-
-                @foreach (var prod in Order.OrderDetails)
-                {
-
-                    <div class="row border p-1 m-1">
-
-                        <div class="col-3 col-md-2 ">
-                            <img src="@prod.Product.ImageUrl" width="100%">
-                        </div>
-                        <div class="col-5 col-md-5 ">
-                            <span class="">Product : @prod.ProductName </span><br />
-                            <span class="pt-1">Size : @prod.Size</span><br />
-                            <span class="pt-1">Count : @prod.Count</span><br />
-
-                        </div>
-                        <div class="col-4 col-md-5 " style="text-align:right;">
-                            <h4 class="text-warning font-weight-bold pt-2">
-                                USD
-                                <span style="border-bottom:1px solid #ff6a00">
-                                    @((prod.Count * prod.Price).ToString("c"))
-                                </span>
-                            </h4>
-                        </div>
-                    </div>
-                }
-                <div class="row" style="text-align:right">
-                    <div class="col-12 px-3">
-                        <h3> Order Total : <span class="text-secondary">@Order.OrderHeader.OrderTotal.ToString("c")</span> </h3>
-                    </div>
-                </div>
-            </div> *@
-
-            <div class="col-12 col-lg-10 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
-                <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Image Name</label>
-                        <ValidationMessage For="() => Order.OrderHeader.CustomerImage"></ValidationMessage>
-                    </div>
-                    <InputFile OnChange="@OnInputFileChange" multiple />
 
 
-                    @if (fileNames.Count > 0)
-                    {
-                        <ul>
-                            @foreach (var fileName in fileNames)
-                            {
-                                Order.OrderHeader.CustomerImage = fileName;
-                                <li>
-                                    File: @fileName
-                                    <br>
-                                    <span>
-                                        Stored File Name: @GetStoredFileName(fileName)
-                                    </span>
-                                    <button @onclick="@(() => DownloadFile(GetStoredFileName(fileName), fileName))">Download file</button>
-                                </li>
-                            }
-                        </ul>
-                    }
-                    <div class="form-group">
-                        <label>Description</label>
-                        <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
-                        <ValidationMessage For="()=>Order.OrderHeader.CustomerDescription" />
-                    </div>
-                    <DataAnnotationsValidator />
-                    <div class="row px-2 text-success border-bottom"><div class="col-7 py-1"><p style="font-size:x-large;margin:0px;">Enter Details</p></div></div>
 
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Name</label>
-                        <InputText @bind-Value="Order.OrderHeader.Name" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.Name"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Phone</label>
-                        <InputText @bind-Value="Order.OrderHeader.PhoneNumber" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.PhoneNumber"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Email</label>
-                        <InputText @bind-Value="Order.OrderHeader.Email" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.Email"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Street Address</label>
-                        <InputText @bind-Value="Order.OrderHeader.StreetAddress" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.StreetAddress"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">City</label>
-                        <InputText @bind-Value="Order.OrderHeader.City" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.City"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">State</label>
-                        <InputText @bind-Value="Order.OrderHeader.State" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.State"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Postal Code</label>
-                        <InputText @bind-Value="Order.OrderHeader.PostalCode" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.PostalCode"></ValidationMessage>
-                    </div>
-                    @* <div class="form-group">
-                        <label>Description</label>
-                        <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
-                        <ValidationMessage For="()=>Order.OrderHeader.CustomerDescription" />
-                    </div> *@
-                    
 
-                    @* <div class="form-group pt-2">
-                <button type="submit" class="btn btn-success form-control">Checkout Now</button>
-                </div> *@
+            <div class="make">
+            <h2>Make your own Cake with us</h2>
+            <div class="vertical-space1"></div>
 
-                    <div class="form-group pt-2">
-                        <button type="button" class="btn btn-primary form-control" @onclick="ConfirmOrderNow">Order Now</button>
-                    </div>
+            <div class="paragraph">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 
-                </EditForm>
             </div>
+            </div>
+
+
+            <div class="row justify-content-center p-2 my-3 ">
+
+                <div class="col-12 col-lg-12 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
+                    <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
+                        <div class="row px-2 text-success border-bottom">
+                            <div class="col-7 py-1">
+                                <p class="form-title">Enter Details</p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Left Column -->
+                            <div class="col-md-6">
+                                
+
+                                <div class="vertical-space2"></div>
+                                <!-- DropdownComponent.razor -->
+                                <div>
+                                    <div class="text">
+                                    <label for="eventSelection">Select Event:</label>
+                                    </div>
+                                    <div class="vertical-space1"></div>
+                                    <select @bind="selectedEvent" id="eventSelection" class="form-control">
+                                        <option value="Birthday">Birthday</option>
+                                        <option value="Wedding">Wedding</option>
+                                        <option value="Party">Party</option>
+                                        <option value="Anniversary">Anniversary</option>
+                                        <option value="Celebration">Celebration</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    
+                                    <div class="vertical-space1"></div>
+
+                                    @if (selectedEvent == "Other")
+                                    {
+                                           
+                                        <div class="mt-2">
+                                            <div class="text">
+                                            <label for="otherEvent">Write Your Own Choice:</label>
+                                            </div>
+                                                <input type="text" @bind="otherEvent" id="otherEvent" class="form-control  custom-input" />
+                                        </div>
+                                        
+                                    }
+                                </div>
+
+                                @code {
+                                    private string selectedEvent { get; set; } = "Birthday";
+                                    private string otherEvent { get; set; }
+                                }
+                            <div class="vertical-space2"></div>
+
+                            <div>
+                                <div class="text">
+                                    <label for="weightSelection">Select Approximate Weight:</label>
+                                </div>
+                                <div class="vertical-space1"></div>
+                                <select @bind="selectedWeight" id="weightSelection" class="form-control">
+                                    <option value="1kg">1kg</option>
+                                    <option value="2kg">2kg</option>
+                                    <option value="3kg">3kg</option>
+                                    <option value="4kg">4kg</option>
+                                    <option value="5kg">5kg</option>
+                                    <option value="Custom">Custom Weight</option>
+                                </select>
+
+                                <div class="vertical-space1"></div>
+
+                                @if (selectedWeight == "Custom")
+                                    {
+
+                                        <div class="mt-2">
+                                            <div class="text">
+                                                <label for="customWeight">Enter Custom Weight:</label>
+                                            </div>
+                                            <input type="text" @bind="customWeight" id="customWeight" class="form-control  custom-input" />
+                                        </div>
+
+                                    }
+                                </div>
+
+                                @code {
+                                    private string selectedWeight { get; set; } = "2kg";
+                                    private string customWeight { get; set; }
+                            }
+                            <div class="vertical-space2"></div>
+                                <div class="form-group">
+                                <div class="text">
+                                    <label>Description</label>
+                                </div>
+                                <div class="vertical-space1"></div>
+                                    <SfRichTextEditor @bind-Value="Order.OrderHeader.CustomerDescription"></SfRichTextEditor>
+                                    <ValidationMessage For="()=>Order.OrderHeader.CustomerDescription" />
+                                </div>
+
+
+
+                            <div class="form-group pt-2">
+                                <label class="text">Add a Sample Image</label>
+                                <div class="vertical-space1"></div>
+                                <ValidationMessage For="() => Order.OrderHeader.CustomerImage"></ValidationMessage>
+                            </div>
+                            <InputFile OnChange="@OnInputFileChange" multiple />
+                            @if (fileNames.Count > 0)
+                                {
+                                    <ul>
+                                        @foreach (var fileName in fileNames)
+                                        {
+                                            Order.OrderHeader.CustomerImage = fileName;
+                                            <li>
+                                                File: @fileName
+                                                <br>
+                                                <span>
+                                                    Stored File Name: @GetStoredFileName(fileName)
+                                                </span>
+                                                <button @onclick="@(() => DownloadFile(GetStoredFileName(fileName), fileName))">Download file</button>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                            <!-- Right Column -->
+                            <div class="col-md-6">
+                                
+                                <div class="form-group pt-2">
+                                    <label class="text">Name</label>
+                                    <InputText @bind-Value="Order.OrderHeader.Name" type="text" class="form-control custom-input" />
+                                    <ValidationMessage For="() => Order.OrderHeader.Name"></ValidationMessage>
+                                </div>
+                                <div class="form-group pt-2">
+                                    <label class="text">Phone</label>
+                                    <InputText @bind-Value="Order.OrderHeader.PhoneNumber" type="text" class="form-control custom-input" />
+                                    <ValidationMessage For="() => Order.OrderHeader.PhoneNumber"></ValidationMessage>
+                                </div>
+                                <div class="form-group pt-2">
+                                    <label class="text">Email</label>
+                                    <InputText @bind-Value="Order.OrderHeader.Email" type="text" class="form-control custom-input" />
+                                    <ValidationMessage For="() => Order.OrderHeader.Email"></ValidationMessage>
+                                </div>
+                                <div class="form-group pt-2">
+                                    <label class="text">Street Address</label>
+                                    <InputText @bind-Value="Order.OrderHeader.StreetAddress" type="text" class="form-control custom-input" />
+                                    <ValidationMessage For="() => Order.OrderHeader.StreetAddress"></ValidationMessage>
+                                </div>
+                                <div class="form-group pt-2">
+                                    <label class="text">City</label>
+                                    <InputText @bind-Value="Order.OrderHeader.City" type="text" class="form-control custom-input" />
+                                    <ValidationMessage For="() => Order.OrderHeader.City"></ValidationMessage>
+                                </div>
+                                <div class="form-group pt-2">
+                                    <label class="text">State</label>
+                                    <InputText @bind-Value="Order.OrderHeader.State" type="text" class="form-control custom-input" />
+                                    <ValidationMessage For="() => Order.OrderHeader.State"></ValidationMessage>
+                                </div>
+                                <div class="form-group pt-2">
+                                    <label class="text">Postal Code</label>
+                                    <InputText @bind-Value="Order.OrderHeader.PostalCode" type="text" class="form-control custom-input" />
+                                    <ValidationMessage For="() => Order.OrderHeader.PostalCode"></ValidationMessage>
+                                </div>
+                            </div>
+                        </div>
+                        <DataAnnotationsValidator />
+                    <div class="vertical-space2"></div>
+                        
+                        <div class="form-group pt-2">
+                            <button type="button" class="btn btn-primary form-control custom-button" @onclick="ConfirmOrderNow">Order Now</button>
+                        </div>
+                    </EditForm>
+                </div>
+
+                
+
         </div>
     </div>
+    <Footer/>
+    </div>
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+
+        .form-title {
+            font-size: 40px;
+            margin: 0;
+            color:rgba(0, 0, 0, 0.8);
+            font-family: "Quicksand", sans-serif;
+
+        }
+        .custom-input {
+            border-color: rgba(0, 0, 0, 0.8); 
+            border-radius: 8px; 
+            margin-bottom:10px;
+            margin-top:5px;
+        }
+
+        .custom-button {
+            background-color: rgba(0, 0, 0, 0.8); 
+            border-color: black; 
+            color: white;
+            border-radius: 8px;
+            font-family: "Quicksand", sans-serif;
+        }
+
+            .custom-button:hover {
+                background-color: rgba(220, 20, 60, 0.8); 
+            }
+
+        .text {
+            
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.8);
+            font-family: "Quicksand", sans-serif;
+        }
+
+        .vertical-space1 {
+            height: 5px;
+        }
+
+        .vertical-space2 {
+            height: 20px;
+        }
+
+        .make {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: "Quicksand", sans-serif;
+        }
+
+        .paragraph {
+            text-align: center; 
+        }
+
+
+
+    </style>
+
 
 }
+
+
 
 @code {
     private OrderDTO Order { get; set; } = null;
@@ -234,7 +363,7 @@ else
 
 
             // Update the order details or any other logic as needed
-            Order.OrderHeader.Status = SD.Status_Confirmed;
+            Order.OrderHeader.Status = SD.Status_Pending;
 
             // Create a DTO to represent the order details if needed
             var orderDTO = new OrderDTO
@@ -249,9 +378,15 @@ else
 
             // Additional logic if needed after confirming the order directly
 
-            await _jsRuntime.ToastrSuccess("Order confirmed successfully");
-
-            _navigationManager.NavigateTo("/orderconfirmation");
+            if (result.OrderHeader != null || result.OrderDetails != null)
+            {
+                await _jsRuntime.ToastrSuccess("Order Placed successfully");
+                _navigationManager.NavigateTo("/orderconfirmation");
+            }
+            else
+            {
+                await _jsRuntime.ToastrFailure("Faild to Place the Order! Please fill the nessary information...!");
+            }
         }
         catch (Exception e)
         {

@@ -1,0 +1,83 @@
+﻿@page "/Outlets"
+
+
+<div class="background-container" style="background-image: url('images/bk.png');">
+<NavMenu/>
+    <div class="vertical-space1"></div>
+<div class="title">
+<h3>Restaurant Branches</h3>
+    </div>
+    <div class="vertical-space1"></div>
+
+@if (branches != null && branches.Any())
+{
+    <div class="row">
+        @foreach (var branch in branches)
+        {
+                <div class="col-md-4">
+                    <div class="branch" style="margin-left: 40px;">
+                        <h4>@branch.BranchName</h4>
+                        <p> @branch.Address</p>
+                        <p><strong>Phone Number:</strong> @branch.PhoneNumber</p>
+                        <p><strong>Location Address:</strong> @branch.LocationAddress</p>
+                        <div class="vertical-space1"></div>
+                    </div>
+                </div>
+
+        }
+    </div>
+
+}
+else
+{
+    <p>No branches found.</p>
+}
+    <Footer />
+</div>
+
+@code {
+    List<Branch> branches;
+
+    protected override void OnInitialized()
+    {
+        // Dummy data for demonstration
+        branches = new List<Branch>
+        {
+            new Branch { BranchName = "Main Branch", Address = "123 Main St,\ngalle", PhoneNumber = "123-456-7890", LocationAddress = "City1, Country1" },
+            new Branch { BranchName = "Downtown Branch", Address = "456 Downtown Ave", PhoneNumber = "456-789-0123", LocationAddress = "City2, Country2" },
+            new Branch { BranchName = "West End Branch", Address = "789 West End Blvd", PhoneNumber = "789-012-3456", LocationAddress = "City3, Country3" },
+            new Branch { BranchName = "West End Branch", Address = "789 West End Blvd", PhoneNumber = "789-012-3456", LocationAddress = "City3, Country3" },
+            
+        };
+    }
+
+    public class Branch
+    {
+        public string BranchName { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        public string LocationAddress { get; set; }
+    }
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
+<style>
+    .branch {
+        margin-left: 40px; 
+        font-family: "Quicksand", sans-serif;
+        
+    }
+
+    .vertical-space1 {
+        height:30px;
+    }
+
+    .title {
+        text-align: center;
+        font-family: "Quicksand", sans-serif;
+    }
+
+
+    
+   
+</style>

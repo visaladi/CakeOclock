@@ -17,11 +17,11 @@
     else
     {
         @* @if (Order.OrderHeader.Status == SD.Status_Confirmed) *@
-        @if (Order != null && Order.OrderHeader != null && Order.OrderHeader.Status == SD.Status_Confirmed)
+        @if (Order != null && Order.OrderHeader != null && Order.OrderHeader.Status == SD.Status_Pending)
         {
             <div class="row mt-4 pt-4">
                 <div class="col-10 offset-1 text-center">
-                    <h2 class="text-warning">Order Confirmed</h2>
+                    <h2 class="text-warning">You Have Placed The Order Successfully!</h2>
                     <div class="row">
                         <div class="col-6 col-md-3 offset-md-3 text-end">
                             <p>Your order has been placed successfully with order id : @Order.OrderHeader.Id</p>
@@ -80,7 +80,7 @@
             
             if (OrderHead.SessionId == null)
             {
-                Order.OrderHeader.Status = SD.Status_Confirmed;
+                Order.OrderHeader.Status = SD.Status_Pending;
                 await _localStorage.RemoveItemAsync(SD.ShoppingCart);
                 await _localStorage.RemoveItemAsync(SD.Local_OrderDetails);
             }
