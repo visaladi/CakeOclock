@@ -6,6 +6,10 @@
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
 
+<div class="background-container" style="background-image: url('images/bk.png');">
+<NavMenu/>
+
+
 @if (IsProcessing)
 {
 <div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
@@ -16,7 +20,7 @@ else
 {
 <EditForm OnSubmit="AddToCart" Model="DetailsVM" method="post">
     <DataAnnotationsValidator></DataAnnotationsValidator>
-    <div class="card container mt-4">
+            <div class="card container mt-4" style="background-color: transparent; ">
         <div class="card-header ml-0  row">
             <div class="col-12 col-md-6">
                 <h1 class="text-primary">@Product.Name</h1>
@@ -28,90 +32,141 @@ else
             </div>
         </div>
         <div class="card-body">
-            <div class="container rounded p-2">
-                <div class="row">
-                    <div class="col-10">
-                            <p>@((MarkupString)Product.Description)</p>
+                    <div class="container rounded p-2">
                         <div class="row">
-                            @foreach(var produtPrice in Product.ProductPrices){
+                            <div class="col-md-6">
+                                <!-- Main Image -->
+                                <img src="@Product.ImageUrl" width="100%" class="rounded mb-3" />
 
-                                    if(produtPrice.Id == DetailsVM.SelectedProductPriceId)
-                                    {
-                                        //this product is selected by user
-                                        <div class="col-2 bg-light text-center pt-2 m-2" style="border:3px solid #28A745; border-radius:10px;box-shadow:5px">
-                                            <p>@produtPrice.Size</p>
-                                            @* <p>@produtPrice.Price.ToString("c")</p> *@
-                                            <p>Rs @produtPrice.Price.ToString("N2")</p>
+                                <!-- Additional Images for Selection -->
+                                <div class="row">
+                                    <div class="col-4">
+                                        <img src="images/photo1.jpg" class="img-thumbnail" />
+                                    </div>
+                                    <div class="col-4">
+                                        <img src="images/photo2.jpg" class="img-thumbnail" />
+                                    </div>
+                                    <div class="col-4">
+                                        <img src="images/photo3.jpg" class="img-thumbnail" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Product details column -->
+                                <div class="row">
 
+                                    <div class="col-12 col-md-6">
+                                        <h2 class="text-primary">@Product.Name</h2>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>@((MarkupString)Product.Description)</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row m-2">
+                                            @foreach (var produtPrice in Product.ProductPrices)
+                                            {
+                                                <div class="col-2">
+                                                    @if (produtPrice.Id == DetailsVM.SelectedProductPriceId)
+                                                    {
+                                                        <div class="bg-light text-center pt-2"
+                                                             style="border:3px solid #28A745; border-radius:10px;box-shadow:5px"
+                                                             @onclick="(args)=>SelectedProductPrice(args,produtPrice.Id)">
+                                                            <p>@produtPrice.Size</p>
+                                                            <p>Rs @produtPrice.Price.ToString("N2")</p>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="bg-light text-center pt-2"
+                                                             style="border:1px solid; border-radius:10px;box-shadow:5px"
+                                                             @onclick="(args)=>SelectedProductPrice(args,produtPrice.Id)">
+                                                            <p>@produtPrice.Size</p>
+                                                            <p>Rs @produtPrice.Price.ToString("N2")</p>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
                                         </div>
-                                    }
-                                    else
-                                    {
-                                        //all other products
-                                        <div class="col-2 bg-light text-center pt-2 m-2" style="border:1px solid; border-radius:10px;box-shadow:5px"
-                                        @onclick="(args)=>SelectedProductPrice(args,produtPrice.Id)">
-                                            
-                                            <p>@produtPrice.Size</p>
-                                            @* <p>@produtPrice.Price.ToString("c")</p> *@
-                                            <p>Rs @produtPrice.Price.ToString("N2")</p>
 
-                                        </div>
-                                    }
+                                        @if (!Product.ProductPrices.Any())
+                                        {
+                                            <p class="text-warning">Product not available yet...</p>
+                                        }
+                                        else
+                                        {
+                                            <div class="row pl-2">
+                                                <div class="col-2 text-primary"><h4>Count</h4></div>
+                                                <div class="col-10">
+                                                    <InputNumber @bind-Value="DetailsVM.Count" class="form-control" />
+                                                    <ValidationMessage For="() => DetailsVM.Count"></ValidationMessage>
+                                                </div>
+                                            </div>
+                                        }
 
-                            
-                                }
+                                        <div class="card-footer">
+                                            <div class="row">
 
-                                @if (!Product.ProductPrices.Any())
-                                {
-                                    <p class="text-warning">Product not available yet...</p>
-                                }
-                                else
-                                {
-                                    <div class="row pl-2">
-                                        <div class="col-2 text-primary"><h4>Count</h4></div>
-                                        <div class="col-10">
-                                            <InputNumber @bind-Value="DetailsVM.Count" class="form-control" />
-                                            <ValidationMessage For="() => DetailsVM.Count"></ValidationMessage>
+                                                <div class="col-12 col-md-6 pb-1">
+                                                    <a class="btn btn-success form-control" href="/Favourite">
+                                                        <i class="bi bi-heart"></i> 
+                                                    </a>
+                                                </div>
 
+
+
+                                                @* <div class="col-12 col-md-6 pb-1">
+                                                    @if (DetailsVM.IsFavorite)
+                                                    {
+                                                        <button type="button" class="btn btn-danger form-control" @onclick="ToggleFavorite">
+                                                            <i class="bi bi-heart-fill"></i> Remove from Favorites
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-danger form-control" @onclick="ToggleFavorite">
+                                                            <i class="bi bi-heart"></i> Add to Favorites
+                                                        </button>
+                                                    }
+                                                </div>
+ *@
+
+
+                                                <div class="col-12 col-md-6 pb-1">
+                                                    @if (DetailsVM.SelectedProductPriceId > 0)
+                                                    {
+                                                        // item has been selected
+                                                        <button type="submit" value="Add to Cart" class="btn btn-primary form-control">Add to Cart</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
+                                                    }
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                }
-
-                            
-                            
+                                </div>
+                            </div>
                         </div>
-                        
-
                     </div>
-                        <div class="col-2">
-                            <img src="@Product.ImageUrl" width="100%" class="rounded" />
-                        </div>
 
-                </div>
-            </div>
             <div class="card-footer">
                 <div class="row">
                     <div class="col-12 col-md-6 pb-1">
-                        <a class="btn btn-success form-control " href="/">Back to Home</a>
+                                <a class="btn btn-success form-control " href="/ProductsPage">Back to Products</a>
                     </div>
-                    <div class="col-12 col-md-6 pb-1">
-                            @if(DetailsVM.SelectedProductPriceId > 0)
-                            {
-                                // item has been selected
-                                <button type="submit" value="Add to Cart" class="btn btn-primary form-control">Add to Cart</button>
-                            }
-                            else
-                            {
-                                <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
-                            }
-
-                    </div>
+                   
                 </div>
             </div>
         </div>
     </div>
 </EditForm>
+<Footer/>
 }
+</div>
 
 @code {
     [Parameter]
