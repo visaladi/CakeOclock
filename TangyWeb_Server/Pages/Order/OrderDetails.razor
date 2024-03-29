@@ -217,13 +217,13 @@ else
                                 <button @onclick="OrderRecived" class="btn btn-primary form-control my-1">Recived the Order</button>
                             }
 
-                            @if (Order.OrderHeader.Status == SD.Status_Confirmed || Order.OrderHeader.Status == SD.Status_Recived)
+                            @if (Order.OrderHeader.Status == SD.Status_Recived || Order.OrderHeader.Status == SD.Status_Shipped)
                             {
                                 <button @onclick="OrderDelivered" class="btn btn-primary form-control my-1">Order Delivered</button>
                             }
 
 
-                            @if (Order.OrderHeader.Status == SD.Status_Confirmed || Order.OrderHeader.Status == SD.Status_Pending)
+                            @if (Order.OrderHeader.Status == SD.Status_Confirmed || Order.OrderHeader.Status == SD.Status_Pending || Order.OrderHeader.Status == SD.Status_Recived)
                             {
                                 <button @onclick="OrderCancel" class="btn btn-danger form-control my-1">Cancel Order</button>
                             }
