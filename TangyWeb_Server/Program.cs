@@ -32,6 +32,9 @@ builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+
+
+
 var app = builder.Build();
 
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["ApiKey"];
