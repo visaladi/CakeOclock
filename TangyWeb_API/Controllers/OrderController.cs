@@ -7,7 +7,7 @@ using Tangy_Models;
 
 namespace TangyWeb_API.Controllers
 {
-    [Route("api/[controller]/[action]")]
+	[Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
     public class OrderController : ControllerBase
@@ -60,13 +60,17 @@ namespace TangyWeb_API.Controllers
             orderDTO.OrderHeader.OrderDate = DateTime.Now;
 
             var result = await _orderRepository.Create(orderDTO);
+			var ownerEmail = "cakeoclockbakery123@gmail.com";
 
-            if (result != null)
+			if (result != null)
             {
                 await _emailSender.SendEmailAsync(orderDTO.OrderHeader.Email, "Cake'O Clock Order Confirmation",
-                    "New Order has been created: " + orderDTO.OrderHeader.Id); // + 
+                    "New Order has been created by you! Your Order Id is : " + result.OrderHeader.Id); // + 
 
-                return Ok(result);
+				await _emailSender.SendEmailAsync(ownerEmail, "New Order Cake'O Clock",
+						"New Order has been created! Under the order Id :" + result.OrderHeader.Id);
+
+				return Ok(result);
             }
 
             return BadRequest(new ErrorModelDTO()
@@ -81,8 +85,10 @@ namespace TangyWeb_API.Controllers
         {
             var service = new SessionService();
             var sessionDetails = service.Get(orderHeaderDTO.SessionId);
+            
 
-            if (sessionDetails.PaymentStatus == "paid")
+
+			if (sessionDetails.PaymentStatus == "paid")
             {
                 var result = await _orderRepository.MarkPaymentSuccessful(orderHeaderDTO.Id, sessionDetails.PaymentIntentId);
 
@@ -91,7 +97,9 @@ namespace TangyWeb_API.Controllers
                     await _emailSender.SendEmailAsync(orderHeaderDTO.Email, "Cake'O Clock Order Confirmation",
                         "New Order has been created: " + result.Id);
 
-                    return Ok(result);
+					
+
+					return Ok(result);
                 }
 
                 return BadRequest(new ErrorModelDTO()

@@ -208,7 +208,7 @@ else
             var orderDTO = new OrderDTO
                 {
                     OrderHeader = Order.OrderHeader,
-                    OrderDetails = Order.OrderDetails.ToList() // Make a copy if needed
+                    OrderDetails = Order.OrderDetails.ToList() 
                 };
 
             var result = await _orderService.Make(orderDTO);

@@ -4,7 +4,7 @@ using MimeKit;
 
 namespace TangyWeb_API.Helper
 {
-    public class EmailSender : IEmailSender
+	public class EmailSender : IEmailSender
     {
         //public string SendGridSecret { get; set; }
 
@@ -23,7 +23,7 @@ namespace TangyWeb_API.Helper
                 //var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
                 //await client.SendEmailAsync(msg);
                 var emailToSend = new MimeMessage();
-                emailToSend.From.Add(MailboxAddress.Parse("jayaweeraspn@gmail.com"));
+                emailToSend.From.Add(MailboxAddress.Parse("cakeoclockbakery123@gmail.com"));
                 emailToSend.To.Add(MailboxAddress.Parse(email));
                 emailToSend.Subject = subject;
                 emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = htmlMessage };
@@ -31,7 +31,7 @@ namespace TangyWeb_API.Helper
                 //send email
                 using var emailClient = new SmtpClient();
                 emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                emailClient.Authenticate("jayaweeraspn@gmail.com", "bvtwcizdruyiuqtc");
+                emailClient.Authenticate("cakeoclockbakery123@gmail.com", "gjvv ieln ddlr zfgo");
                 emailClient.Send(emailToSend);
                 emailClient.Disconnect(true);
             }
@@ -42,3 +42,5 @@ namespace TangyWeb_API.Helper
         }
     }
 }
+
+//gjvv ieln ddlr zfgo
