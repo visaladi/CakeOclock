@@ -198,7 +198,7 @@ else
             };
 
         await _cartService.IncrementCart(shoppingCart);
-        _navigationManager.NavigateTo("/");
+        _navigationManager.NavigateTo("/ProductsPage");
         await _jsRuntime.ToastrSuccess("Product added to cart successfully!");
     }
 }

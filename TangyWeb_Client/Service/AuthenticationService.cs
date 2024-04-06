@@ -1,5 +1,7 @@
 ﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using Tangy_Common;
@@ -12,10 +14,12 @@ namespace TangyWeb_Client.Serivce
     {
         private readonly HttpClient _client;
         private readonly ILocalStorageService _localStorage;
+        private readonly AuthenticationStateProvider _authStateProvider;
 
-        public AuthenticationService(HttpClient client, ILocalStorageService localStorage)
+        public AuthenticationService(HttpClient client, ILocalStorageService localStorage, AuthenticationStateProvider authStateProvider)
         {
             _client = client;
+            _authStateProvider = authStateProvider;
             _localStorage = localStorage;
         }
 
@@ -33,6 +37,8 @@ namespace TangyWeb_Client.Serivce
             {
                 await _localStorage.SetItemAsync(SD.Local_Token, result.Token);
                 await _localStorage.SetItemAsync(SD.Local_UserDetails, result.UserDTO);
+                ((AuthStateProvider)_authStateProvider).NotifyUserLoggedIn(result.Token);
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
                 return new SignInResponseDTO() { IsAuthSuccessful = true };
             }
             else
@@ -45,6 +51,9 @@ namespace TangyWeb_Client.Serivce
         {
             await _localStorage.RemoveItemAsync(SD.Local_Token);
             await _localStorage.RemoveItemAsync(SD.Local_UserDetails);
+
+            ((AuthStateProvider)_authStateProvider).NotifyUserLogout();
+            _client.DefaultRequestHeaders.Authorization = null;
         }
 
         public async Task<SignUpResponseDTO> RegisterUser(SignUpRequestDTO signUpRequest)

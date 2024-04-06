@@ -9,43 +9,47 @@
 @inject AuthStateProvider _user
 @inject IJSRuntime _jsRuntime
 
-<div>
-    <h4 class="card-title text-info">Order's List</h4>
-    @if (OrderHeaders.Any())
-    {
-        <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" PageSize="8" AllowPaging="true" AllowSorting="true"
-                        Data="OrderHeaders" TItem="OrderHeaderDTO" LogicalFilterOperator="LogicalFilterOperator.Or">
-            <Columns>
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Id" Filterable="false" Title="ID" SortOrder="Radzen.SortOrder.Descending" Frozen="true" />
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Name" Title="Name" />
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="PhoneNumber" Title="Phone"/>
-                @* <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Email" Title="Email" /> *@
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderTotal" Title="Total">
-                    <Template Context="order">
-                        @($"Rs. {order.OrderTotal:N2}")
-                    </Template>
-                </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderDate" Title="Order Date" FormatString="{0:d}" />
-                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Status" Title="Status" />
-              
-
-            </Columns>
-        </RadzenDataGrid>
-
-
-    }
-    else
-    {
-        <h4 class="card-title text-primary">No Orders to Display</h4>
-        if (IsLoading)
+<MudContainer Class="align-content-center py-5">
+    <MudPaper Class="border-solid border-2 mud-border-primary pa-4" Elevation="3">
+        <h4 class="card-title text-info">Order's List</h4>
+        @if (OrderHeaders.Any())
         {
-            //loading gif
-            <div class="text-center">
-                <img src="/images/loader.gif">
-            </div>
+            <MudTable style="border-right-color:black" Items="@OrderHeaders" SortLabel="Sort By" Class="border-solid border-2 mud-border-primary pa-4 mb-4"  Hover="true" HoverColor="Color.Default">
+                <HeaderContent >
+
+                    <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">ID </MudTableSortLabel> </MudTh>
+                    <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)"> Name </MudTableSortLabel>  </MudTh>
+                    <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Phone </MudTableSortLabel>   </MudTh>
+                    <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Total </MudTableSortLabel>   </MudTh>
+                    <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Order Date </MudTableSortLabel>   </MudTh>
+                    <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Status </MudTableSortLabel>   </MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.Id</MudTd>
+                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.Name</MudTd>
+                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.PhoneNumber</MudTd>
+                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4"> Rs. @context.OrderTotal.ToString("N2")</MudTd>
+                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.OrderDate.ToString("d")</MudTd>
+                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.Status</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager PageSizeOptions="new int[] { 7, 25, 50, 100 }" />
+                    </PagerContent>
+                </MudTable>
         }
-    }
-</div>
+        else
+        {
+            <h4 class="card-title text-primary">No Orders to Display</h4>
+            if (IsLoading)
+            {
+                            //loading gif
+                <div class="text-center">
+                    <img src="/images/loader.gif">
+                </div>
+            }
+        }
+    </MudPaper>
+</MudContainer>
 
 @code {
     
@@ -93,3 +97,45 @@
     }
 
 }
+
+
+
+
+@* 
+<div>
+    <h4 class="card-title text-info">Order's List</h4>
+    @if (OrderHeaders.Any())
+    {
+        <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" PageSize="8" AllowPaging="true" AllowSorting="true"
+                        Data="OrderHeaders" TItem="OrderHeaderDTO" LogicalFilterOperator="LogicalFilterOperator.Or">
+            <Columns>
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Id" Filterable="false" Title="ID" SortOrder="Radzen.SortOrder.Descending" Frozen="true" />
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Name" Title="Name" />
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="PhoneNumber" Title="Phone" />
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Email" Title="Email" />
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderTotal" Title="Total">
+                    <Template Context="order">
+                        @($"Rs. {order.OrderTotal:N2}")
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderDate" Title="Order Date" FormatString="{0:d}" />
+                <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Status" Title="Status" />
+
+
+            </Columns>
+        </RadzenDataGrid>
+
+
+    }
+    else
+    {
+        <h4 class="card-title text-primary">No Orders to Display</h4>
+        if (IsLoading)
+        {
+            
+            <div class="text-center">
+                <img src="/images/loader.gif">
+            </div>
+        }
+    }
+</div> *@
