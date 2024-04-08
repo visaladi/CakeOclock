@@ -1,0 +1,25 @@
+﻿.background-container {
+    background-size: cover;
+    background-position: center;
+    padding-top: 0px;
+}
+
+.box {
+    height: 20px;
+}
+
+h2 {
+    color: #333;
+    font-family: "Quicksand", sans-serif;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.paragraph {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: "Quicksand", sans-serif;
+}
