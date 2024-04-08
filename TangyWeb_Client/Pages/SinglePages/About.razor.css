@@ -1,0 +1,47 @@
+﻿.box {
+    height: 20px;
+}
+
+.background-container {
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    padding: 10px;
+}
+
+h2 {
+    color: #333;
+    font-family: "Quicksand", sans-serif;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.paragraph {
+    font-size: 16px;
+    line-height: 1.4;
+    font-family: "Quicksand", sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 100%;
+    }
+
+    h2,
+    .paragraph {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
