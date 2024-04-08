@@ -1,2 +1,49 @@
-﻿body {
+﻿
+.image-tiles {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 80%;
+    margin: 0 auto;
+    font-family: "Quicksand", sans-serif;
+    color: white;
 }
+
+.image-tile {
+    flex: 1;
+    text-align: center;
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+    .image-tile img {
+        border-radius: 10px; 
+        width: 100%; 
+        height: auto;
+    }
+
+.description {
+    margin-top: 10px; 
+}
+
+.rating {
+    margin-top: 10px;
+}
+
+.star {
+    color: gold; 
+    font-size: 24px; 
+}
+
+@media (max-width: 500px) {
+    .image-tiles {
+        flex-wrap: wrap; 
+    }
+
+    .image-tile {
+        flex: 1 0 calc(50% - 20px); 
+        margin-bottom: 20px; 
+    }
+}
+
+
