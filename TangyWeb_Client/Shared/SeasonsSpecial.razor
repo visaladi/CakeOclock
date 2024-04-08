@@ -1,0 +1,129 @@
+﻿@page "/SeasonsSpecial"
+
+
+
+<div class="image-tiles">
+    <h2>Seasons Special</h2>
+    <p> page when looking at its layout.</p>
+</div>
+
+<div class="image-tiles">
+
+    <div class="image-tile">
+        <img src="images/Rectangle15.png" alt="Im1">
+        <div class="description">Description 1</div>
+        <div class="rating">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+        </div>
+    </div>
+    <div class="image-tile">
+        <img src="images/Rectangle14.png" alt="Im2">
+        <div class="description">Description 2</div>
+        <div class="rating">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+        </div>
+    </div>
+    <div class="image-tile">
+        <img src="images/Rectangle16.png" alt="Im3">
+        <div class="description">Description 3</div>
+        <div class="rating">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+        </div>
+    </div>
+    <div class="image-tile">
+        <img src="images/Rectangle16.png" alt="Im4">
+        <div class="description">Description 4</div>
+        <div class="rating">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+        </div>
+    </div>
+</div>
+
+<div class="box"></div>
+<div class="view-more-btn">
+
+    <button class="view-more-btn">View More</button>
+
+
+</div>
+
+
+
+<style>
+    .image-tiles {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        width: 80%;
+        margin: 0 auto;
+        font-family: "Quicksand", sans-serif;
+        color: white;
+    }
+
+    .image-tile {
+        flex: 1;
+        text-align: center;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    }
+
+        .image-tile img {
+            border-radius: 10px; /* Apply rounded corners to images */
+            width: 100%; /* Ensure images fill the tile container */
+            height: auto;
+        }
+
+    .description {
+        margin-top: 10px; /* Adjust margin as needed */
+    }
+
+    .rating {
+        margin-top: 10px;
+    }
+
+    .star {
+        color: gold; /* Change color as needed */
+        font-size: 24px; /* Adjust size as needed */
+    }
+
+</style>
+
+
+
+<style>
+    .view-more-btn {
+        text-align: right; /* Align button to the right */
+    }
+
+        .view-more-btn button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 150px;
+        }
+
+            .view-more-btn button:hover {
+                background-color: #0056b3;
+            }
+</style>
+

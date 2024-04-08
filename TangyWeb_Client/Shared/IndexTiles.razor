@@ -1,0 +1,130 @@
+﻿@page "/IndexTiles"
+
+
+
+
+<div class="container" style="background-image: url('images/Coconut.png'); ">
+    <div class="text-column">
+        <h2>Products</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+
+        <a href="/ProductsPage">
+            <button class="bake-button">Shop now</button>
+        </a>
+    </div>
+    <div class="photo-column">
+        <img src="images/product.png" alt="Photo" />
+    </div>
+</div>
+
+
+
+
+
+<div class="container" style="background-image: url('images/about-bk.png'); ">
+    <div class="text-column">
+        <h2>About us</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+
+        <a href="/About">
+            <button class="bake-button">About us</button>
+        </a>
+    </div>
+    <div class="photo-column">
+        <img src="images/about.png" alt="Photo" />
+    </div>
+</div>
+
+
+
+
+<div class="box"></div>
+<div class="disc">
+    <div class="text">
+        <h2>A Price To Suit Everyone</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+
+    </div>
+</div>
+<style>
+    .disc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Adjust as needed */
+    }
+
+    .text {
+        text-align: center;
+        max-width: 400px;
+        font-family: "Quicksand", sans-serif;
+        color: white;
+    }
+
+</style>
+
+
+<div class="box"></div>
+
+<div class="container" style="background-image: url('images/Coconut.png'); ">
+    <div class="photo-column">
+        <img src="images/outlet.png" alt="Photo" />
+    </div>
+    <div class="text-column">
+        <h2>Our Outlets</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        <a href="/Outlets">
+            <button class="bake-button">Our Outlets</button>
+        </a>
+    </div>
+
+</div>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center; /* Horizontally center the content */
+        align-items: center;
+        margin-right: auto; /* Set margin right to auto */
+        margin-left: auto; /* Set margin left to auto */
+        padding: 40px 80px; /* Adjust padding as needed */
+        background-size: 1500px;
+    }
+
+    .text-column {
+        flex: 1;
+        padding-right: 20px;
+        padding-left: 100px;
+        max-width: 70%;
+        text-align: justify;
+        font-family: "Quicksand", sans-serif;
+    }
+
+    .photo-column {
+        flex: 1;
+        display: flex; /* Set display to flex */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+    }
+
+        .photo-column img {
+            max-width: 100%;
+            height: 350px;
+        }
+
+    .shop-button {
+        display: block;
+        margin-top: 10px; /* Adjust as needed */
+        padding: 5px 8px;
+        background-color: white;
+        color: #007bff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .shop-button:hover {
+            background-color: #0056b3;
+        }
+</style>

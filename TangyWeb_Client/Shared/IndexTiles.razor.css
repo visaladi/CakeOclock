@@ -1,0 +1,56 @@
+﻿<style >
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 40px 20px; /* Decreased padding for mobile screens */
+    background-size: cover;
+    flex-wrap: wrap; /* Allow items to wrap to next line */
+}
+
+.text-column, .photo-column {
+    flex: 1;
+    max-width: 100%; /* Full width on mobile screens */
+    padding: 0 10px; /* Adjusted padding for mobile screens */
+    text-align: center; /* Center align text on mobile screens */
+}
+
+    .text-column h2, .text-column p {
+        margin-top: 10px; /* Add some margin for better spacing */
+    }
+
+    .photo-column img {
+        max-width: 100%;
+        height: auto; /* Maintain aspect ratio */
+    }
+
+.disc {
+    text-align: center;
+}
+
+@media (min-width: 768px) { /* Adjust styles for tablets and desktops */
+    .container {
+        padding: 40px 80px; /* Restoring padding for larger screens */
+    }
+
+    .text-column, .photo-column {
+        max-width: 50%; /* Half width on larger screens */
+    }
+
+    .text-column {
+        padding: 0 20px; /* Adjusted padding for larger screens */
+        text-align: justify;
+    }
+
+    .photo-column {
+        padding: 0 20px; /* Adjusted padding for larger screens */
+    }
+
+    .text-column h2, .text-column p {
+        margin-top: 0; /* Reset margin for larger screens */
+    }
+}
+
+</style >
