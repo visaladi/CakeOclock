@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿.box {
     height: 20px;
 }
@@ -16,6 +17,16 @@
 .col-md-6 {
     flex: 0 0 50%;
     padding: 10px;
+=======
+﻿.background-container {
+    background-size: cover;
+    background-position: center;
+    padding-top: 0px;
+}
+
+.box {
+    height: 20px;
+>>>>>>> 9ddb6417c91bc9b8d313a1c574b573ef179b6ddd
 }
 
 h2 {
@@ -30,6 +41,7 @@ h2 {
 
 .paragraph {
     font-size: 16px;
+<<<<<<< HEAD
     line-height: 1.4;
     font-family: "Quicksand", sans-serif;
 }
@@ -45,3 +57,8 @@ h2 {
         padding-right: 10px;
     }
 }
+=======
+    line-height: 1.5;
+    font-family: "Quicksand", sans-serif;
+}
+>>>>>>> 9ddb6417c91bc9b8d313a1c574b573ef179b6ddd
