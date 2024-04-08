@@ -128,7 +128,8 @@ app.UseCors("Tangy");
 
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
-//app.UseCors();
+
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();

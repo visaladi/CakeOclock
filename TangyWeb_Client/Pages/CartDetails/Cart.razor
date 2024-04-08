@@ -15,7 +15,13 @@ else
 {
 	@if (ShoppingCart == null || !ShoppingCart.Any())
 	{
-		<div>Please add items to Shopping Cart...</div>
+		 <div class="background-container">
+		<NavMenu />
+			<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 50vh;">
+			<div class="h3">Please add items to Shopping Cart...</div>
+			</div>
+		<Footer />
+		</div>
 	}
 	else
 	{
