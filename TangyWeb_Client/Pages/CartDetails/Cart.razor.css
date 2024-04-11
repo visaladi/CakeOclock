@@ -9,3 +9,10 @@
     left: 0;
     z-index: -1; /* Ensure the content overlays the background */
 }
+
+.custom-card {
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    border-radius: 20px;
+}
