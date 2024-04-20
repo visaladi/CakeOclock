@@ -20,7 +20,7 @@
         <EditForm OnSubmit="AddToCart" Model="DetailsVM" method="post">
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <div class="container mt-4">
-                <div class="card">
+                <div class="card border custom-card">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -64,20 +64,24 @@
                                             <div class="col-4">
                                                 @if (produtPrice.Id == DetailsVM.SelectedProductPriceId)
                                                 {
-                                                    <div class="bg-light text-center p-2"
-                                                         style="border:3px solid #28A745; border-radius:10px;box-shadow:5px"
+                                                    <div class="bg-dark text-center p-2"
+                                                         style="border:3px solid crimson; border-radius:10px;box-shadow:5px"
                                                          @onclick="(args)=>SelectedProductPrice(args,produtPrice.Id)">
-                                                        <p>@produtPrice.Size</p>
-                                                        <p>Rs @produtPrice.Price.ToString("N2")</p>
+                                                        <div >
+                                                            <p class="weight">@produtPrice.Size</p>
+                                                            <p class="price">Rs @produtPrice.Price.ToString("N2")</p>
+                                                        </div>
                                                     </div>
                                                 }
                                                 else
                                                 {
-                                                    <div class="bg-light text-center p-2"
-                                                         style="border:1px solid; border-radius:10px;box-shadow:5px"
+                                                    <div class=" text-center p-2"
+                                                         style="border:1px solid; border-radius:10px;box-shadow:5px; background-color: rgba(0, 0, 0, 0.5)"
                                                          @onclick="(args)=>SelectedProductPrice(args,produtPrice.Id)">
-                                                        <p>@produtPrice.Size</p>
-                                                        <p>Rs @produtPrice.Price.ToString("N2")</p>
+                                                         <div>
+                                                            <p class="weight">@produtPrice.Size</p>
+                                                            <p class="price">Rs @produtPrice.Price.ToString("N2")</p>
+                                                        </div>
                                                     </div>
                                                 }
                                             </div>
@@ -135,6 +139,7 @@
     <Footer />
 </div>
 
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
 @code {
     
 }
