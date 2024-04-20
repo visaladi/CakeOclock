@@ -1,0 +1,24 @@
+﻿.custom-card {
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    border-radius: 20px;
+}
+
+.weight {
+    color: crimson;
+    font-family: "Quicksand", sans-serif;
+    font-size:30px;
+    font-weight:bold;
+}
+.price {
+    color: white;
+    font-family: "Quicksand", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+.text-primary {
+    color: #333;
+    font-family: "Quicksand", sans-serif;
+    font-size: 30px;
+}
