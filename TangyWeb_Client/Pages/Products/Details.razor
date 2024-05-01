@@ -24,11 +24,11 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <h1 class="text-primary">@Product.Name</h1>
+                                <h1 class="text-primary" style="color:black !important">@Product.Name</h1>
                             </div>
                             <div class="col-12 col-md-6 text-md-end pt-4">
-                                <span class="badge bg-info pt-2">@Product.Category.Name</span>
-                                <span class="badge bg-warning pt-2">@Product.Color</span>
+                                <span class="badge bg-info pt-2 fav">@Product.Category.Name</span>
+                                <span class="badge bg-warning pt-2 cart">@Product.Color</span>
                             </div>
                         </div>
                     </div>
@@ -36,8 +36,10 @@
                         <div class="container rounded p-2">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <img src="@Product.ImageUrl" width="100%" class="rounded mb-3" />
-                                    <div class="row">
+                                    <img src="@Product.ImageUrl" width="100%" class="rounded mb-3" style="border-radius: 20px !important;" />
+
+
+                                    @* <div class="row">
                                         <div class="col-4">
                                             <img src="images/photo1.jpg" class="img-thumbnail" />
                                         </div>
@@ -47,21 +49,31 @@
                                         <div class="col-4">
                                             <img src="images/photo3.jpg" class="img-thumbnail" />
                                         </div>
-                                    </div>
+                                    </div> *@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <h2 class="text-primary">@Product.Name</h2>
+                                        <div class="name col-12 col-md-6">
+                                            <h2 class="text-primary" style="color:crimson !important">@Product.Name</h2>
                                         </div>
-                                        <div class="col-12">
-                                            <p>@((MarkupString)Product.Description)</p>
+
+                                        <div class="box"></div>
+
+                                        <div class="card bg-transparent border-0">
+                                            <div class="card-body-para">
+                                                <div class="para col-12">
+                                                    <p>@((MarkupString)Product.Description)</p>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
+
+                                    <div class="box"></div>
                                     <div class="row m-2">
                                         @foreach (var produtPrice in Product.ProductPrices)
                                         {
-                                            <div class="col-4">
+                                            <div class="col-3">
                                                 @if (produtPrice.Id == DetailsVM.SelectedProductPriceId)
                                                 {
                                                     <div class="bg-dark text-center p-2"
@@ -87,35 +99,38 @@
                                             </div>
                                         }
                                     </div>
+                                    <div class="box"></div>
                                     @if (!Product.ProductPrices.Any())
                                     {
                                         <p class="text-warning">Product not available yet...</p>
                                     }
                                     else
                                     {
-                                        <div class="row m-2">
-                                            <div class="col-2 text-primary"><h4>Count</h4></div>
-                                            <div class="col-10">
+                                        <div class="row m-2 ">
+                                            
+                                            @* <div class="col-3 text-primary"><h4>Count</h4></div> *@
+                                            <div class="col-5">
                                                 <InputNumber @bind-Value="DetailsVM.Count" class="form-control" />
                                                 <ValidationMessage For="() => DetailsVM.Count"></ValidationMessage>
                                             </div>
                                         </div>
                                     }
+                                    <div class="box"></div>
                                     <div class="card-footer">
                                         <div class="row">
-                                            <div class="col-6 pb-1">
-                                                <a class="btn btn-success form-control" href="/Favourite">
+                                            <div class="col-6 pb-1 ">
+                                                <a class="btn btn-success form-control fav" href="/Favourite">
                                                     <i class="bi bi-heart"></i>
                                                 </a>
                                             </div>
-                                            <div class="col-6 pb-1">
+                                            <div class="col-6 pb-1 ">
                                                 @if (DetailsVM.SelectedProductPriceId > 0)
                                                 {
-                                                    <button type="submit" value="Add to Cart" class="btn btn-primary form-control">Add to Cart</button>
+                                                    <button type="submit" value="Add to Cart" class="btn btn-primary form-control cart">Add to Cart</button>
                                                 }
                                                 else
                                                 {
-                                                    <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
+                                                    <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control cart">Add to Cart</button>
                                                 }
                                             </div>
                                         </div>
@@ -127,7 +142,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-12 pb-1">
-                                <a class="btn btn-success form-control" href="/ProductsPage">Back to Products</a>
+                                <a class="btn btn-success form-control cart" href="/ProductsPage">Back to Products</a>
                             </div>
                         </div>
                     </div>

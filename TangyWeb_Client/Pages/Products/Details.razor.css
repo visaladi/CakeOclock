@@ -4,11 +4,14 @@
     color: white;
     border-radius: 20px;
 }
+.image {
+    border-radius: 20px;
+}
 
 .weight {
     color: crimson;
     font-family: "Quicksand", sans-serif;
-    font-size:30px;
+    font-size:20px;
     font-weight:bold;
 }
 .price {
@@ -18,7 +21,53 @@
     font-weight: bold;
 }
 .text-primary {
-    color: #333;
+    color: rgba(0, 0, 0, 0.8);
     font-family: "Quicksand", sans-serif;
     font-size: 30px;
+}
+
+.box {
+    height:10px;
+}
+
+.para {
+    font-family: "Quicksand", sans-serif;
+}
+.name {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.cart {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: black;
+    color: white;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+    .cart:hover {
+        background-color: rgba(100, 0, 0, 0.8);
+    }
+
+
+.fav {
+    background-color: rgba(220, 20, 60, 0.5);
+    border-color: black;
+    color: white;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+    .fav:hover {
+        background-color: rgba(255, 20, 60, 0.8);
+    }
+
+.card-body-para {
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border-radius: 20px;
+    padding:10px;
 }
