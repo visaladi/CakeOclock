@@ -1,0 +1,42 @@
+﻿h2 {
+    color: #333;
+    font-family: "Quicksand", sans-serif;
+    text-align: center;
+}
+.card-title {
+    color: #333;
+    font-family: "Quicksand", sans-serif;
+}
+
+.box {
+    height : 10px;
+}
+
+.cart {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: black;
+    color: white;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width:90%;
+}
+
+    .cart:hover {
+        background-color: rgba(100, 0, 0, 0.8);
+    }
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+.center-button {
+    text-align: center;
+}
+
+    .center-button .btn {
+        margin: 0 auto;
+        display: block;
+    }
+
+
