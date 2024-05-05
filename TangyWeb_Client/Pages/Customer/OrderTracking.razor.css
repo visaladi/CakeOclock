@@ -40,3 +40,8 @@
     }
 
 
+@media (max-width: 576px) {
+    .card {
+        margin: 0;
+    }
+}
