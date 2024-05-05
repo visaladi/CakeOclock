@@ -2,10 +2,15 @@
     height: 20px;
 }
 
+.image {
+    align-content:center;
+}
+
+
 .background-container {
     background-size: cover;
     background-position: center;
-    padding: 20px;
+    padding: 0px;
 }
 
 .row {
@@ -45,4 +50,3 @@ h2 {
         padding-right: 10px;
     }
 }
-

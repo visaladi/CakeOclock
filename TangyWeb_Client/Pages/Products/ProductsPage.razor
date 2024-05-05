@@ -30,10 +30,12 @@ else
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 ">
                         <div class="panel">
                             <div class="vertical-space"></div>
+                            <div class="card-h3">
                             <h3 @onclick="ShowAllProducts" class="h3">Categories</h3>
+                            </div>
                             <ul class="category-list">
                                 @foreach (var category in Products.Select(u => u.Category.Name).Distinct())
                                 {
@@ -50,36 +52,40 @@ else
                         @foreach (var productGroup in FilteredProducts.GroupBy(p => p.Category.Name))
                         {
                             <div class="card-h2">
-                            <h2 class="text-success pl-1" style="color:crimson !important"><b>@productGroup.Key</b></h2>
+                            <h2 class="text-success pl-1" style="color:white  !important"><b>@productGroup.Key</b></h2>
                             </div>
                             <div class="row pb-3 pt-3 ">
                                 @foreach (var product in productGroup)
                                 {
                                     <div class="col-lg-4 col-md-6 pb-4 filter">
-                                        <div class="card bg-white rounded shadow-sm" style="border: 1px solid #222;">
-                                            <div class="card-body pb-1 row">
-                                                <div class="col-8 h5">@product.Name</div>
-                                                <div class="col-4 text-end">
-                                                    <span class="text-info h4">
+                                        <div class="card-product " >
+                                            
+
+                                            <img class="card-img-top mx-auto mb-3" src="@product.ImageUrl" alt="menuitem image">
+                                            
+                                            @* <div class="card-body pb-1 row"> *@
+                                                <div class="h5">@product.Name</div>
+                                                <div class="price" >
+                                                <span class="text-info h4" style="color:black !important">
                                                         @* @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") *@
                                                         Rs @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("N2")
                                                     </span>
                                                 </div>
-                                            </div>
-
-                                            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@product.ImageUrl" alt="menuitem image">
+                                            @* </div> *@
+                                            
                                             <div class="card-body p-1 px-3 row">
-                                                <div class="col-6">
-                                                    <span class="badge p-2 border w-100 text-dark bg-warning">@product.Category.Name</span>
+
+                                                <div class="col-6 cat-name" >
+                                                    <span class="badge p-2 border w-100 ">@product.Category.Name</span>
                                                 </div>
                                                 <div class="col-6 border-0">
-                                                    <span class="badge p-2 border w-100 bg-info">@product.Color</span>
+                                                    <span class="badge p-2 border w-100 ">@product.Color</span>
                                                 </div>
-                                                <div class="col-12 pt-2" style="font-size: 13px; text-align: justify;">
+                                               @*  <div class="col-12 pt-2" style="font-size: 13px; text-align: justify;">
                                                     <p>@((MarkupString)product.Description)</p>
-                                                </div>
+                                                </div> *@
                                                 <div class="col-12 p-1" style="text-align: center;">
-                                                    <a href="/details/@product.Id" class="btn btn-dark form-control btn-sm p-2" style="height: 40px;">View Details</a>
+                                                    <a href="/details/@product.Id" class="btn fav form-control btn-sm p-2" style="height: 40px;">View Details</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,6 +101,12 @@ else
     </div>
 }
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&family=Signika+Negative:wght@300..700&display=swap" rel="stylesheet">
+
+
 @code {
     
     
@@ -105,6 +117,8 @@ else
 
 
 <style>
+
+
     .button-container {
         display: flex;
         justify-content: center;
@@ -195,12 +209,15 @@ else
 
 .h3 {
         font-family: "Quicksand", sans-serif;
+        font-weight: 500;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 }
 
 .text-success {
         font-family: "Quicksand", sans-serif;
-        color: #333;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-size:30px;
 
 }
 
@@ -211,4 +228,69 @@ else
         border-radius: 20px;
         padding: 10px;
     }
+
+    .card-product {
+        height: auto;
+        background-color: rgba(0, 0, 0, 0.2);
+
+        border-radius: 20px;
+        border: 3px solid crimson;
+        padding: 10px;
+        
+        
+       
+    }
+
+    .card-img-top {
+        border-radius: 20px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+    }
+
+
+
+    .fav {
+        background-color: rgba(220, 20, 60, 0.5);
+        border-color: white;
+        color: white;
+        border-radius: 8px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-family: "Quicksand", sans-serif;
+    }
+
+        .fav:hover {
+            background-color: rgba(255, 20, 60, 0.8);
+            color: white;
+            border-color: white;
+            font-family: "Quicksand", sans-serif;
+        }
+
+
+.h5 {
+    font-size:25px;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        text-align: center;
+        color: rgba(255, 20, 60, 0.8);
+
+}
+.price {
+        font-size: 25px;
+        font-weight: 600;
+        font-style: normal;
+        text-align: center;
+        font-family: "Signika Negative", sans-serif;
+}
+
+    .badge {
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 4px 8px;
+        border-radius: 4px;
+
+    }
+
+
+
 </style>
