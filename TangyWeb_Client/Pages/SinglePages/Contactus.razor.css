@@ -13,13 +13,25 @@ h2 {
     font-family: "Quicksand", sans-serif;
 }
 
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-}
 
 .paragraph {
     font-size: 16px;
     line-height: 1.5;
     font-family: "Quicksand", sans-serif;
 }
+
+
+
+.outlet-btn {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: black;
+    color: white;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 90%;
+}
+
+    .outlet-btn:hover {
+        background-color: rgba(100, 0, 0, 0.8);
+    }
