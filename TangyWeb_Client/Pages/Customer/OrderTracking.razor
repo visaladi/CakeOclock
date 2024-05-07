@@ -9,9 +9,17 @@
 @inject AuthStateProvider _user
 @inject IJSRuntime _jsRuntime
 
+<div class="background-container" style="background-image: url('images/bk.png');">
+    <NavMenu />
+    <div class="box"></div>
+    <div class="box"></div>
+
+    <h2>Track Your Orders</h2>
+ 
+
 <MudContainer Class="align-content-center py-5">
-    <MudPaper Class="border-solid border-2 mud-border-primary pa-4" Elevation="3">
-        <h4 class="card-title text-info">Order's List</h4>
+        <MudPaper Class="border-solid border-2 mud-border-primary pa-4" Elevation="3" style="border-radius: 20px; background-color: rgba(0, 0, 0, 0.1)">
+            <h4 class="card-title text-info" style=" color:black !important">Order's List</h4>
         @if (OrderHeaders.Any())
         {
             <MudTable style="border-right-color:black" Items="@OrderHeaders" SortLabel="Sort By" Class="border-solid border-2 mud-border-primary pa-4 mb-4"  Hover="true" HoverColor="Color.Default">
@@ -50,6 +58,21 @@
         }
     </MudPaper>
 </MudContainer>
+
+<div class="box"></div>
+
+    <div class="row center-button ">
+        <div class="col-12 pb-1">
+            <a class="btn btn-success form-control cart" href="/ProductsPage">Back to Products</a>
+        </div>
+    </div>
+    <div class="box"></div>
+
+<Footer />
+</div>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
 
 @code {
     
