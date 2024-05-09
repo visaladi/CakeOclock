@@ -8,7 +8,7 @@
 @inject IJSRuntime JS
 @inject NavigationManager NavigationManager
 
-
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
 
 @if (ShowErrors)
 {
@@ -64,105 +64,6 @@
 </div>
 
 @code {
-    public string? Email;
-    public string? Token;
-
-    private string Message = string.Empty;
-    ResetPasswordDTO resetPasswordDTO = new ResetPasswordDTO();
-    private bool ShowErrors;
-    private string? Errors;
-
-    private async Task HandleResetPassword()
-    {
-        ShowErrors = false;
-        Message = "Please Wait...";
-
-        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
-        var queryStrings = QueryHelpers.ParseQuery(uri.Query);
-        if (queryStrings.TryGetValue("email", out var email))
-        {
-            Email = email;
-        }
-        if (queryStrings.TryGetValue("token", out var token))
-        {
-            Token = token;
-        }
-
-        resetPasswordDTO.Email = email;
-        resetPasswordDTO.Token = token;
-
-        var result = await AuthService.ResetForgotPassword(resetPasswordDTO);
-
-        if (result.Successful)
-        {
-            await JS.InvokeVoidAsync("ShowSwal", "success", "You Have Reset the Password Successfully!");
-            NavigationManager.NavigateTo("/login");
-        }
-        else
-        {
-            await JS.InvokeVoidAsync("ShowSwal", "error", "Task Faild!");
-            Errors = "Something went wrong.";
-            ShowErrors = true;
-        }
-    }
+    
 }
 
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
-
-<style>
-    .title {
-        font-family: "Quicksand", sans-serif;
-    }
-
-    .card-title {
-        font-size: 15px;
-        font-family: "Quicksand", sans-serif;
-    }
-
-    .custom-width {
-        width: 400px;
-    }
-
-    .transparent-card {
-        background-color: rgba(255, 255, 255, 0);
-        border: none;
-    }
-
-    .custom-button {
-        background-color: rgba(0, 0, 0, 0.8);
-        border-color: black;
-        color: white;
-        border-radius: 8px;
-        padding-left: 20px;
-        padding-right: 20px;
-        font-family: "Quicksand", sans-serif;
-    }
-
-        .custom-button:hover {
-            background-color: rgba(220, 20, 60, 0.8);
-        }
-
-    .d-flex {
-        display: flex;
-    }
-
-    .justify-content-center {
-        justify-content: center;
-    }
-
-    .align-items-center {
-        align-items: center;
-    }
-
-    .vertical-space {
-        height: 20px;
-    }
-
-    .vertical-space2 {
-        height: 10px;
-    }
-
-    .vertical-space3 {
-        height: 5px;
-    }
-</style>
