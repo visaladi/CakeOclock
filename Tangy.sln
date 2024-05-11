@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TangyWeb_API", "TangyWeb_AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.Test", "Client.Test\Client.Test.csproj", "{B4852D83-8E03-49FC-83F5-7F2AAFF7798D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientNunit.Test", "ClientNunit.Test\ClientNunit.Test.csproj", "{5CB76219-96A5-4BC1-821A-35C82E9CC666}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,10 +57,6 @@ Global
 		{B4852D83-8E03-49FC-83F5-7F2AAFF7798D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4852D83-8E03-49FC-83F5-7F2AAFF7798D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4852D83-8E03-49FC-83F5-7F2AAFF7798D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5CB76219-96A5-4BC1-821A-35C82E9CC666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CB76219-96A5-4BC1-821A-35C82E9CC666}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CB76219-96A5-4BC1-821A-35C82E9CC666}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CB76219-96A5-4BC1-821A-35C82E9CC666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
