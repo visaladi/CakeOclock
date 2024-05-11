@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TangyWeb_API\TangyWeb_API.csproj" />
     <ProjectReference Include="..\TangyWeb_Client\TangyWeb_Client.csproj" />
   </ItemGroup>
 
