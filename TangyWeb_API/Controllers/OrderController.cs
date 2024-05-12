@@ -7,7 +7,7 @@ using Tangy_Models;
 
 namespace TangyWeb_API.Controllers
 {
-	[Route("api/[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
     public class OrderController : ControllerBase
@@ -52,25 +52,65 @@ namespace TangyWeb_API.Controllers
             return Ok(orderHeader);
         }
 
+        //     [HttpPost]
+        //     [ActionName("Create")]
+        //     public async Task<IActionResult> Create([FromBody] OrderDTO orderDTO)
+        //     {
+        //         // Assuming that the orderDTO is already validated and contains necessary information
+        //         orderDTO.OrderHeader.OrderDate = DateTime.Now;
+
+        //         var result = await _orderRepository.Create(orderDTO);
+        //var ownerEmail = "cakeoclockbakery123@gmail.com";
+
+        //if (result != null)
+        //         {
+        //             await _emailSender.SendEmailAsync(orderDTO.OrderHeader.Email, "Cake'O Clock Order Confirmation",
+        //                 "New Order has been created by you! Your Order Id is : " + result.OrderHeader.Id); // + 
+
+        //	await _emailSender.SendEmailAsync(ownerEmail, "New Order Cake'O Clock",
+        //			"New Order has been created! Under the order Id :" + result.OrderHeader.Id);
+
+        //	return Ok(result);
+        //         }
+
+        //         return BadRequest(new ErrorModelDTO()
+        //         {
+        //             ErrorMessage = "Failed to create the order"
+        //         });
+        //     }
+
+
         [HttpPost]
         [ActionName("Create")]
         public async Task<IActionResult> Create([FromBody] OrderDTO orderDTO)
         {
+            if (orderDTO == null || orderDTO.OrderHeader == null)
+            {
+                return BadRequest(new ErrorModelDTO()
+                {
+                    ErrorMessage = "OrderDTO or OrderHeader is null",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+
             // Assuming that the orderDTO is already validated and contains necessary information
-            orderDTO.OrderHeader.OrderDate = DateTime.Now;
+            if (orderDTO.OrderHeader != null)
+            {
+                orderDTO.OrderHeader.OrderDate = DateTime.Now;
+            }
 
             var result = await _orderRepository.Create(orderDTO);
-			var ownerEmail = "cakeoclockbakery123@gmail.com";
+            var ownerEmail = "cakeoclockbakery123@gmail.com";
 
-			if (result != null)
+            if (result != null && result.OrderHeader != null) // Ensure result and result.OrderHeader are not null
             {
                 await _emailSender.SendEmailAsync(orderDTO.OrderHeader.Email, "Cake'O Clock Order Confirmation",
-                    "New Order has been created by you! Your Order Id is : " + result.OrderHeader.Id); // + 
+                    "New Order has been created by you! Your Order Id is : " + result.OrderHeader.Id);
 
-				await _emailSender.SendEmailAsync(ownerEmail, "New Order Cake'O Clock",
-						"New Order has been created! Under the order Id :" + result.OrderHeader.Id);
+                await _emailSender.SendEmailAsync(ownerEmail, "New Order Cake'O Clock",
+                    "New Order has been created! Under the order Id :" + result.OrderHeader.Id);
 
-				return Ok(result);
+                return Ok(result);
             }
 
             return BadRequest(new ErrorModelDTO()
@@ -78,6 +118,7 @@ namespace TangyWeb_API.Controllers
                 ErrorMessage = "Failed to create the order"
             });
         }
+
 
         [HttpPost]
         [ActionName("paymentsuccessful")]
