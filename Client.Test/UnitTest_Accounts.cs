@@ -72,7 +72,102 @@ namespace TangyWeb_API.Tests.Controllers
             Assert.Single(signUpResponseDTO.Errors);
         }
 
-        // Similar tests can be added for other action methods
-        // Testing SignIn, ForgotPassword, ResetForgotPassword, GetUserProfile...
+        
+
+        [Fact]
+        public async Task SignUp_ReturnsStatusCode201_WhenSignUpSuccessful()
+        {
+            // Arrange
+            var controller = new AccountController(_mockConfiguration, _mockEmailService.Object, _mockUserManager.Object, _mockSignInManager.Object, _mockRoleManager.Object, _mockOptions);
+            var signUpRequestDTO = new SignUpRequestDTO();
+
+            // Mock user creation and role assignment success
+            _mockUserManager.Setup(m => m.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
+                .ReturnsAsync(IdentityResult.Success);
+            _mockUserManager.Setup(m => m.AddToRoleAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
+                .ReturnsAsync(IdentityResult.Success);
+
+            // Act
+            var result = await controller.SignUp(signUpRequestDTO);
+
+            // Assert
+            Assert.IsType<StatusCodeResult>(result);
+            var statusCodeResult = Assert.IsType<StatusCodeResult>(result);
+            Assert.Equal(201, statusCodeResult.StatusCode);
+        }
+
+        // Similar tests can be added for SignIn, ForgotPassword, ResetForgotPassword, GetUserProfile...
+
+        [Fact]
+        public async Task SignIn_ReturnsBadRequest_WhenModelStateIsInvalid()
+        {
+            // Arrange
+            var controller = new AccountController(_mockConfiguration, _mockEmailService.Object, _mockUserManager.Object, _mockSignInManager.Object, _mockRoleManager.Object, _mockOptions);
+
+            // Ensure model state is invalid
+            controller.ModelState.AddModelError("Test", "Test error");
+
+            // Act
+            var result = await controller.SignIn(signInRequestDTO: null);
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public async Task SignIn_ReturnsUnauthorized_WhenSignInFails()
+        {
+            // Arrange
+            var controller = new AccountController(_mockConfiguration, _mockEmailService.Object, _mockUserManager.Object, _mockSignInManager.Object, _mockRoleManager.Object, _mockOptions);
+            var signInRequestDTO = new SignInRequestDTO();
+
+            // Mock sign-in failure
+            _mockSignInManager.Setup(m => m.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Failed);
+
+            // Act
+            var result = await controller.SignIn(signInRequestDTO);
+
+            // Assert
+            var unauthorizedResult = Assert.IsType<UnauthorizedObjectResult>(result);
+            var signInResponseDTO = Assert.IsType<SignInResponseDTO>(unauthorizedResult.Value);
+            Assert.False(signInResponseDTO.IsAuthSuccessful);
+            Assert.Equal("Invalid Authentication", signInResponseDTO.ErrorMessage);
+        }
+
+        [Fact]
+        public async Task ForgotPassword_ReturnsBadRequest_WhenEmailIsNullOrEmpty()
+        {
+            // Arrange
+            var controller = new AccountController(_mockConfiguration, _mockEmailService.Object, _mockUserManager.Object, _mockSignInManager.Object, _mockRoleManager.Object, _mockOptions);
+            var resetPasswordDTO = new ResetPasswordDTO();
+
+            // Act
+            var result = await controller.ForgotPassword(resetPasswordDTO);
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public async Task ForgotPassword_ReturnsNotFound_WhenUserNotFound()
+        {
+            // Arrange
+            var controller = new AccountController(_mockConfiguration, _mockEmailService.Object, _mockUserManager.Object, _mockSignInManager.Object, _mockRoleManager.Object, _mockOptions);
+            var resetPasswordDTO = new ResetPasswordDTO { Email = "test@example.com" };
+
+            // Mock user not found
+            _mockUserManager.Setup(m => m.FindByEmailAsync(It.IsAny<string>()))
+                .ReturnsAsync((ApplicationUser)null);
+
+            // Act
+            var result = await controller.ForgotPassword(resetPasswordDTO);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        // You can add more tests for other scenarios in ForgotPassword, ResetForgotPassword, and GetUserProfile methods
+
     }
 }

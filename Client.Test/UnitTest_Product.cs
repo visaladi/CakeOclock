@@ -1,7 +1,9 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Tangy_Business.Repository.IRepository;
+using Tangy_DataAccess;
 using Tangy_Models;
 using TangyWeb_API.Controllers;
 
@@ -9,64 +11,202 @@ namespace TangyWeb_API.Tests.Controllers
 {
     public class ProductControllerTests
     {
-        private readonly Mock<IProductRepository> _mockProductRepository;
+        private readonly Mock<IProductRepository> _productRepositoryMock;
         private readonly ProductController _controller;
+        private readonly IMapper _mapper;
+
 
         public ProductControllerTests()
         {
-            _mockProductRepository = new Mock<IProductRepository>();
-            _controller = new ProductController(_mockProductRepository.Object);
+            _productRepositoryMock = new Mock<IProductRepository>();
+            _controller = new ProductController(_productRepositoryMock.Object);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductDTO, Product>();
+                cfg.CreateMap<CategoryDTO, Category>();
+                cfg.CreateMap<ProductPriceDTO, ProductPrice>();
+            });
+            _mapper = config.CreateMapper();
         }
 
         //[Fact]
-        //public async Task GetAll_ReturnsOkResult()
+        //public async Task GetAll_ReturnsOkWithProducts()
         //{
         //    // Arrange
-        //    var products = new[] { new Product(), new Product() };
-        //    _mockProductRepository.Setup(x => x.GetAll()).ReturnsAsync(products);
+        //    var expectedProducts = new List<ProductDTO> {
+        //        new ProductDTO
+        //        {
+        //            Id = 1,
+        //            Name = "Product 1",
+        //            Description = "Description of Product 1",
+        //            ShopFavourites = true,
+        //            CustomerFavourites = false,
+        //            Color = "Red",
+        //            ImageUrl = "https://example.com/product1.jpg",
+        //            CategoryId = 1,
+        //            Category = new CategoryDTO { Id = 1, Name = "Category 1"}, // Assuming you have a Category class
+        //            ProductPrices = new List<ProductPriceDTO>
+        //            {
+        //                new ProductPriceDTO {
+        //                    Id = 1,
+        //                    ProductId = 1, // Assuming this corresponds to the Id of the associated product
+        //                    Size = "Small",
+        //                    Price = 10.99
+        //                }
+        //            }
+        //        },
+        //    };
+        //    var expectedProductsMapped = _mapper.Map<IEnumerable<ProductDTO>, IEnumerable<Product>>(expectedProducts);
+        //    _productRepositoryMock.Setup(repo => repo.GetAll()).ReturnsAsync(expectedProducts);
 
         //    // Act
         //    var result = await _controller.GetAll();
 
         //    // Assert
         //    var okResult = Assert.IsType<OkObjectResult>(result);
-        //    Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
-        //    Assert.Equal(products, okResult.Value);
+        //    var actualProducts = Assert.IsAssignableFrom<IEnumerable<Product>>(okResult.Value);
+        //    Assert.Equal(expectedProductsMapped, actualProducts);
         //}
 
-        //[Fact]
-        //public async Task Get_WithValidId_ReturnsOkResult()
-        //{
-        //    // Arrange
-        //    var productId = 1;
-        //    var product = new Product { Id = productId };
-        //    _mockProductRepository.Setup(x => x.Get(productId)).ReturnsAsync(product);
-
-        //    // Act
-        //    var result = await _controller.Get(productId);
-
-        //    // Assert
-        //    var okResult = Assert.IsType<OkObjectResult>(result);
-        //    Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
-        //    Assert.Equal(product, okResult.Value);
-        //}
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData(0)]
-        public async Task Get_WithInvalidId_ReturnsBadRequest(int? productId)
+        [Fact]
+        public async Task Get_WithValidId_ReturnsOkWithProduct()
         {
+            // Arrange
+            var productId = 1; // Change to a valid product id
+            var expectedProduct = new ProductDTO {
+                Id = 1,
+                Name = "Product 1",
+                Description = "Description of Product 1",
+                ShopFavourites = true,
+                CustomerFavourites = false,
+                Color = "Red",
+                ImageUrl = "https://example.com/product1.jpg",
+                CategoryId = 1,
+                Category = new CategoryDTO { Id = 1, Name = "Category 1" }, // Assuming you have a Category class
+                ProductPrices = new List<ProductPriceDTO>
+                    {
+                        new ProductPriceDTO {
+                            Id = 1,
+                            ProductId = 1, 
+                            Size = "Small",
+                            Price = 10.99
+                        }
+                    }
+
+            };
+            _productRepositoryMock.Setup(repo => repo.Get(productId)).ReturnsAsync(expectedProduct);
+
             // Act
             var result = await _controller.Get(productId);
 
             // Assert
-            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
-            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
-            Assert.Equal("Invalid Id", errorModel.ErrorMessage);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var actualProduct = Assert.IsAssignableFrom<ProductDTO>(okResult.Value);
+            Assert.Equal(expectedProduct, actualProduct);
         }
 
-        // Add tests for other action methods similarly
-        // You can follow a similar pattern to arrange, act, and assert for each action method
+        [Fact]
+        public async Task Get_WithInValidId_ReturnBadRequestWithProduct()
+        {
+            // Arrange
+            var productId = -21; // Change to a valid product id
+            var expectedProduct = new ProductDTO
+            {
+                Id = 1,
+                Name = "Product 1",
+                Description = "Description of Product 1",
+                ShopFavourites = true,
+                CustomerFavourites = false,
+                Color = "Red",
+                ImageUrl = "https://example.com/product1.jpg",
+                CategoryId = 1,
+                Category = new CategoryDTO { Id = 1, Name = "Category 1" }, // Assuming you have a Category class
+                ProductPrices = new List<ProductPriceDTO>
+                    {
+                        new ProductPriceDTO {
+                            Id = 1,
+                            ProductId = -21, // Assuming this corresponds to the Id of the associated product
+                            Size = "Small",
+                            Price = 10.99
+                        }
+                    }
+
+            };
+            _productRepositoryMock.Setup(repo => repo.Get(productId)).ReturnsAsync(expectedProduct);
+
+            // Act
+            var result = await _controller.Get(productId);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var actualProduct = Assert.IsAssignableFrom<ProductDTO>(okResult.Value);
+            Assert.Equal(expectedProduct, actualProduct);
+        }
+
+        [Fact]
+        public async Task Get_WithInvalidId_ReturnsBadRequest()
+        {
+            // Arrange
+            var invalidProductId = 0; 
+
+            // Act
+            var result = await _controller.Get(invalidProductId);
+
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
+            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+           
+        }
+
+        [Fact]
+        public async Task Get_WithInvalidIdMinus_ReturnsBadRequest()
+        {
+            // Arrange
+            var invalidProductId = -23; 
+
+            // Act
+            var result = await _controller.Get(invalidProductId);
+
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
+            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+           
+        }
+
+        [Fact]
+        public async Task Get_WithValidId_ReturnsOKRequest()
+        {
+            // Arrange
+            var invalidProductId = 12; 
+
+            // Act
+            var result = await _controller.Get(invalidProductId);
+
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
+            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+            
+        }
+
+        [Fact]
+        public async Task Get_WithValidIdLargeNum_ReturnsOKRequest()
+        {
+            // Arrange
+            var invalidProductId = 1568435654;
+
+            // Act
+            var result = await _controller.Get(invalidProductId);
+
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
+            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+
+        }
+
     }
 }
