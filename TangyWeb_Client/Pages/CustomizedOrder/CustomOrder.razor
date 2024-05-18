@@ -203,7 +203,7 @@ else
                                 </div>
                                 <div class="form-group pt-2">
                                     <label class="text">Postal Code</label>
-                                    <InputText @bind-Value="Order.OrderHeader.PostalCode" type="text" class="form-control custom-input" />
+                                    <InputText @bind-Value="Order.OrderHeader.PostalCode" type="number" class="form-control custom-input" />
                                     <ValidationMessage For="() => Order.OrderHeader.PostalCode"></ValidationMessage>
                                 </div>
                             </div>
