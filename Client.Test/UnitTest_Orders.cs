@@ -14,14 +14,14 @@ namespace TangyWeb_API.Tests.Controllers
         [Fact]
         public async Task GetAll_ReturnsOkResult()
         {
-            // Arrange
+           
             var mockRepository = new Mock<IOrderRepository>();
             var controller = new OrderController(mockRepository.Object, null);
 
-            // Act
+            
             var result = await controller.GetAll();
 
-            // Assert
+            
             Assert.IsType<OkObjectResult>(result);
         }
 
@@ -29,18 +29,156 @@ namespace TangyWeb_API.Tests.Controllers
         [Fact]
         public async Task Get_WithInvalidId_ReturnsBadRequestResult()
         {
-            // Arrange
+            
             var mockRepository = new Mock<IOrderRepository>();
             var controller = new OrderController(mockRepository.Object, null);
 
-            // Act
+           
             var result = await controller.Get(null);
 
-            // Assert
+            
+            Assert.IsType<BadRequestObjectResult>(result);
+        }         
+
+
+        [Fact]
+        public async Task Create_WithInvalidOrderDTO_ReturnsBadRequestResult()
+        {
+            
+            var mockRepository = new Mock<IOrderRepository>();
+            var mockEmailSender = new Mock<IEmailSender>();
+            var controller = new OrderController(mockRepository.Object, mockEmailSender.Object);
+
+            // passing null to trigger validation error
+            var result = await controller.Create(null); 
+            
             Assert.IsType<BadRequestObjectResult>(result);
         }
 
+        [Fact]
+        public async Task GetOrdersByEmail_ReturnsOkResult()
+        {
+           
+            var mockRepository = new Mock<IOrderRepository>();
+            var controller = new OrderController(mockRepository.Object, null);
+            var userEmail = "test@example.com";
 
+            
+            var result = await controller.GetOrdersByEmail(userEmail);
+
+            
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task Get_ReturnsBadRequest_WhenIdIsNull()
+        {
+            
+            int? id = null;
+            var controller = new OrderController(null, null);
+
+            
+            var result = await controller.Get(id);
+
+            
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
+            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+            Assert.Equal("Invalid Id", errorModel.ErrorMessage);
+        }
+
+ 
+        [Fact]
+        public async Task Create_ReturnsBadRequest_WhenOrderDTOIsNull()
+        {
+            
+            var controller = new OrderController(null, null);
+
+           
+            var result = await controller.Create(null);
+
+            
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
+            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+            Assert.Equal("OrderDTO or OrderHeader is null", errorModel.ErrorMessage);
+        }
+
+        
+
+        [Fact]
+        public async Task Get_ReturnsOk_WhenOrderFound()
+        {
+            
+            int id = 1; 
+            var order = new OrderDTO { OrderHeader = new OrderHeaderDTO { Id = id } };
+            var mockRepository = new Mock<IOrderRepository>();
+            mockRepository.Setup(repo => repo.Get(id)).ReturnsAsync(order);
+
+            var controller = new OrderController(mockRepository.Object, null);
+
+            
+            var result = await controller.Get(id);
+
+           
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var model = Assert.IsType<OrderDTO>(okResult.Value);
+            Assert.Equal(id, model.OrderHeader.Id);
+        }
+
+        [Fact]
+        public async Task Create_ReturnsBadRequest_WhenOrderCreationFails()
+        {
+           
+            var mockRepository = new Mock<IOrderRepository>();
+            mockRepository.Setup(repo => repo.Create(It.IsAny<OrderDTO>()))
+                          .ReturnsAsync((OrderDTO)null);
+
+            var controller = new OrderController(mockRepository.Object, null);
+            var orderDTO = new OrderDTO { OrderHeader = new OrderHeaderDTO() };
+
+          
+            var result = await controller.Create(orderDTO);
+
+           
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
+            Assert.Equal("Failed to create the order", errorModel.ErrorMessage);
+        }
+
+        [Fact]
+        public async Task GetOrdersByEmail_ReturnsEmptyList_WhenNoOrdersFound()
+        {
+            
+            var mockRepository = new Mock<IOrderRepository>();
+            mockRepository.Setup(repo => repo.GetAllLoadedByEmail(It.IsAny<string>())).ReturnsAsync(new List<OrderDTO>()); // Simulating no orders found
+            var controller = new OrderController(mockRepository.Object, null);
+            var userEmail = "nonexistent@example.com";
+
+            
+            var result = await controller.GetOrdersByEmail(userEmail);
+
+          
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var orders = Assert.IsType<List<OrderDTO>>(okResult.Value);
+            Assert.Empty(orders);
+        }
+
+        [Fact]
+        public async Task Create_ReturnsBadRequest_WhenOrderHeaderIsNull()
+        {
+            
+            var controller = new OrderController(null, null);
+            var orderDTO = new OrderDTO(); // OrderDTO with null OrderHeader
+
+            
+            var result = await controller.Create(orderDTO);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
+            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+            Assert.Equal("OrderDTO or OrderHeader is null", errorModel.ErrorMessage);
+        }
 
         //[Fact]
         //public async Task Create_WithValidOrderDTO_ReturnsOkResult()
@@ -93,151 +231,6 @@ namespace TangyWeb_API.Tests.Controllers
         //    // Assert
         //    Assert.IsType<OkObjectResult>(result);
         //}
-
-
-        [Fact]
-        public async Task Create_WithInvalidOrderDTO_ReturnsBadRequestResult()
-        {
-            // Arrange
-            var mockRepository = new Mock<IOrderRepository>();
-            var mockEmailSender = new Mock<IEmailSender>();
-            var controller = new OrderController(mockRepository.Object, mockEmailSender.Object);
-
-            // Act
-            var result = await controller.Create(null); // passing null to trigger validation error
-
-            // Assert
-            Assert.IsType<BadRequestObjectResult>(result);
-        }
-
-        [Fact]
-        public async Task GetOrdersByEmail_ReturnsOkResult()
-        {
-            // Arrange
-            var mockRepository = new Mock<IOrderRepository>();
-            var controller = new OrderController(mockRepository.Object, null);
-            var userEmail = "test@example.com";
-
-            // Act
-            var result = await controller.GetOrdersByEmail(userEmail);
-
-            // Assert
-            Assert.IsType<OkObjectResult>(result);
-        }
-
-        [Fact]
-        public async Task Get_ReturnsBadRequest_WhenIdIsNull()
-        {
-            // Arrange
-            int? id = null;
-            var controller = new OrderController(null, null);
-
-            // Act
-            var result = await controller.Get(id);
-
-            // Assert
-            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
-            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
-            Assert.Equal("Invalid Id", errorModel.ErrorMessage);
-        }
-
-        
-
-        ///////////////////
-        [Fact]
-        public async Task Create_ReturnsBadRequest_WhenOrderDTOIsNull()
-        {
-            // Arrange
-            var controller = new OrderController(null, null);
-
-            // Act
-            var result = await controller.Create(null);
-
-            // Assert
-            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
-            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
-            Assert.Equal("OrderDTO or OrderHeader is null", errorModel.ErrorMessage);
-        }
-
-        
-
-        [Fact]
-        public async Task Get_ReturnsOk_WhenOrderFound()
-        {
-            // Arrange
-            int id = 1; // Assuming order with id 1 exists
-            var order = new OrderDTO { OrderHeader = new OrderHeaderDTO { Id = id } };
-            var mockRepository = new Mock<IOrderRepository>();
-            mockRepository.Setup(repo => repo.Get(id)).ReturnsAsync(order);
-
-            var controller = new OrderController(mockRepository.Object, null);
-
-            // Act
-            var result = await controller.Get(id);
-
-            // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsType<OrderDTO>(okResult.Value);
-            Assert.Equal(id, model.OrderHeader.Id);
-        }
-
-        [Fact]
-        public async Task Create_ReturnsBadRequest_WhenOrderCreationFails()
-        {
-            // Arrange
-            var mockRepository = new Mock<IOrderRepository>();
-            mockRepository.Setup(repo => repo.Create(It.IsAny<OrderDTO>()))
-                          .ReturnsAsync((OrderDTO)null);
-
-            var controller = new OrderController(mockRepository.Object, null);
-            var orderDTO = new OrderDTO { OrderHeader = new OrderHeaderDTO() };
-
-            // Act
-            var result = await controller.Create(orderDTO);
-
-            // Assert
-            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
-            Assert.Equal("Failed to create the order", errorModel.ErrorMessage);
-        }
-
-        [Fact]
-        public async Task GetOrdersByEmail_ReturnsEmptyList_WhenNoOrdersFound()
-        {
-            // Arrange
-            var mockRepository = new Mock<IOrderRepository>();
-            mockRepository.Setup(repo => repo.GetAllLoadedByEmail(It.IsAny<string>())).ReturnsAsync(new List<OrderDTO>()); // Simulating no orders found
-            var controller = new OrderController(mockRepository.Object, null);
-            var userEmail = "nonexistent@example.com";
-
-            // Act
-            var result = await controller.GetOrdersByEmail(userEmail);
-
-            // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var orders = Assert.IsType<List<OrderDTO>>(okResult.Value);
-            Assert.Empty(orders);
-        }
-
-        [Fact]
-        public async Task Create_ReturnsBadRequest_WhenOrderHeaderIsNull()
-        {
-            // Arrange
-            var controller = new OrderController(null, null);
-            var orderDTO = new OrderDTO(); // OrderDTO with null OrderHeader
-
-            // Act
-            var result = await controller.Create(orderDTO);
-
-            // Assert
-            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var errorModel = Assert.IsType<ErrorModelDTO>(badRequestResult.Value);
-            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
-            Assert.Equal("OrderDTO or OrderHeader is null", errorModel.ErrorMessage);
-        }
-
 
 
         //[Fact]

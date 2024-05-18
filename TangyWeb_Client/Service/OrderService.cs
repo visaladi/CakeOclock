@@ -142,6 +142,21 @@ namespace TangyWeb_Client.Serivce
             return new List<UserProfileDTO>();
         }
 
-       
+        public async Task<OrderDTO> MakeCustom(OrderDTO orderDTO)
+        {
+            var content = JsonConvert.SerializeObject(orderDTO);
+            Console.WriteLine(content);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            Console.WriteLine(bodyContent);
+            var response = await _httpClient.PostAsync("api/order/create", bodyContent);
+
+            string responseResult = response.Content.ReadAsStringAsync().Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<OrderDTO>(responseResult);
+                return result;
+            }
+            return new OrderDTO();
+        }
     }
 }
