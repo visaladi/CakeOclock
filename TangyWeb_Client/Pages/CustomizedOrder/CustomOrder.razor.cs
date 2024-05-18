@@ -80,6 +80,11 @@ namespace TangyWeb_Client.Pages.CustomizedOrder
             {
                 IsProcessing = true;
 
+                if (Order.OrderDetails.Count != 0)
+                {
+                    await _jsRuntime.ToastrFailure("You Have items in Shopping Cart. Please remove them before placing a Custom Order.");
+                    return;
+                }
 
                 // Update the order details or any other logic as needed
                 Order.OrderHeader.Status = SD.Status_Pending;
@@ -91,7 +96,7 @@ namespace TangyWeb_Client.Pages.CustomizedOrder
                     OrderDetails = Order.OrderDetails.ToList() // Make a copy if needed
                 };
 
-                var result = await _orderService.Make(orderDTO);
+                var result = await _orderService.MakeCustom(orderDTO);
 
                 await _localStorage.SetItemAsync(SD.Local_OrderDetails, result);
 
