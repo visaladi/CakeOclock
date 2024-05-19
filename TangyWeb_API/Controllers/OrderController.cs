@@ -105,10 +105,28 @@ namespace TangyWeb_API.Controllers
             if (result != null && result.OrderHeader != null) // Ensure result and result.OrderHeader are not null
             {
                 await _emailSender.SendEmailAsync(orderDTO.OrderHeader.Email, "Cake'O Clock Order Confirmation",
-                    "New Order has been created by you! Your Order Id is : " + result.OrderHeader.Id);
+                    "<h2>New Order has been created by you! </h2>" +
+                    "<p>Your Order Id: " + result.OrderHeader.Id + "</p>" +
+                    "<p>Customer Name: " + result.OrderHeader.Name + "</p>" +
+                    "<p>Customer Contact Number: " + result.OrderHeader.PhoneNumber + "</p>" +
+                    "<p>Customer Address: " + result.OrderHeader.StreetAddress + "</p>" +
+                    "<p>Customer Postal Code: " + result.OrderHeader.PostalCode + "</p>" +
+                    "<p>Order Date: " + result.OrderHeader.OrderDate + "</p>" +
+                    "<h3>Bill Amount: Rs." + result.OrderHeader.OrderTotal + "</h3>"
+
+                    );
 
                 await _emailSender.SendEmailAsync(ownerEmail, "New Order Cake'O Clock",
-                    "New Order has been created! Under the order Id :" + result.OrderHeader.Id);
+                    "<h2>New Order has been created! </h2>" +
+                    "<p>Under the Order Id: " + result.OrderHeader.Id + "</p>" +
+                    "<p>Customer Name: " + result.OrderHeader.Name + "</p>" +
+                    "<p>Customer Contact Number: " + result.OrderHeader.PhoneNumber + "</p>" +
+                    "<p>Customer Address: " + result.OrderHeader.StreetAddress + "</p>" +
+                    "<p>Customer Postal Code: " + result.OrderHeader.PostalCode + "</p>" +
+                    "<p>Order Date: " + result.OrderHeader.OrderDate + "</p>" +
+                    "<h3>Bill Amount: Rs." + result.OrderHeader.OrderTotal + "</h3>"
+                    );
+
 
                 return Ok(result);
             }
