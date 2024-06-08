@@ -7,7 +7,7 @@ namespace TangyWeb_Server.Pages.Product
 {
     public partial class ProductUpsert
     {
-
+        private const long MaxFileSize = 2 * 1024 * 1024;
         [Parameter]
         public int Id { get; set; }
 
@@ -84,6 +84,13 @@ namespace TangyWeb_Server.Pages.Product
                 {
                     foreach (var file in e.GetMultipleFiles())
                     {
+                        // Check if the file size exceeds the maximum allowed size
+                        if (file.Size > MaxFileSize)
+                        {
+                            await _jsRuntime.ToastrFailure("File size exceeds the maximum limit of 20 MB");
+                            return;
+                        }
+
                         System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
                         if (fileInfo.Extension.ToLower() == ".jpg" ||
                             fileInfo.Extension.ToLower() == ".png" ||
@@ -109,45 +116,47 @@ namespace TangyWeb_Server.Pages.Product
 
 
 
-        // private async Task HandleImageUpload(InputFileChangeEventArgs e)
-        // {
-        //     IsLoading = true;
-        //     try
-        //     {
-        //         if (e.GetMultipleFiles().Count > 0)
-        //         {
-        //             foreach (var file in e.GetMultipleFiles())
-        //             {
-        //                 // Check file size
-        //                 if (file.Size > 2097152) // 1MB
-        //                 {
-        //                     await _jsRuntime.ToastrFailure("File size exceeds the limit of 1MB");
-        //                     return;
-        //                 }
-
-        //                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
-        //                 if (fileInfo.Extension.ToLower() == ".jpg" ||
-        //                     fileInfo.Extension.ToLower() == ".png" ||
-        //                     fileInfo.Extension.ToLower() == ".jpeg")
-        //                 {
-        //                     Product.ImageUrl = await _fileUpload.UploadFile(file);
-        //                 }
-        //                 else
-        //                 {
-        //                     await _jsRuntime.ToastrFailure("Please select .jpg/ .jpeg/ .png file only");
-        //                     return;
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         // Handle exception
-        //     }
-        //     finally
-        //     {
-        //         IsLoading = false;
-        //     }
-        // }
+        
     }
 }
+
+// private async Task HandleImageUpload(InputFileChangeEventArgs e)
+// {
+//     IsLoading = true;
+//     try
+//     {
+//         if (e.GetMultipleFiles().Count > 0)
+//         {
+//             foreach (var file in e.GetMultipleFiles())
+//             {
+//                 // Check file size
+//                 if (file.Size > 2097152) // 1MB
+//                 {
+//                     await _jsRuntime.ToastrFailure("File size exceeds the limit of 1MB");
+//                     return;
+//                 }
+
+//                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
+//                 if (fileInfo.Extension.ToLower() == ".jpg" ||
+//                     fileInfo.Extension.ToLower() == ".png" ||
+//                     fileInfo.Extension.ToLower() == ".jpeg")
+//                 {
+//                     Product.ImageUrl = await _fileUpload.UploadFile(file);
+//                 }
+//                 else
+//                 {
+//                     await _jsRuntime.ToastrFailure("Please select .jpg/ .jpeg/ .png file only");
+//                     return;
+//                 }
+//             }
+//         }
+//     }
+//     catch (Exception ex)
+//     {
+//         // Handle exception
+//     }
+//     finally
+//     {
+//         IsLoading = false;
+//     }
+// }
