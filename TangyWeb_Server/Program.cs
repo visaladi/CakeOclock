@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
@@ -12,6 +13,12 @@ using TangyWeb_Server.Service.IService;
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mjg0MDI1OUAzMjMzMmUzMDJlMzBlcXpPaVdRSDMvczBBZGlBaUl0aEhPbmFzU3VvM2lMcjdzbzNrZkJOejRZPQ==");
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure maximum file upload size
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 2 * 1024 * 1024; // 2 MB
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
