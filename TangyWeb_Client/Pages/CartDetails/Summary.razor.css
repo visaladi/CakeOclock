@@ -1,0 +1,171 @@
+﻿.background-container {
+    background-size: cover;
+    background-position: center;
+    padding-top: 0px;
+}
+
+.box {
+    height: 20px;
+}
+
+h2 {
+    color: black !important;
+    font-family: "Quicksand", sans-serif;
+}
+
+.paragraph {
+    color: black !important;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: "Quicksand", sans-serif;
+}
+
+.outlet-btn {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: black;
+    color: white;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 90%;
+}
+
+    .outlet-btn:hover {
+        background-color: rgba(100, 0, 0, 0.8);
+    }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.text-warning {
+    color: black !important;
+    font-family: "Quicksand", sans-serif;
+}
+
+.text-success {
+    color: #28a745 !important;
+    font-family: "Quicksand", sans-serif;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ddd !important;
+}
+
+
+
+
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.col-12, .col-lg-7 {
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.p-4 {
+    padding: 1.5rem !important;
+}
+
+/* Order Summary Header */
+.text-success {
+    color: #28a745 !important;
+}
+
+.px-2 {
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 1rem;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+/* Product Item */
+.product-item {
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    margin-bottom: 1rem;
+    background-color: #fff;
+}
+
+.product-image {
+    width: 100%;
+    border-radius: .25rem;
+}
+
+.product-name {
+    font-weight: bold;
+    display: block;
+}
+
+.product-detail {
+    color: #6c757d;
+    display: block;
+    margin-top: .25rem;
+}
+
+.product-price {
+    color: #ffc107;
+}
+
+.price-value {
+    border-bottom: 1px solid #ff6a00;
+}
+
+/* Order Total */
+.text-secondary {
+    color: #6c757d !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+@media (max-width: 768px) {
+    .text-right {
+        text-align: left !important;
+    }
+}
+
+
+
+
+
+
+
+
