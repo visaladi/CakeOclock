@@ -14,6 +14,9 @@
 @attribute [Authorize]
 
 
+<div class="background-container" style="background-image: url('images/bk.png');">
+	<NavMenu />
+
 @if (IsProcessing)
 {
     <div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
@@ -26,102 +29,108 @@ else
     <div class="mt-4 mx-4 px-md-5 mx-md-5 p-1">
 
         <div class="row p-2 my-3">
-            <div class="col-12 col-lg-7 p-4">
-                <div class="row px-2 text-success ">
-                    <div class="col-8 py-1"><p style="font-size:x-large;margin:0px;">Order Summary</p></div>
-                    <div class="col-4 p-0" style="text-align:right">
-                        <a href="/cart" class="btn btn-secondary btn-block">Back to cart</a>
+                <div class="col-12 col-lg-7 p-4">
+                    <div class="row px-2 text-success ">
+                        <div class="col-8 py-1"><p style="font-size:x-large;margin:0px;">Order Summary</p></div>
+                        <div class="col-4 p-0" style="text-align:right">
+                            <a href="/cart" class="btn btn-secondary btn-block">Back to cart</a>
+                        </div>
+                    </div>
+
+                    @foreach (var prod in Order.OrderDetails)
+                    {
+
+                        <div class="row border p-1 m-1 product-item">
+                            <div class="col-3 col-md-2 ">
+                                <img src="@prod.Product.ImageUrl" class="product-image">
+                            </div>
+                            <div class="col-5 col-md-5 ">
+                                <span class="product-name">Product : @prod.ProductName </span><br />
+                                <span class="product-detail">Size : @prod.Size</span><br />
+                                <span class="product-detail">Count : @prod.Count</span><br />
+                            </div>
+                            <div class="col-4 col-md-5 text-right">
+                                <h4 class="text-warning font-weight-bold pt-2 product-price">
+                                    LKR
+                                    <span class="price-value">
+                                        Rs @((prod.Count * prod.Price).ToString("N2"))
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                    }
+                    <div class="row text-right">
+                        <div class="col-12 px-3">
+                            <h3> Order Total : <span class="text-secondary">Rs @Order.OrderHeader.OrderTotal.ToString("N2")</span> </h3>
+                        </div>
                     </div>
                 </div>
 
-                @foreach (var prod in Order.OrderDetails)
-                {
 
-                    <div class="row border p-1 m-1">
+         <div class="col-12 col-lg-5 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
+        <EditForm Model="Order.OrderHeader" OnValidSubmit="ConfirmOrderNow">
+            <DataAnnotationsValidator />
 
-                        <div class="col-3 col-md-2 ">
-                            <img src="@prod.Product.ImageUrl" width="100%">
-                        </div>
-                        <div class="col-5 col-md-5 ">
-                            <span class="">Product : @prod.ProductName </span><br />
-                            <span class="pt-1">Size : @prod.Size</span><br />
-                            <span class="pt-1">Count : @prod.Count</span><br />
-
-                        </div>
-                        <div class="col-4 col-md-5 " style="text-align:right;">
-                            <h4 class="text-warning font-weight-bold pt-2">
-                                LKR
-                                <span style="border-bottom:1px solid #ff6a00">
-                                   Rs @((prod.Count * prod.Price).ToString("N2"))
-                                </span>
-                            </h4>
-                        </div>
-                    </div>
-                }
-                <div class="row" style="text-align:right">
-                    <div class="col-12 px-3">
-                        <h3> Order Total : <span class="text-secondary">Rs @Order.OrderHeader.OrderTotal.ToString("N2")</span> </h3>
-                    </div>
+            <div class="row px-2 text-success border-bottom">
+                <div class="col-7 py-1">
+                    <p style="font-size:x-large;margin:0px;">Enter Details</p>
                 </div>
             </div>
 
-            <div class="col-12 col-lg-5 p-4 ml-4 ml-md-0 mt-4 mt-md-0 border">
-                <EditForm Model="Order.OrderHeader" OnValidSubmit="ConfirmOrderNow">
-                    <DataAnnotationsValidator />
-                    
-                    <div class="row px-2 text-success border-bottom"><div class="col-7 py-1"><p style="font-size:x-large;margin:0px;">Enter Details</p></div></div>
-
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Name</label>
-                        <InputText @bind-Value="Order.OrderHeader.Name" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.Name"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Phone</label>
-                        <InputText @bind-Value="Order.OrderHeader.PhoneNumber" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.PhoneNumber"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Email</label>
-                        <InputText @bind-Value="Order.OrderHeader.Email" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.Email"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Street Address</label>
-                        <InputText @bind-Value="Order.OrderHeader.StreetAddress" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.StreetAddress"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">City</label>
-                        <InputText @bind-Value="Order.OrderHeader.City" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.City"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">State</label>
-                        <InputText @bind-Value="Order.OrderHeader.State" type="text" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.State"></ValidationMessage>
-                    </div>
-                    <div class="form-group pt-2">
-                        <label class="text-warning">Postal Code</label>
-                        <InputText @bind-Value="Order.OrderHeader.PostalCode" type="number" class="form-control" />
-                        <ValidationMessage For="() => Order.OrderHeader.PostalCode"></ValidationMessage>
-                    </div>
-
-
-                    @* <div class="form-group pt-2">
-                        <button type="submit" class="btn btn-success form-control">Checkout Now</button>
-                    </div> *@
-
-                    <div class="form-group pt-2">
-                        <button type="submit" class="btn btn-primary form-control" >Order Now</button>
-                    </div>
-
-                </EditForm>
+            <div class="form-group pt-2">
+                <label class="text-warning">Name</label>
+                <InputText @bind-Value="Order.OrderHeader.Name" type="text" class="form-control" placeholder="Enter your name" />
+                <ValidationMessage For="() => Order.OrderHeader.Name"></ValidationMessage>
             </div>
+            <div class="form-group pt-2">
+                <label class="text-warning">Phone</label>
+                <InputText @bind-Value="Order.OrderHeader.PhoneNumber" type="text" class="form-control" placeholder="Enter your phone number" />
+                <ValidationMessage For="() => Order.OrderHeader.PhoneNumber"></ValidationMessage>
+            </div>
+            <div class="form-group pt-2">
+                <label class="text-warning">Email</label>
+                <InputText @bind-Value="Order.OrderHeader.Email" type="email" class="form-control" placeholder="Enter your email" />
+                <ValidationMessage For="() => Order.OrderHeader.Email"></ValidationMessage>
+            </div>
+            <div class="form-group pt-2">
+                <label class="text-warning">Street Address</label>
+                <InputText @bind-Value="Order.OrderHeader.StreetAddress" type="text" class="form-control" placeholder="Enter your street address" />
+                <ValidationMessage For="() => Order.OrderHeader.StreetAddress"></ValidationMessage>
+            </div>
+            <div class="form-group pt-2">
+                <label class="text-warning">City</label>
+                <InputText @bind-Value="Order.OrderHeader.City" type="text" class="form-control" placeholder="Enter your city" />
+                <ValidationMessage For="() => Order.OrderHeader.City"></ValidationMessage>
+            </div>
+            <div class="form-group pt-2">
+                <label class="text-warning">State</label>
+                <InputText @bind-Value="Order.OrderHeader.State" type="text" class="form-control" placeholder="Enter your state" />
+                <ValidationMessage For="() => Order.OrderHeader.State"></ValidationMessage>
+            </div>
+            <div class="form-group pt-2">
+                <label class="text-warning">Postal Code</label>
+                <InputText @bind-Value="Order.OrderHeader.PostalCode" type="number" class="form-control" placeholder="Enter your postal code" />
+                <ValidationMessage For="() => Order.OrderHeader.PostalCode"></ValidationMessage>
+            </div>
+
+            <div class="form-group pt-2">
+                <button type="submit" class="btn btn-primary form-control">Order Now</button>
+            </div>
+        </EditForm>
+    </div>
+
         </div>
     </div>
 
+
 }
+
+    <div class="footer">
+        <Footer />
+    </div>
+</div>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
 
 @code {
    
