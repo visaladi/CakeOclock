@@ -1,132 +1,106 @@
 ﻿@page "/cart"
 
-
 @inject ILocalStorageService _localStorage
 @inject IProductService _productService
 @inject ICartService _cartService
-<div class="background-container" style="background-image: url('images/bk.png');">
-	<NavMenu />
 
-@if (IsProcessing)
+<div class="background-container">
+    <NavMenu />
 
-{
-	<div class="background-container" style="background-image: url('images/bk.png');">
-	<div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
-		<img src="images/ajax-loader.gif" />
-	</div>
-	</div>
-}
-else
-{
-	@if (ShoppingCart == null || !ShoppingCart.Any())
-	{
-		
-		
-			<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 50vh;">
-			<div class="h3">Please add items to Shopping Cart...</div>
-			</div>
-		
-		
-	}
-	else
-	{
-			<h2>Shopping Cart</h2>
+    @if (IsProcessing)
+    {
+        <div class="loading-container">
+            <img src="images/ajax-loader.gif" />
+        </div>
+    }
+    else
+    {
+        @if (ShoppingCart == null || !ShoppingCart.Any())
+        {
+            <div class="empty-cart-message">
+                <div class="h3">Please add items to Shopping Cart...</div>
+            </div>
+        }
+        else
+        {
+            <h2>Shopping Cart</h2>
+            <div class="container mt-4">
+                <div class="card border custom-card">
+                    <div class="card-header text-light ml-0">
+                        <div class="row">
+                            <div class="col-6 pt-2 title">
+                                Shopping Cart
+                            </div>
+                            <div class="col-6 col-md-3 offset-md-3 text-end">
+                                <a href="/ProductsPage" class="btn btn-outline-info form-control">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in ShoppingCart)
+                        {
+                            <div class="row">
+                                <div class="col-3 col-md-1 text-center py-2">
+                                    <img src="@item.Product.ImageUrl" class="rounded" width="100%" />
+                                </div>
+                                <div class="col-9 text-sm-center text-md-start col-md-4 pt-lg-1">
+                                    <h4><strong>@item.Product.Name</strong></h4>
+                                    <div class="badge bg-primary text-center" style="font-size:12px;">
+                                        @item.Product.Category.Name
+                                    </div>
+                                    <div class="badge bg-info text-center" style="font-size:12px;">
+                                        @item.Product.Color
+                                    </div>
+                                    <div><p>Size : @item.ProductPrice.Size </p></div>
+                                </div>
+                                <div class="col-12 text-sm-center col-md-7 text-md-start row pt-lg-3 mt-3">
+                                    <div class="col-4 pt-1">
+                                        <h6><strong>Rs @item.ProductPrice.Price.ToString("N2") <span class="text-muted">x</span> @item.Count </strong></h6>
+                                    </div>
+                                    <div class="col-6 col-sm-4 col-lg-6">
+                                        <button @onclick="() => Increment(item.ProductId, item.ProductPriceId, 1)" type="submit" class="btn btn-incr">
+                                            <i class="bi bi-plus-square"></i>
+                                        </button>
+                                        <button @onclick="() => Decrement(item.ProductId, item.ProductPriceId, 1)" type="submit" class="btn btn-incr">
+                                            <i class="bi bi-dash-square"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-2 col-sm-4 col-lg-2 text-right">
+                                        <button @onclick="() => Decrement(item.ProductId, item.ProductPriceId, 0)" type="submit" class="btn btn-outline-danger">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
 
-		<div class="container mt-4">
-				<div class="card border custom-card">
-				<div class="card-header text-light ml-0 ">
-					<div class="row">
-						<div class="col-6  pt-2">
-							Shopping Cart
-						</div>
-						<div class="col-6 col-md-3 offset-md-3 text-end">
-							<a href="/ProductsPage" class="btn btn-outline-info form-control">Continue Shopping</a>
-						</div>
-					</div>
-				</div>
-				<div class="card-body">
+                        <hr />
 
-					@foreach (var item in ShoppingCart)
-					{
-						<div class="row">
-							<div class="col-3 col-md-1 text-center py-2">
-								<img src="@item.Product.ImageUrl" class="rounded" width="100%" />
-							</div>
-							<div class="col-9 text-sm-center text-md-start col-md-4 pt-lg-1 ">
-								<h4><strong>@item.Product.Name</strong></h4>
+                        <div class="row">
+                            <div class="col-12 col-md-5"></div>
+                            <div class="col-12 col-md-6 offset-md-1 col-lg-4 offset-lg-3 pr-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <strong class="text-info">Total (Rs)</strong>
+                                        <strong class="text-info">Rs @OrderTotal.ToString("N2")</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-12 col-md-3 offset-md-9">
+                            <a href="/summary" class="btn summary form-control">Summary</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 
-								<div class="badge bg-primary text-center" style="font-size:12px;">
-									@item.Product.Category.Name
-								</div>
-								<div class="badge bg-info text-center" style="font-size:12px;">
-									@item.Product.Color
-								</div>
-								<div><p>Size : @item.ProductPrice.Size </p></div>
-							</div>
-							<div class="col-12 text-sm-center col-md-7 text-md-start row  pt-lg-3 mt-3">
-								<div class="col-4 pt-1 ">
-
-									<h6><strong>Rs @item.ProductPrice.Price.ToString("N2") <span class="text-muted">x</span> @item.Count </strong></h6>
-									
-								</div>
-								<div class="col-6 col-sm-4 col-lg-6">
-									<button @onclick="()=>Increment(item.ProductId, item.ProductPriceId, 1)" type="submit" class="btn btn-primary">
-										<i class="bi bi-plus-square"></i>
-									</button>
-									<button @onclick="()=>Decrement(item.ProductId, item.ProductPriceId, 1)" type="submit" class="btn btn-warning">
-										<i class="bi bi-dash-square"></i>
-									</button>
-								</div>
-								<div class="col-2 col-sm-4 col-lg-2 text-right">
-									<button @onclick="()=>Decrement(item.ProductId, item.ProductPriceId, 0)" type="submit" class="btn btn-outline-danger">
-										<i class="bi bi-trash-fill"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					}
-
-
-
-					<hr />
-
-					<div class="row">
-						<div class="col-12 col-md-5">
-						</div>
-						<div class="col-12 col-md-6 offset-md-1 col-lg-4 offset-lg-3 pr-4">
-							<ul class="list-group">
-								<li class="list-group-item d-flex justify-content-between bg-light">
-									@* <span class="text-info"> Total (USD)</span>
-									<strong class="text-info">@OrderTotal.ToString("c")</strong> *@
-									<strong class="text-info"> Total (Rs)</strong>
-									<strong class="text-info">Rs @OrderTotal.ToString("N2")</strong>
-
-								</li>
-							</ul>
-						</div>
-					</div>
-
-
-				</div>
-				<div class="card-footer">
-					<div class="col-12  col-md-3 offset-md-9">
-						<a href="/summary" class="btn btn-secondary form-control">Summary</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	}
-}
-
-@code {
-	
-
-}
-	<Footer />
+    <Footer />
 </div>
+
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
-
-
-
 
 
