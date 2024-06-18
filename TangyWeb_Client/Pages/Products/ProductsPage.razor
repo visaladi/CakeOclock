@@ -66,10 +66,22 @@ else
                                             @* <div class="card-body pb-1 row"> *@
                                                 <div class="h5">@product.Name</div>
                                                 <div class="price" >
-                                                <span class="text-info h4" style="color:black !important">
-                                                        @* @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") *@
+                                                
+                                                    @if (@product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("N2") == null)
+                                                    {
+                                                    <span class="text-info h4" style="color:black !important">
+                                                        You can Discuss the Price
+                                                    </span>
+                                                    }
+                                                    else
+                                                    {
+                                                    <span class="text-info h4" style="color:black !important">
                                                         Rs @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("N2")
                                                     </span>
+                                                    }
+                                                    @* @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") *@
+                                                        
+                                                    
                                                 </div>
                                             @* </div> *@
                                             
