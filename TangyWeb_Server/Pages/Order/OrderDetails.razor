@@ -3,6 +3,7 @@
 
 @inject IOrderRepository _orderRepository
 @inject IJSRuntime _jsRuntime
+@inject IConfiguration _configuration
 @using Tangy_Common
 @* @attribute [Authorize] *@
 @if (IsLoading)
@@ -129,23 +130,15 @@ else
                                     <div class="col-9">
                                         @if (Order.OrderHeader.CustomerImage != null)
                                         {
-                                            @* https://cakeoclockwebapi.azurewebsites.net/api/File/ *@
-
-                                            <img src="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" width="600px" height="350px" />
-                                            <input value="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" />
+                                            <img src="@($"{DownloadUrl}{Order.OrderHeader.CustomerImage}")" width="600px" height="350px" />
+                                            <input value="@($"{DownloadUrl}{Order.OrderHeader.CustomerImage}")" type="text" readonly class="form-control" />
                                             <div class="col-12 col-md-4 offset-md-2 text-right">
-                                                <a href="@("https://localhost:44304/api/File/" + Order.OrderHeader.CustomerImage)" class="btn btn-outline-info form-control btn-sm">Download Image</a>
+                                                <a href="@($"{DownloadUrl}{Order.OrderHeader.CustomerImage}")" class="btn btn-outline-info form-control btn-sm">Download Image</a>
                                             </div>
-
-                                            @* <img src="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" width="600px" height="350px" />
-                                            <input value="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" type="text" readonly class="form-control" />
-                                            <div class="col-12 col-md-4 offset-md-2 text-right">
-                                            <a href="@("https://cakeoclockwebapi.azurewebsites.net/api/File/" + Order.OrderHeader.CustomerImage)" class="btn btn-outline-info form-control btn-sm">Download Image</a>
-                                            </div> *@
 
                                         }
                                         else{
-                                            <img src="~/images/default.png" width="60px" height="25px" />
+                                            <span>No Image to Display</span>
                                         }
                                         
                                     </div>
@@ -154,7 +147,15 @@ else
                                     <div class="col-3">Description</div>
                                     <div class="col-9">
                                         @* <input value="@Order.OrderHeader.CustomerDescription" type="text" readonly class="form-control" /> *@
-                                        <p>@((MarkupString)Order.OrderHeader.CustomerDescription)</p>
+                                        
+                                        @if (Order.OrderHeader.CustomerDescription == null)
+                                        {
+                                            <p>No Discription Provied</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@((MarkupString)Order.OrderHeader.CustomerDescription)</p>
+                                        }
                                     </div>
                                 </div>
                                 @* <div class="form-group">
@@ -236,5 +237,6 @@ else
 }
 
 @code {
-   
+
+    
 }

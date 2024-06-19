@@ -12,6 +12,14 @@ namespace TangyWeb_Server.Pages.Order
         public bool IsLoading { get; set; } = true;
         public OrderDTO Order { get; set; } = new();
 
+        private string DownloadUrl;
+
+        protected override void OnInitialized()
+        {
+            // Fetch the download URL from the configuration
+            DownloadUrl = _configuration["Download_URL"];
+        }
+
 
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
