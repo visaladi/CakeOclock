@@ -20,7 +20,14 @@
                 @* <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="Email" Title="Email" /> *@
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderTotal" Title="Total">
                     <Template Context="order">
-                        @($"Rs. {order.OrderTotal:N2}")
+                        @if (order.OrderTotal == 0)
+                        {
+                            @("Custom Order")
+                        }
+                        else
+                        {
+                            @($"Rs. {order.OrderTotal:N2}")
+                        }                        
                     </Template>
                 </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Property="OrderDate" Title="Order Date" FormatString="{0:d}" />
@@ -28,7 +35,6 @@
                 <RadzenDataGridColumn TItem="OrderHeaderDTO" Title="Details">
                     <Template Context="data">
                         <RadzenButton Click="(args => OrderDetails(data.Id))" ButtonStyle="ButtonStyle.Success" Icon="info" IconColor="@Colors.White"></RadzenButton>
-
                     </Template>
                 </RadzenDataGridColumn>
                 <AuthorizeView Roles="@roleAdmin">
