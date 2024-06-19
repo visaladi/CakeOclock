@@ -149,7 +149,7 @@ else
                                 <div class="vertical-space1"></div>
                                 <ValidationMessage For="() => Order.OrderHeader.CustomerImage"></ValidationMessage>
                             </div>
-                            <InputFile OnChange="@OnInputFileChange" multiple />
+                            <InputFile OnChange="@OnInputFileChange" accept="image/*" multiple />
                             @if (fileNames.Count > 0)
                                 {
                                     <ul>

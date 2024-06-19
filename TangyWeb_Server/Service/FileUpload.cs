@@ -32,8 +32,12 @@ namespace TangyWeb_Server.Service
             }
             var filePath = Path.Combine(folderDirectory, fileName);
 
-            await using FileStream fs = new FileStream(filePath, FileMode.Create);
-            await file.OpenReadStream().CopyToAsync(fs);
+            // Increase the buffer size to handle large files efficiently
+            await using FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 81920, useAsync: true);
+            await file.OpenReadStream(maxAllowedSize: 2 * 1024 * 1024).CopyToAsync(fs); // 2 MB
+
+            //await using FileStream fs = new FileStream(filePath, FileMode.Create);
+            //await file.OpenReadStream().CopyToAsync(fs);
 
             var fullpath = $"/images/product/{fileName}";
             return fullpath;
