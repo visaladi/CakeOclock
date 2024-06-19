@@ -27,7 +27,7 @@
 
                     <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">ID </MudTableSortLabel> </MudTh>
                     <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)"> Name </MudTableSortLabel>  </MudTh>
-                    <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Phone </MudTableSortLabel>   </MudTh>
+                    <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Tracking Number </MudTableSortLabel>   </MudTh>
                     <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Total </MudTableSortLabel>   </MudTh>
                     <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Order Date </MudTableSortLabel>   </MudTh>
                     <MudTh Class="border-double border-2 mud-border-primary pa-4 mb-4"><MudTableSortLabel SortBy="new Func<OrderHeaderDTO, object>(x=>x.Id)">Status </MudTableSortLabel>   </MudTh>
@@ -35,8 +35,26 @@
                 <RowTemplate>
                     <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.Id</MudTd>
                         <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.Name</MudTd>
-                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.PhoneNumber</MudTd>
-                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4"> Rs. @context.OrderTotal.ToString("N2")</MudTd>
+                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">
+                                @if (@context.Tracking == null)
+                            {
+                                <span>No Tracking Id</span>
+                            }
+                            else
+                            {
+                                @context.Tracking
+                            }                          
+                        </MudTd>
+                        <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">
+                            @if (@context.OrderTotal == 0)
+                            {
+                                <span>Custom Order</span>
+                            }
+                            else{
+                                <span>Rs.@context.OrderTotal.ToString("N2")</span>
+                            }
+                            
+                            </MudTd>
                         <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.OrderDate.ToString("d")</MudTd>
                         <MudTd Class="border-solid border-2 mud-border-primary pa-4 mb-4">@context.Status</MudTd>
                     </RowTemplate>
