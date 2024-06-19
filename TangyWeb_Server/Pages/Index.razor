@@ -1,9 +1,117 @@
 ﻿@page "/"
 
+
 <PageTitle>CakeO'Clock Server App</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="background-container" style="background-image: url('images/patternxl1.png'); ">
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="row" style="padding:20px">
+    <p class="title-text col-6"> Welcome to cake O' Admin!</p>
+    <p class="date-time-text col-6 text-end">@currentDateTime.ToString("MMMM dd, yyyy, hh:mm:ss tt")</p>
+</div>
+
+
+
+
+
+
+
+    <div style="display: flex; justify-content: center; align-items: center; ">
+        <a href="/">
+            <img src="images/admin.png" alt="Logo" style="height: 500px;">
+        </a>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+@code {
+    
+    private DateTime currentDateTime;
+    private string email = "";
+
+    protected override async Task OnInitializedAsync()
+    {        
+        
+        currentDateTime = DateTime.Now;
+
+    }
+}
+
+<style>
+
+
+
+
+
+    .background-container {
+        background-size: cover;
+        background-position: center;
+        height: auto; /* Set full height of viewport */
+    }
+
+    .photos-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        max-width: 1000px;
+    }
+
+    .text-center {
+        font-family: "Quicksand", sans-serif;
+        font-size: 40px;
+        margin-bottom: 30px;
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    .photo-tile {
+        flex: 0 0 calc(25% - 40px);
+        margin: 10px;
+        text-align: center;
+    }
+
+    .caption {
+        margin-top: 10px;
+        color: rgba(0, 0, 0, 0.8);
+        font-family: "Quicksand", sans-serif;
+    }
+
+    .photo-tile img {
+        width: 200px;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .title-text {
+        padding-left:40px;
+    }
+    
+
+    .date-text {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+</style>
