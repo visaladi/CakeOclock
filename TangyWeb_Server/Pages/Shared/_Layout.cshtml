@@ -4,6 +4,7 @@
 @inject ICompositeViewEngine Engine
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,11 +26,20 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" href="~/">TangyWeb_Server</a>
+
+                <a href="~/">
+                    <img src="~/images/logo.png" alt="Logo" style="height: 50px; display: block; margin: 0 auto; padding-right:10px;">
+                </a>
+
+                <a class="navbar-brand" href="~/" style="font-weight:600; ">Cake O Clock</a>
+            
+
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     @{
                         var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
