@@ -5,7 +5,7 @@ namespace TangyWeb_Client.Pages.Products
 {
     public partial class ProductsPage
     {
-        public bool IsProcessing { get; set; } = false;
+        public bool IsProcessing { get; set; } = true;
         public IEnumerable<ProductDTO> Products { get; set; } = new List<ProductDTO>();
         public IEnumerable<ProductDTO> FilteredProducts { get; set; } = new List<ProductDTO>();
         private string selectedCategory = null;
@@ -13,7 +13,6 @@ namespace TangyWeb_Client.Pages.Products
 
         protected override async Task OnInitializedAsync()
         {
-            IsProcessing = true;
             Products = await _productService.GetAll();
             FilteredProducts = Products; // Initially display all products
             IsProcessing = false;
@@ -42,7 +41,7 @@ namespace TangyWeb_Client.Pages.Products
         {
             if (e.Key == "Enter")
             {
-                await ShowAllProducts();
+                await FilterProducts();
             }
         }
 
