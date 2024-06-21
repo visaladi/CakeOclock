@@ -3,8 +3,11 @@
 @using TangyWeb_Server.Service
 
 
-@inject UserService UserService
+@inject UserService _userService
+@* @inject IUserService _userService *@
 @inject IJSRuntime _jsRuntime
+
+@attribute [Authorize]
 
 <h3>User Details</h3>
 
@@ -115,12 +118,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        users = await UserService.GetUsersAsync();
+        users = await _userService.GetUsersAsync();
     }
 
     private async Task EditUser(string userId)
     {
-        editingUser = await UserService.GetUserByIdAsync(userId);
+        editingUser = await _userService.GetUserByIdAsync(userId);
         isEditing = true;
     }
 
@@ -134,10 +137,10 @@ else
     {
         if (!string.IsNullOrEmpty(deleteUserId))
         {
-            var success = await UserService.DeleteUserAsync(deleteUserId);
+            var success = await _userService.DeleteUserAsync(deleteUserId);
             if (success)
             {
-                users = await UserService.GetUsersAsync();
+                users = await _userService.GetUsersAsync();
                 await _jsRuntime.InvokeVoidAsync("HideDeleteConfiremationModel");
             }
         }
@@ -146,10 +149,10 @@ else
 
     private async Task SaveChanges()
     {
-        var success = await UserService.UpdateUserAsync(editingUser);
+        var success = await _userService.UpdateUserAsync(editingUser);
         if (success)
         {
-            users = await UserService.GetUsersAsync();
+            users = await _userService.GetUsersAsync();
             // await _jsRuntime.InvokeVoidAsync("HideEditUserModel");
         }
         isEditing = false;

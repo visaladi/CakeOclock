@@ -7,13 +7,14 @@
                 <img src="images/logo.png" alt="Logo" style="height: 210px; display: block; margin: 0 auto; padding-bottom:10px; ">
             </a>
         </div>
-        <div class="nav-item px-3">
-            <a class="nav-link" href="/userdetails">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> User Details
-            </a>
-        </div>
+      
 
         <AuthorizeView Roles="@roleAdmin">
+            <div class="nav-item px-3">
+                <a class="nav-link" href="/userdetails">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> User Details
+                </a>
+            </div>
             <div class="nav-item px-3">
                 <a class="nav-link" href="/category">
                     <span class="oi oi-list-rich" aria-hidden="true"></span> Category

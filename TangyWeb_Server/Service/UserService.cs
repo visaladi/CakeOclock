@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tangy_DataAccess.Data;
+using TangyWeb_Server.Service.IService;
 
 namespace TangyWeb_Server.Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
