@@ -2,16 +2,12 @@
 @using Microsoft.AspNetCore.Identity
 @using TangyWeb_Server.Service
 
-
 @inject UserService _userService
-@* @inject IUserService _userService *@
 @inject IJSRuntime _jsRuntime
 
 @attribute [Authorize]
 
 <h3>User Details</h3>
-
-
 
 @if (users == null)
 {
@@ -22,7 +18,6 @@ else
     <table class="table">
         <thead>
             <tr>
-                
                 <th>Email</th>
                 <th>Role</th>
                 <th>Actions</th>
@@ -32,10 +27,13 @@ else
             @foreach (var user in users)
             {
                 <tr>
-                    
                     <td>@user.Email</td>
                     <td>
-                        @if (user.PhoneNumber != null)
+                        @if (user.EmailConfirmed == true && user.PhoneNumber == null)
+                        {
+                            <span>Admin User</span>
+                        }
+                        else if (user.EmailConfirmed == true )
                         {
                             <span>Customer</span>
                         }
@@ -45,8 +43,8 @@ else
                         }
                     </td>
                     <td>
-                        <button class="btn btn-primary" @onclick="() => EditUser(user.Id)">Edit</button>
-                        <button class="btn btn-danger" @onclick="() => DeleteUser(user.Id)">Delete</button>
+                        <button class="btn btn-primary" @onclick="() => EditUser(user.Id)" disabled="@IsAdmin(user.Email)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteUser(user.Id)" disabled="@IsAdmin(user.Email)">Delete</button>
                     </td>
                 </tr>
             }
@@ -141,7 +139,7 @@ else
             if (success)
             {
                 users = await _userService.GetUsersAsync();
-                await _jsRuntime.InvokeVoidAsync("HideDeleteConfiremationModel");
+                await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModel");
             }
         }
         isDeleting = false;
@@ -156,5 +154,10 @@ else
             // await _jsRuntime.InvokeVoidAsync("HideEditUserModel");
         }
         isEditing = false;
+    }
+
+    private bool IsAdmin(string email)
+    {
+        return email == "admin@bakery.com";
     }
 }
