@@ -2,11 +2,11 @@
 .image-tiles {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
-    width: 80%;
+    gap: 5%;
+    width: 90%;
     margin: 0 auto;
     font-family: "Quicksand", sans-serif;
-    color: white;
+    color: black;
 }
 
 .image-tile {
