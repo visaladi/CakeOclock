@@ -11,6 +11,12 @@
     <None Remove="uploads\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Pages\Index.razor.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Index.razor.css" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
