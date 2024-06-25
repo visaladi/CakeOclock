@@ -21,9 +21,7 @@ namespace TangyWeb_Client.Serivce
             _client = client;
             _authStateProvider = authStateProvider;
             _localStorage = localStorage;
-        }
-
-        
+        }        
 
         public async Task<SignInResponseDTO> Login(SignInRequestDTO signInRequest)
         {
