@@ -17,10 +17,13 @@
     font-size: 16px;
     cursor: pointer;
     border-radius: 10px;
+    text-shadow: 3px 3px 6px gray;
 }
 
     .bake-button:hover {
         background-color: crimson;
+        color: white;
+        text-shadow: 3px 3px 6px gray;
     }
 
 .image-container {

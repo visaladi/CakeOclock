@@ -4,9 +4,10 @@
 }
 
 .nav-item {
-    color: rgba(0, 0, 0, 0.8);
+    color: white;
     font-family: 'Julius Sans One', sans-serif;
     font-size: 20px;
+    font-weight:400;
 }
 
 
