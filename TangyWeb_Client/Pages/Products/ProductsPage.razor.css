@@ -17,10 +17,13 @@
     font-size: 16px;
     cursor: pointer;
     border-radius: 10px;
+    text-shadow: 3px 3px 6px gray;
 }
 
     .bake-button:hover {
         background-color: crimson;
+        color: white;
+        text-shadow: 3px 3px 6px gray;
     }
 
 .image-container {
@@ -103,13 +106,13 @@
     height: auto;
     background-color: rgba(0, 0, 0, 0.3);
     color: white;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 10px;
 }
 
 .card-product {
     height: auto;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: white;
     border-radius: 20px;
     border: 3px solid crimson;
     padding: 10px;
@@ -151,10 +154,16 @@
 
 .price {
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 300;
     font-style: normal;
     text-align: center;
     font-family: "Signika Negative", sans-serif;
+    margin:10PX;
+}
+
+.text-info-d {
+    font-size:15px;
+    color:blue;
 }
 
 .badge {
@@ -167,5 +176,12 @@
     .card-product {
         flex: 1 0 calc(50% - 20px);
         margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+        width: 50% !important;
+        text-align: center;
     }
 }
