@@ -1,0 +1,28 @@
+﻿@page "/profile"
+@using System.Security.Claims
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Profile</h3>
+
+@if (user != null)
+{
+    <p><strong>Name:</strong> @user.Identity.Name</p>
+    <p><strong>Email:</strong> @user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value</p>
+    @* <p><strong>Email:</strong> @user.FindFirst(c => c.Type == ClaimTypes.OtherPhone)?.Value</p> *@
+    <p><strong>Role:</strong> @user.FindFirst(c => c.Type == ClaimTypes.Role)?.Value</p>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    private ClaimsPrincipal user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authState.User;
+    }
+}

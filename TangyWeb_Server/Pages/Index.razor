@@ -1,5 +1,7 @@
 ﻿@page "/"
-
+@using Microsoft.EntityFrameworkCore
+@using Tangy_DataAccess.Data
+@inject ApplicationDbContext _context
 
 <PageTitle>CakeO'Clock Server App</PageTitle>
 
@@ -8,6 +10,13 @@
 
 <div class="row" style="padding:20px">
     <p class="title-text col-6"> Welcome to cake O' Admin!</p>
+        <p class="title-text col-6">Pending Orders : @pendingCount</p>
+        <p class="title-text col-6">Confirmed Orders : @confirmedCount</p>
+        <p class="title-text col-6">Shipped Orders : @shippedCount</p>
+        <p class="title-text col-6">Recived to Outlet Orders @recivedCount</p>
+        <p class="title-text col-6">Cancelled Orders : @cancelledCount</p>
+        <p class="title-text col-6">Deleiverd Orders : @deliveredCount</p>
+
     <p class="date-time-text col-6 text-end">@currentDateTime.ToString("MMMM dd, yyyy, hh:mm:ss tt")</p>
 </div>
 
@@ -27,11 +36,34 @@
     private DateTime currentDateTime;
     private string email = "";
 
-    protected override async Task OnInitializedAsync()
-    {        
-        
-        currentDateTime = DateTime.Now;
+    private int confirmedCount;
+    private int pendingCount;
+    private int cancelledCount;
+    private int shippedCount;
+    private int recivedCount;
+    private int deliveredCount;
 
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch the data from the database
+        var orderHeaders = await _context.OrderHeaders.ToListAsync();
+
+        // Calculate the counts
+        confirmedCount = orderHeaders.Count(o => o.Status == "Confirmed");
+        pendingCount = orderHeaders.Count(o => o.Status == "Pending");
+        cancelledCount = orderHeaders.Count(o => o.Status == "Cancelled");
+        shippedCount = orderHeaders.Count(o => o.Status == "Shipped");
+        recivedCount = orderHeaders.Count(o => o.Status == "Recived");
+        deliveredCount = orderHeaders.Count(o => o.Status == "Delivered");
+
+
+    // public const string Status_Pending = "Pending";
+    // public const string Status_Confirmed = "Confirmed";
+    // public const string Status_Shipped = "Shipped";
+    // public const string Status_Refunded = "Refunded";
+    // public const string Status_Cancelled = "Cancelled";
+    // public const string Status_Delivered = "Delivered";
+    // public const string Status_Recived = "Recived";
     }
 }
 

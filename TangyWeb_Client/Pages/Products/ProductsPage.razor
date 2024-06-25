@@ -1,4 +1,4 @@
-﻿@page "/ProductsPage"
+@page "/ProductsPage"
 @inject IProductService _productService
 
 @if (IsProcessing)
@@ -101,37 +101,29 @@ else
                             <div class="card-h2">
                                 <h2 class="text-success pl-1" style="color:white  !important"><b>@productGroup.Key</b></h2>
                             </div>
-                            <div class="row pb-3 pt-3">
-                                @foreach (var product in productGroup)
-                                {
-                                    <div class="col-lg-4 col-md-6 pb-4 filter">
-                                        @* <div class="card-product">
-                                            <img class="card-img-top mx-auto mb-3" src="@product.ImageUrl" alt="Product image" loading="lazy">
-                                            <div class="h5">@product.Name</div>
-                                            <div class="price">
-                                                @if (@product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("N2") == null)
-                                                {
-                                                    <span class="text-info h4" style="color:black !important">
-                                                        You can Discuss the Price
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="text-info h4" style="color:black !important">
-                                                        Rs @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("N2")
-                                                    </span>
-                                                }
-                                            </div>
-                                            <div class="card-body p-1 px-3 row">
-                                                <div class="col-6 cat-name">
-                                                    <span class="badge p-2 border w-100">@product.Category.Name</span>
+                                <div class="row pb-3 pt-3">
+                                    @foreach (var product in productGroup)
+                                    {
+                                        <div class="col-lg-4 col-md-6 pb-4 filter">
+                                            <div class="image-tile" b-q2nmlbrzht="">
+                                                <a href="/details/@product.Id">
+                                                    <img src="@product.ImageUrl" alt="Product Image" b-q2nmlbrzht="">
+                                                </a>
+                                                <div class="availability-tag">
+                                                    @if (@product.ShopFavourites == true)
+                                                    {
+                                                        <span class="badge badge-success">In Stock</span>
+                                                    }
+                                                    else if (@product.CustomerFavourites == true)
+                                                    {
+                                                        <span class="badge badge-warning">Out of Stock </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger">Limited Stock</span>
+                                                    }
                                                 </div>
-                                                <div class="col-6 border-0">
-                                                    <span class="badge p-2 border w-100">@product.Color</span>
-                                                </div>
-                                                <div class="col-12 p-1" style="text-align: center;">
-                                                    <a href="/details/@product.Id" class="btn fav form-control btn-sm p-2" style="height: 40px;">View Details</a>
-                                                </div>
+
                                             </div>
                                         </div> *@
                                             <div class="card-product">
@@ -164,15 +156,18 @@ else
                                                     </div>
                                                     <div class="col-12 p-1" style="text-align: center;">
                                                         <a href="/details/@product.Id" class="btn fav form-control btn-sm p-2" style="height: 40px;">View Details</a>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         </div>
                                     </div>
 
                                 }
                             </div>
+
                         }
                     </div>
                 </div>
@@ -204,5 +199,40 @@ else
 
     .image-tile:hover img {
         transform: scale(1.2); /* Adjust the scale value as needed */
+    }
+
+
+
+    .image-tile {
+        position: relative;
+    }
+
+    .availability-tag {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 10;
+        background-color: white;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .image-tile:hover img {
+        transform: scale(1.2); /* Adjust the scale value as needed */
+    }
+
+    .badge-success {
+        background-color: green;
+        color: white;
+    }
+
+    .badge-warning {
+        background-color: orange;
+        color: white;
+    }
+
+    .badge-danger {
+        background-color: red;
+        color: white;
     }
 </style>
