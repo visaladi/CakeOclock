@@ -9,7 +9,9 @@
 }
 else
 {
-    <div class="background-container" style="background-image: url('images/bkk.png');">
+    <div class="background-container" style="background-image: url('images/bkkk.png');">
+
+
         <NavMenu />
 
         <div class="vertical-space"></div>
@@ -56,7 +58,7 @@ else
                                 @foreach (var product in productGroup)
                                 {
                                     <div class="col-lg-4 col-md-6 pb-4 filter">
-                                        <div class="card-product">
+                                        @* <div class="card-product">
                                             <img class="card-img-top mx-auto mb-3" src="@product.ImageUrl" alt="Product image" loading="lazy">
                                             <div class="h5">@product.Name</div>
                                             <div class="price">
@@ -84,8 +86,43 @@ else
                                                     <a href="/details/@product.Id" class="btn fav form-control btn-sm p-2" style="height: 40px;">View Details</a>
                                                 </div>
                                             </div>
+                                        </div> *@
+
+                                        <div class="image-tile" b-q2nmlbrzht="">
+                                            <a href="/details/@product.Id"> <img src="@product.ImageUrl" alt="Im2" b-q2nmlbrzht=""> </a>
+                                            
+                                            <div class="description" b-q2nmlbrzht="">@product.Name</div>
+                                            <div class="rating" b-q2nmlbrzht="">
+                                                <div class="card-body p-1 px-3 row">
+
+                                                    <div class="price">
+                                                        @if (@product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("N2") == null)
+                                                        {
+                                                            <span class="text-info-d " style="color:black !important">
+                                                                You can Discuss the Price
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text-info h4" style="color:black !important">
+                                                                Rs @product.ProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("N2")
+                                                            </span>
+                                                        }
+                                                    </div>
+                                                    <div class="col-6 cat-name">
+                                                        <span class="badge p-2 border w-100">@product.Category.Name</span>
+                                                    </div>
+                                                    <div class="col-6 border-0">
+                                                        <span class="badge p-2 border w-100">@product.Color</span>
+                                                    </div>
+                                                    <div class="col-12 p-1" style="text-align: center;">
+                                                        <a href="/details/@product.Id" class="btn fav form-control btn-sm p-2" style="height: 40px;">View Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                 }
                             </div>
                         }
@@ -101,3 +138,13 @@ else
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&family=Signika+Negative:wght@300..700&display=swap" rel="stylesheet">
+
+<style>
+
+    .description {
+        font-family: "Quicksand", sans-serif;
+        font-size:20px;
+        font-weight:500;
+
+    }
+</style>
