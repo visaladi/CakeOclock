@@ -1,0 +1,60 @@
+﻿.box {
+    height: 20px;
+}
+
+.image {
+    align-content: center;
+}
+
+
+.background-container {
+    background-size: cover;
+    background-position: center;
+    padding: 0px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 100px 100px;
+    font-size: 30px;
+    font-family: "Quicksand", sans-serif;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    padding: 10px;
+}
+
+h2 {
+    color: #333;
+    font-family: "Quicksand", sans-serif;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.paragraph {
+    font-size: 16px;
+    line-height: 1.4;
+    font-family: "Quicksand", sans-serif;
+    padding-bottom: 50px;
+}
+
+@media screen and (max-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 100%;
+    }
+
+    h2,
+    .paragraph {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.vertical-space {
+    height: 20px;
+}

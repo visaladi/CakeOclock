@@ -3,19 +3,71 @@
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<h3>Profile</h3>
+
 
 @if (user != null)
+
 {
-    <p><strong>Name:</strong> @user.Identity.Name</p>
-    <p><strong>Email:</strong> @user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value</p>
-    @* <p><strong>Email:</strong> @user.FindFirst(c => c.Type == ClaimTypes.OtherPhone)?.Value</p> *@
-    <p><strong>Role:</strong> @user.FindFirst(c => c.Type == ClaimTypes.Role)?.Value</p>
+    
+<div class="qt-box qt-background">
+
+    <NavMenu />
+
+
+</div>
+
+
+
+<style>
+
+    .qt-background {
+        background: url(images/Index/cake10_2.jpg) no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center center;
+        position: relative;
+    }
+</style>
+
+
+    <div class="background-container" style="background-image: url('images/bg-gold-4.png');">
+
+
+
+
+        <div class="container">
+            <div class="row">
+
+
+                <p><strong>Name:</strong> @user.Identity.Name</p>
+                <p><strong>Email:</strong> @user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value</p>
+
+                <p><strong>Role:</strong> @user.FindFirst(c => c.Type == ClaimTypes.Role)?.Value</p>
+                
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
+
+
+
+
+
+    <div class="footer">
+        <Footer />
+    </div>
 }
 else
 {
     <p>Loading...</p>
 }
+
+
 
 @code {
     private ClaimsPrincipal user;
