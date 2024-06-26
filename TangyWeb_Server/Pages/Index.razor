@@ -8,18 +8,63 @@
 <div class="background-container" style="background-image: url('images/patternxl1.png'); ">
 
 
-<div class="row" style="padding:20px">
-    <p class="title-text col-6"> Welcome to cake O' Admin!</p>
-        <p class="title-text col-6">Pending Orders : @pendingCount</p>
-        <p class="title-text col-6">Confirmed Orders : @confirmedCount</p>
-        <p class="title-text col-6">Shipped Orders : @shippedCount</p>
-        <p class="title-text col-6">Recived to Outlet Orders @recivedCount</p>
-        <p class="title-text col-6">Cancelled Orders : @cancelledCount</p>
-        <p class="title-text col-6">Deleiverd Orders : @deliveredCount</p>
+    <div class="status" style="padding:20px">
+        <ul>
+            <li class="title-text">Welcome to Cake O' Admin!</li>
+            <p class="date-time-text text-end">@DateTime.Now.ToString("MMMM dd, yyyy, hh:mm:ss tt")</p>
 
-    <p class="date-time-text col-6 text-end">@currentDateTime.ToString("MMMM dd, yyyy, hh:mm:ss tt")</p>
-</div>
 
+        </ul>
+
+        <div class="box"></div>
+        <ul>
+            <li class="title-text">Pending Orders: @pendingCount</li>
+            <li class="title-text">Confirmed Orders: @confirmedCount</li>
+            <li class="title-text">Shipped Orders: @shippedCount</li>
+            @* <li class="title-text">Received to Outlet Orders: @receivedCount</li> *@
+            <li class="title-text">Cancelled Orders: @cancelledCount</li>
+            <li class="title-text">Delivered Orders: @deliveredCount</li>
+        </ul>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        
+        
+    </div>
+
+    <style>
+
+        .status {
+            padding: 100px 100px;
+        }
+        .title-text {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .date-time-text {
+            font-size: 1em;
+            color: gray;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .text-end {
+            text-align: right;
+        }
+        .box {
+            height:50px;
+        }
+    </style>
 
  
 
