@@ -1,12 +1,12 @@
-﻿.background-container {
-    background-image: url('/images/bk.png'); 
+﻿/*.background-container {
+    background-image: url('/images/bg-gold-4.png');
     background-size: cover;
     background-position: center;
     min-height: 100vh;
     width: 100%;
     position: relative;
-    overflow: auto; /* Allow content to scroll */
-}
+    overflow: auto;*/ /* Allow content to scroll */
+/*}*/
 
 .loading-container {
     position: fixed;
