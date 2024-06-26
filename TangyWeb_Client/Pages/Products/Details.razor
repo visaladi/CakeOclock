@@ -6,8 +6,32 @@
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
 
-<div class="background-container" style="background-image: url('images/bk.png');">
+
+
+<div class="qt-box qt-background">
+
     <NavMenu />
+
+
+</div>
+
+
+
+<style>
+
+    .qt-background {
+        background: url(images/Index/cake10_2.jpg) no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center center;
+        position: relative;
+    }
+
+    }
+</style>
+
+<div class="background-container" style="background-image: url('images/bg-gold-4.png');">
+   
 
     @if (IsProcessing)
     {
@@ -155,8 +179,9 @@
         </EditForm>
     }
 
-    <Footer />
+    
 </div>
+<Footer />
 
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto&display=swap" rel="stylesheet">
 @code {
