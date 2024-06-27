@@ -8,9 +8,18 @@ main {
     flex: 1;
 }
 
+.login-bar {
+    background-color:rgba(0,0,0,0.2);
+}
+
 .sidebar {
     /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
-    
+    /*background: url(images/side-img.jpg) no-repeat;*/
+
+    background: rgb(0,45,94);
+    background: linear-gradient(0deg, rgba(0,45,94,1) 0%, rgba(9,36,121,1) 30%, rgba(0,164,255,1) 100%);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .top-row {

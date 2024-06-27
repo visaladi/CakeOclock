@@ -5,34 +5,83 @@
 
 <PageTitle>CakeO'Clock Server App</PageTitle>
 
-<div class="background-container" style="background-image: url('images/patternxl1.png'); ">
+<div class="background-container">
 
 
-    <div class="status" style="padding:20px">
-        <ul>
-            <li class="title-text">Welcome to Cake O' Admin!</li>
-            <p class="date-time-text text-end">@DateTime.Now.ToString("MMMM dd, yyyy, hh:mm:ss tt")</p>
-
-
-        </ul>
-
-        <div class="box"></div>
-        <ul>
-            <li class="title-text">Pending Orders: @pendingCount</li>
-            <li class="title-text">Confirmed Orders: @confirmedCount</li>
-            <li class="title-text">Shipped Orders: @shippedCount</li>
-            @* <li class="title-text">Received to Outlet Orders: @receivedCount</li> *@
-            <li class="title-text">Cancelled Orders: @cancelledCount</li>
-            <li class="title-text">Delivered Orders: @deliveredCount</li>
-        </ul>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        
-        
+    <div class="title">
+        <h1 class="title-text">Welcome to Cake O' Admin!</h1>
+        <h4 class="title-date">@DateTime.Now.ToString("MMMM dd, yyyy")</h4>
     </div>
+    <div class="box"></div>
+    <div class="box"></div>
+    
+    <h3 class="title-summary">Summary</h3>
+
+    <div class="box"></div>
+
+    <div class="counter">
+
+        <div class="row">
+            <div class="column">
+                <div class="card-pending">
+                    <p><i class="fa fa-user"></i></p>
+                    <h3>@pendingCount</h3>
+                    <p>Pending</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card-confirmed">
+                    <p><i class="fa fa-check"></i></p>
+                    <h3>@confirmedCount</h3>
+                    <p>Confirmed</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card-shipped">
+                    <p><i class="fa fa-smile-o"></i></p>
+                    <h3>@shippedCount</h3>
+                    <p>Shipped</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card-outlets">
+                    <p><i class="fa fa-coffee"></i></p>
+                    <h3>@recivedCount</h3>
+                    <p>Received to Outlets</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="box"></div>
+    <div class="counter"> 
+        <div class="row">
+            <div class="column-2">
+                <div class="card-completed">
+                    <p><i class="fa fa-user"></i></p>
+                    <h3>@deliveredCount</h3>
+                    <p>Total Completed</p>
+                </div>
+            </div>
+
+            <div class="column-2">
+                <div class="card">
+                    <p><i class="fa fa-check"></i></p>
+                    <h3>@cancelledCount</h3>
+                    <p>Cancelled</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
 
     <style>
 
@@ -62,7 +111,7 @@
             text-align: right;
         }
         .box {
-            height:50px;
+            height:20px;
         }
     </style>
 
@@ -105,11 +154,25 @@
     // public const string Status_Cancelled = "Cancelled";
     // public const string Status_Delivered = "Delivered";
     // public const string Status_Recived = "Recived";
+
+        @*         <ul>
+            <li class="title-text">Pending Orders: @pendingCount</li>
+            <li class="title-text">Confirmed Orders: @confirmedCount</li>
+            <li class="title-text">Shipped Orders: @shippedCount</li>
+            <li class="title-text">Received to Outlet Orders: @recivedCount</li>
+            <li class="title-text">Cancelled Orders: @cancelledCount</li>
+            <li class="title-text">Delivered Orders: @deliveredCount</li>
+        </ul> *@
     }
 }
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Saira:ital,wght@0,100..900;1,100..900&family=Tenor+Sans&display=swap" rel="stylesheet">
 <style>
 
 
@@ -157,7 +220,28 @@
     }
 
     .title-text {
-        padding-left:40px;
+        text-align:center;
+        font-family: "Philosopher", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size:40px;
+    }
+
+    .title-date {
+        text-align: center;
+        font-family: "Philosopher", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 30px;
+    }
+
+
+    .title-summary {
+        background-color: rgba(0,0,0,0.2);
+        font-family: "Tenor Sans", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        padding: 10px 10px;
     }
     
 
