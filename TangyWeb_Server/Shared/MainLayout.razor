@@ -2,21 +2,23 @@
 
 <PageTitle>CakeO'Clock Web Server</PageTitle>
 
+
+<div class="background-container" style="background-image: url('images/patternxl1.png');">
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <main>
+
+        <div class="login-bar">
+                <LoginDisplay />
+        </div>
         
-        @* <div class="top-row px-4">
-            <LoginDisplay></LoginDisplay>
-                       
-        </div> *@
-        <LoginDisplay />
+        
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
-<Footer/>
+</div>

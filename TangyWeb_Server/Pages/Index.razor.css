@@ -1,1 +1,99 @@
-﻿
+﻿/*counter*/
+
+.* {
+    box-sizing: border-box;
+}
+
+/* Float four columns side by side */
+.column {
+    float: left;
+    width: 25%;
+    padding: 0 5px;
+}
+
+.row {
+    margin: 0 -5px;
+}
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+
+
+/* Float four columns side by side */
+.column-2 {
+    float: left;
+    width: 50%;
+    padding: 0 5px;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+/* Style the counter cards */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: #444;
+    color: white;
+}
+
+.fa {
+    font-size: 50px;
+}
+
+.card-completed {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background: rgb(24,113,62);
+    background: linear-gradient(90deg, rgba(24,113,62,1) 30%, rgba(49,175,84,1) 100%);
+    color: white;
+}
+
+.card-pending {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background: rgb(175,72,193);
+    background: linear-gradient(90deg, rgba(175,72,193,1) 30%, rgba(255,73,166,1) 100%);
+    color: white;
+}
+
+.card-confirmed {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background: rgb(75,72,193);
+    background: linear-gradient(90deg, rgba(75,72,193,1) 30%, rgba(73,123,255,1) 100%);
+    color: white;
+}
+
+.card-shipped {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background: rgb(99,140,192);
+    background: linear-gradient(90deg, rgba(99,140,192,1) 26%, rgba(73,224,255,1) 100%);
+    color: white;
+}
+
+.card-outlets {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background: rgb(99,192,172);
+    background: linear-gradient(90deg, rgba(99,192,172,1) 26%, rgba(55,151,196,1) 100%);
+    color: white;
+}

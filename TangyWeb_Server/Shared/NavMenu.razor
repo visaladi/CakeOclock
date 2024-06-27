@@ -1,5 +1,5 @@
 ﻿
-<div class="nav-scrollable" style="background-color: gray;">
+<div class="nav-scrollable" style="background-color: transparent;">
     <nav class="flex-column">
 
         <div class="nav-image px-3">
@@ -7,7 +7,13 @@
                 <img src="images/logo.png" alt="Logo" style="height: 210px; display: block; margin: 0 auto; padding-bottom:10px; ">
             </a>
         </div>
-      
+
+        <div class="date-time">
+
+            <h4 class="date">@DateTime.Now.ToString("MMMM dd, yyyy")</h4>
+            <p class="time">@DateTime.Now.ToString("hh:mm:ss tt")</p>
+        </div>
+
 
         <AuthorizeView Roles="@roleAdmin">
             <div class="nav-item px-3">
@@ -60,3 +66,7 @@
 @code {
     private string roleAdmin = Tangy_Common.SD.Role_Admin;
 }
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap" rel="stylesheet">
